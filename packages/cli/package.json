@@ -1,0 +1,33 @@
+{
+  "name": "@xus/cli",
+  "version": "0.0.1",
+  "description": "xus cli",
+  "keywords": [
+    "cli",
+    "bundle"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "bin": {
+    "xus-cli": "./lib/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:cli": "tsc --watch",
+    "build:cli": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  },
+  "dependencies": {
+    "@types/minimist": "^1.2.1",
+    "minimist": "^1.2.5"
+  }
+}

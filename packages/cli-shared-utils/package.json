@@ -1,0 +1,25 @@
+{
+  "name": "@xus/cli-shared-utils",
+  "version": "0.0.1",
+  "description": "xus cli-shared-utils",
+  "keywords": [
+    "cli-shared-utils"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:utils": "tsc --watch",
+    "build:utils": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  }
+}

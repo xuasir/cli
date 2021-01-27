@@ -1,0 +1,26 @@
+{
+  "name": "@xus/cli-plugin-rollup",
+  "version": "0.0.1",
+  "description": "xus cli plugin rollup",
+  "keywords": [
+    "cli",
+    "rollup"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:rollup": "tsc --watch",
+    "build:rollup": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  }
+}
