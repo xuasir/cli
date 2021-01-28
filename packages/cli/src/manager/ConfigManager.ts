@@ -1,5 +1,5 @@
 import { ProjectConfig } from '../types'
-import { loadModule } from '@xus/cli-shared-utils'
+import { loadModule } from '../utils'
 import { IPathManager } from './PathManager'
 
 class ConfigManager {

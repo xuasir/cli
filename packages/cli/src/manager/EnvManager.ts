@@ -1,4 +1,4 @@
-import { createEnvName } from '@xus/cli-shared-utils'
+import { createEnvName } from '../utils'
 import { IPathManager } from './PathManager'
 
 class EnvManager {

@@ -1,10 +1,10 @@
-import { Commands, Command } from './../../types'
-import { IPluginAPI } from '../../PluginAPI'
-import { info } from '@xus/cli-shared-utils'
+import type { Command, Commands, IPluginAPI, Args } from '@xus/cli'
+import { info } from '@xus/cli'
 import chalk from 'chalk'
 
 export default function (api: IPluginAPI): void {
-  api.registerCommand('help', (args) => {
+  api.registerCommand('help', (args: Args) => {
+    console.log(`cmd `, args)
     const commandName = args._[0]
     if (!commandName) {
       // log all
