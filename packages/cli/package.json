@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@types/minimist": "^1.2.1",
+    "@xus/cli-shared-utils": "^0.0.1",
     "minimist": "^1.2.5"
   }
 }
