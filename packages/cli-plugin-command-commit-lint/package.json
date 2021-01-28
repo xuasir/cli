@@ -1,42 +1,36 @@
 {
-  "name": "@xus/cli",
+  "name": "@xus/cli-plugin-command-commit-lint",
   "version": "0.0.1",
-  "description": "xus cli",
+  "description": "xus cli plugin command-commit-lint",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
-    "bundle"
-  ],
-  "bin": {
-    "xus": "bin/xus.js"
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "bin"
+    "commit-lint"
   ],
   "author": "guo.xu <xuguo@outlook.it>",
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:cli": "tsc --watch",
-    "build:cli": "tsc"
+    "dev:cl": "tsc --watch",
+    "build:cl": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-plugin-command-commit-lint": "^0.0.1",
-    "@xus/cli-plugin-command-help": "^0.0.1",
+    "@xus/cli": "^0.0.1",
     "chalk": "^4.1.0",
-    "joi": "^17.3.0",
-    "minimist": "^1.2.5"
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
-    "@types/minimist": "^1.2.1"
+    "@types/fs-extra": "^9.0.6"
   }
 }

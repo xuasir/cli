@@ -10,9 +10,9 @@ export interface Plugin {
 
 export type CommandFn = (args: Args, rawArgs: RawArgs) => any | Promise<any>
 export interface CommandOps {
-  desc: string
-  usage: string
-  options: {
+  desc?: string
+  usage?: string
+  options?: {
     [key: string]: string
   }
 }

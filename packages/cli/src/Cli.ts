@@ -1,6 +1,6 @@
 // types
 import { Commands, Args, RawArgs, Plugin, PluginApply } from './types'
-import { error, loadModule } from './utils'
+import { error, loadModule, builtInMap } from './utils'
 import ConfigManager, { IConfigManager } from './manager/ConfigManager'
 import PathManager, { IPathManager } from './manager/PathManager'
 import EnvManager, { IEnvManager } from './manager/EnvManager'
@@ -52,7 +52,6 @@ class Cli {
       }
     }
     const builtInPlugins = []
-    const builtInMap = ['@xus/cli-plugin-command-help']
     for (const pkgName of builtInMap) {
       const plugin = await toPlugin(pkgName)
       if (plugin) {
