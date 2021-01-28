@@ -25,7 +25,7 @@ class Cli {
   async setupCli(): Promise<void> {
     if (this.initialized) return
     this.initialized = true
-    // load plugin
+    // 0. load plugin
     this.plugins = await this.resolvePlugins()
     // 1. load config
     await this.ConfigManager.loadUserConfig()
@@ -53,7 +53,7 @@ class Cli {
     }
     const builtInPlugins = []
     const builtInMap = ['@xus/cli-plugin-command-help']
-    for (const pkgName in builtInMap) {
+    for (const pkgName of builtInMap) {
       const plugin = await toPlugin(pkgName)
       if (plugin) {
         builtInPlugins.push(plugin)

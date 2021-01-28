@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 type LoggerType = 'warn' | 'error' | 'info'
 
 function logger(type: LoggerType = 'info') {
@@ -8,18 +9,18 @@ function logger(type: LoggerType = 'info') {
 
 export function warn(msg: string): void {
   logger('warn')(`
-    [xus-cli Warning]: ${msg}
+    ${chalk.yellow(`[xus-cli Warning]`)}: ${msg}
   `)
 }
 
 export function error(msg: string): void {
   logger('error')(`
-    [xus-cli error]: ${msg}
+    ${chalk.red(`[xus-cli error]`)}: ${msg}
   `)
 }
 
 export function info(msg: string): void {
   logger('info')(`
-    [xus-cli info]: ${msg}
+    ${chalk.green(`[xus-cli info]`)}: ${msg}
   `)
 }

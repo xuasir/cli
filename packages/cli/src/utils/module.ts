@@ -8,5 +8,5 @@ export async function loadModule<T = any>(
   } catch (err) {
     error = err
   }
-  return [error, moduleContent.default || null]
+  return [error, moduleContent?.default || null]
 }

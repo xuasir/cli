@@ -9,6 +9,7 @@ const rawArgs = process.argv.slice(2)
 const args = minimist(rawArgs)
 const commandName = args._[0]
 // 3. run commander
-cli.run(commandName, args, rawArgs).catch(() => {
+cli.run(commandName, args, rawArgs).catch((err) => {
+  console.log(err)
   process.exit(1)
 })

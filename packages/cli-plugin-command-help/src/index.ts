@@ -1,10 +1,9 @@
 import type { Command, Commands, IPluginAPI, Args } from '@xus/cli'
-import { info } from '@xus/cli'
 import chalk from 'chalk'
+import { getPadLength } from './pad'
 
 export default function (api: IPluginAPI): void {
   api.registerCommand('help', (args: Args) => {
-    console.log(`cmd `, args)
     const commandName = args._[0]
     if (!commandName) {
       // log all
@@ -17,44 +16,42 @@ export default function (api: IPluginAPI): void {
 }
 
 function logAll(commads: Commands) {
-  info(`
-    usage: xus-cli <command> [options]
-    Commands: 
-
-  `)
+  console.info(
+    `\n  usage: ${chalk.green(`xus-cli <command> [options]`)}` + `\n  Commands:`
+  )
+  const padLen = getPadLength(commads)
   for (const name in commads) {
     if (name !== 'help') {
       const ops = commads[name].ops
-      info(`
-        ${chalk.blue(name)}
-        ${ops?.desc || ''}
-      `)
+      console.info(`\n    ${chalk.blue(name.padEnd(padLen))}${ops?.desc || ''}`)
     }
   }
-  info(`
-    run ${chalk.green(`xus-cli help [command]`)}
-    for detail information of specific command
-  `)
+  console.info(
+    `\n  run ${chalk.green(`xus-cli help [command]`)}` +
+      `\n  for detail information of specific command`
+  )
 }
 
 function logPointCommand(name: string, commad: Command) {
   if (!commad) {
-    info(chalk.red(`\n  command "${name}" does not exist.`))
+    console.info(chalk.red(`\n  command "${name}" does not exist.`))
   } else {
     const { ops } = commad
+    console.info(`\nCommand: ${name}`)
     if (ops?.usage) {
-      info(`
-        Uasge: ${ops.usage}
-      `)
+      console.info(`\n  Uasge: ${ops.usage}`)
     }
     if (ops?.options) {
-      info(`
+      console.info(`
         Options: 
       `)
+      const padLen = getPadLength(ops.options)
       for (const [flags, description] of Object.entries(ops.options)) {
-        info(`    ${chalk.blue(flags)}:   ${description}`)
+        console.info(
+          `\n    ${chalk.blue(flags.padEnd(padLen))}:  ${description}`
+        )
       }
     }
   }
-  info('')
+  console.info('')
 }
