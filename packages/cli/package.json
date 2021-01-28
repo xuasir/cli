@@ -27,8 +27,11 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@types/minimist": "^1.2.1",
     "@xus/cli-shared-utils": "^0.0.1",
+    "chalk": "^4.1.0",
     "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.1"
   }
 }

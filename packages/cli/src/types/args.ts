@@ -1,6 +1,6 @@
 export type Args = {
   _: string[]
-  [key: string]: boolean | string
+  [key: string]: any
 }
 
 export type RawArgs = string[]
