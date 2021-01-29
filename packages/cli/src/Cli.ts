@@ -27,13 +27,16 @@ class Cli {
     this.initialized = true
     // 0. load plugin
     this.plugins = await this.resolvePlugins()
-    // 1. load config
+    // 1. load project config and validate
     await this.ConfigManager.loadUserConfig()
     // 2. apply plugins
     this.plugins.forEach(({ id, apply }) => {
       // some skip plugins ??
       apply(new PluginAPI(id, this), this.ConfigManager.projectConfig)
     })
+    // 3. valid plugin config
+    // should after plugins apply because plugin can register config validator
+    this.ConfigManager.validatePluginConfig()
   }
 
   async resolvePlugins(): Promise<Plugin[]> {
@@ -41,9 +44,7 @@ class Cli {
       const [err, apply] = await loadModule<PluginApply>(pluginPkgName)
       const id = pluginPkgName.replace(/^@xus\/cli-plugin-/, 'built-in:')
       if (err) {
-        error(`
-          plugin [${id}] load error
-        `)
+        error(`plugin [${id}] load error`)
         return null
       }
       return {

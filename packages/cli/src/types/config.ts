@@ -1,3 +1,6 @@
 export interface ProjectConfig {
-  [key: string]: any
+  contextPath?: string
+  pluginOps?: {
+    [key: string]: any
+  }
 }

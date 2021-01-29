@@ -10,11 +10,11 @@ export function createSchema<T = any>(fn: CreateFn<T>): ObjectSchema<T> {
   return schema
 }
 
-type ValidateCb = (message: string) => void
+export type ValidateCb = (message: string) => void
 
-export function validate(
-  obj: Record<string, any>,
-  schema: ObjectSchema,
+export function validate<T = Record<string, any>>(
+  obj: T,
+  schema: ObjectSchema<T>,
   cb: ValidateCb
 ): void {
   const { error } = schema.validate(obj)
@@ -22,4 +22,8 @@ export function validate(
     cb(error.details[0].message)
     process.exit(1)
   }
+}
+
+export type ConfigValidator = {
+  [key: string]: ObjectSchema
 }

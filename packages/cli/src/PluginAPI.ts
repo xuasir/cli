@@ -43,8 +43,6 @@ class PluginAPI {
       ops
     }
   }
-
-  // registerConfigValidator(configKeyName: string, validate: ): void
 }
 
 export type IPluginAPI = InstanceType<typeof PluginAPI>

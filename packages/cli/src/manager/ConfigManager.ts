@@ -1,11 +1,23 @@
-import { ProjectConfig } from '../types'
-import { loadModule } from '../utils'
-import { IPathManager } from './PathManager'
+import type { ObjectSchema } from 'joi'
+import type { ProjectConfig } from '../types'
+import type { ConfigValidator } from '../utils'
+import type { IPathManager } from './PathManager'
+import { loadModule, error, validate } from '../utils'
+import { projectConfigValidator, defaultProjectConfig } from '../options'
 
 class ConfigManager {
   private PathManager: IPathManager
 
   private finalConfig: ProjectConfig = {}
+
+  private configValidator: ConfigValidator = {}
+
+  registerConfigValidator<T = Record<string, any>>(
+    name: string,
+    validator: ObjectSchema<T>
+  ): void {
+    this.configValidator[name] = validator
+  }
 
   get projectConfig(): ProjectConfig {
     return this.finalConfig
@@ -21,14 +33,37 @@ class ConfigManager {
     const [err, configContent] = await loadModule<ProjectConfig>(
       this.PathManager.userConfigPath
     )
+    userConfig = configContent
     if (err) {
       userConfig = {}
     }
-    userConfig = configContent
-    // 2. merge default config
-    // 3. valid
+
+    userConfig = Object.assign(
+      {},
+      defaultProjectConfig(this.PathManager.ctxPath),
+      configContent
+    )
+    // valid
+    projectConfigValidator(userConfig, (msg) => {
+      error(msg)
+    })
 
     this.finalConfig = userConfig
+  }
+
+  validatePluginConfig(): void {
+    // valid plugin config
+    const { pluginOps = null } = this.projectConfig
+    if (!pluginOps) return
+    for (const configName in this.configValidator) {
+      const config = pluginOps[configName] || null
+      if (!config) continue
+      const validator = this.configValidator[configName]
+      validate(config, validator, (msg) => {
+        error(msg)
+        process.exit(1)
+      })
+    }
   }
 
   // for plugin
