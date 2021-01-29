@@ -3,6 +3,7 @@ import type { IConfigManager } from './manager/ConfigManager'
 import type { IEnvManager } from './manager/EnvManager'
 import type { IPathManager } from './manager/PathManager'
 import type { CliInstance } from './Cli'
+import type { ObjectSchema } from 'joi'
 
 class PluginAPI {
   id: string
@@ -42,6 +43,13 @@ class PluginAPI {
       fn,
       ops
     }
+  }
+
+  registerConfigValidator<T = Record<string, any>>(
+    pluginConfigName: string,
+    schema: ObjectSchema<T>
+  ): void {
+    this.ConfigManager.$addConfigValidator<T>(pluginConfigName, schema)
   }
 }
 

@@ -9,14 +9,15 @@ class ConfigManager {
   private PathManager: IPathManager
 
   private finalConfig: ProjectConfig = {}
+  private userConfigIsLoaded = false
 
   private configValidator: ConfigValidator = {}
 
-  registerConfigValidator<T = Record<string, any>>(
+  $addConfigValidator<T = Record<string, any>>(
     name: string,
-    validator: ObjectSchema<T>
+    schema: ObjectSchema<T>
   ): void {
-    this.configValidator[name] = validator
+    this.configValidator[name] = schema
   }
 
   get projectConfig(): ProjectConfig {
@@ -27,7 +28,8 @@ class ConfigManager {
     this.PathManager = pathManager
   }
 
-  async loadUserConfig(): Promise<void> {
+  async $loadUserConfig(): Promise<void> {
+    if (this.userConfigIsLoaded) return
     // 1. load userConfig
     let userConfig: ProjectConfig
     const [err, configContent] = await loadModule<ProjectConfig>(
@@ -49,9 +51,10 @@ class ConfigManager {
     })
 
     this.finalConfig = userConfig
+    this.userConfigIsLoaded = true
   }
 
-  validatePluginConfig(): void {
+  $validatePluginConfig(): void {
     // valid plugin config
     const { pluginOps = null } = this.projectConfig
     if (!pluginOps) return

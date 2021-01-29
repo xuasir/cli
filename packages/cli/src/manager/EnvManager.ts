@@ -2,6 +2,7 @@ import { createEnvName } from '../utils'
 import { IPathManager } from './PathManager'
 
 class EnvManager {
+  // path for load env file ??
   private PathManager: IPathManager
 
   constructor(pathManager: IPathManager) {

@@ -28,7 +28,7 @@ class Cli {
     // 0. load plugin
     this.plugins = await this.resolvePlugins()
     // 1. load project config and validate
-    await this.ConfigManager.loadUserConfig()
+    await this.ConfigManager.$loadUserConfig()
     // 2. apply plugins
     this.plugins.forEach(({ id, apply }) => {
       // some skip plugins ??
@@ -36,7 +36,7 @@ class Cli {
     })
     // 3. valid plugin config
     // should after plugins apply because plugin can register config validator
-    this.ConfigManager.validatePluginConfig()
+    this.ConfigManager.$validatePluginConfig()
   }
 
   async resolvePlugins(): Promise<Plugin[]> {
