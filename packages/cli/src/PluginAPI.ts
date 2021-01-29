@@ -1,8 +1,8 @@
-import { IConfigManager } from './manager/ConfigManager'
-import { IEnvManager } from './manager/EnvManager'
-import { CommandFn, CommandOps, Commands } from './types'
-import { IPathManager } from './manager/PathManager'
-import { CliInstance } from './Cli'
+import type { CommandFn, CommandOps, Commands } from './types'
+import type { IConfigManager } from './manager/ConfigManager'
+import type { IEnvManager } from './manager/EnvManager'
+import type { IPathManager } from './manager/PathManager'
+import type { CliInstance } from './Cli'
 
 class PluginAPI {
   id: string
@@ -31,6 +31,7 @@ class PluginAPI {
 
   registerCommand(name: string, fn: CommandFn): void
   registerCommand(name: string, ops: CommandOps, fn: CommandFn): void
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   registerCommand(name: string, ops: any, fn?: any): void {
     if (typeof ops === 'function') {
       fn = ops
@@ -43,7 +44,7 @@ class PluginAPI {
     }
   }
 
-  // registerConfigValidator(configName: string): void
+  // registerConfigValidator(configKeyName: string, validate: ): void
 }
 
 export type IPluginAPI = InstanceType<typeof PluginAPI>

@@ -1,3 +1,3 @@
 export * from './types'
-export { IPluginAPI } from './PluginAPI'
+export type { IPluginAPI } from './PluginAPI'
 export * from './utils'

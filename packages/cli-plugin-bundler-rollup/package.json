@@ -1,7 +1,7 @@
 {
-  "name": "@xus/cli-plugin-rollup",
+  "name": "@xus/cli-plugin-bundler-rollup",
   "version": "0.0.1",
-  "description": "xus cli plugin rollup",
+  "description": "xus cli plugin rollup bundler",
   "keywords": [
     "cli",
     "rollup"

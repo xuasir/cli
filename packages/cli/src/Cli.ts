@@ -1,5 +1,5 @@
 // types
-import { Commands, Args, RawArgs, Plugin, PluginApply } from './types'
+import type { Commands, Args, RawArgs, Plugin, PluginApply } from './types'
 import { error, loadModule, builtInMap } from './utils'
 import ConfigManager, { IConfigManager } from './manager/ConfigManager'
 import PathManager, { IPathManager } from './manager/PathManager'
