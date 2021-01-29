@@ -1,5 +1,5 @@
 import type { IPluginAPI } from '@xus/cli'
-import { HuskyGitParamsEnv, commitRE, mergeRE } from './constants'
+import { HuskyGitParamsEnv, GitParamsEnv, commitRE, mergeRE } from './constants'
 import { readFileSync } from 'fs-extra'
 import chalk from 'chalk'
 
@@ -11,12 +11,16 @@ export default function (api: IPluginAPI): void {
       desc: 'help you to validate commit message'
     },
     () => {
-      const gitParams = api.EnvManager.getEnv(HuskyGitParamsEnv)
-      if (gitParams) {
-        const commitMsg = readFileSync(gitParams, 'utf-8').trim()
+      const gitMsgPath = api.EnvManager.getEnv(GitParamsEnv)
+      const huskyMsgPath = api.EnvManager.getEnv(HuskyGitParamsEnv)
+      const msgPath = gitMsgPath || huskyMsgPath
+      if (msgPath) {
+        const commitMsg = readFileSync(msgPath, 'utf-8')
+          .trim()
+          .replace(/# .*/, ' ')
         if (!commitRE.test(commitMsg) && !mergeRE.test(commitMsg)) {
           console.info(`invalid commit message: 
-  "${chalk.red(commitMsg)}".
+"${chalk.red(commitMsg)}".
 
 Proper commit message format is required for automated changelog generation.
         
