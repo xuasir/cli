@@ -42,9 +42,7 @@ function logPointCommand(name: string, commad: Command) {
       console.info(`\n  Uasge: ${ops.usage}`)
     }
     if (ops?.options) {
-      console.info(`
-        Options: 
-      `)
+      console.info(`\n  Options: `)
       const padLen = getPadLength(ops.options)
       for (const [flags, description] of Object.entries(ops.options)) {
         console.info(

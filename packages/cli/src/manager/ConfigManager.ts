@@ -45,7 +45,7 @@ class ConfigManager {
     )
     // valid
     projectConfigValidator(userConfig, (msg) => {
-      error(msg)
+      error(`xus.config.js invalid ${msg}`)
     })
 
     this.finalConfig = userConfig
@@ -60,7 +60,7 @@ class ConfigManager {
       if (!config) continue
       const validator = this.configValidator[configName]
       validate(config, validator, (msg) => {
-        error(msg)
+        error(`xus.config.js invalid ${msg}`)
         process.exit(1)
       })
     }
