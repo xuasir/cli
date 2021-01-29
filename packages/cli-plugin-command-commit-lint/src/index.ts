@@ -14,11 +14,13 @@ export default function (api: IPluginAPI): void {
       const gitMsgPath = api.EnvManager.getEnv(GitParamsEnv)
       const huskyMsgPath = api.EnvManager.getEnv(HuskyGitParamsEnv)
       const msgPath = gitMsgPath || huskyMsgPath
+      console
       if (msgPath) {
         const commitMsg = readFileSync(msgPath, 'utf-8').trim()
         if (!commitRE.test(commitMsg) && !mergeRE.test(commitMsg)) {
-          console.info(`invalid commit message: 
-"${chalk.red(commitMsg.replace(/# .*/, ' '))}".
+          console.info(`invalid commit message: "${chalk.red(
+            commitMsg.replace(/# .*/, ' ')
+          )}".
 
 Proper commit message format is required for automated changelog generation.
         
@@ -46,6 +48,7 @@ Allowed Types:
         `)
           process.exit(1)
         }
+        return
       }
       console.log(chalk.red(`no HUSKY_GIT_PARAMS`))
       process.exit(1)
