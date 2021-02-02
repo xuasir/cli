@@ -44,7 +44,7 @@ class Cli {
       const [err, apply] = await loadModule<PluginApply>(pluginPkgName)
       const id = pluginPkgName.replace(/^@xus\/cli-plugin-/, 'built-in:')
       if (err) {
-        error(`plugin [${id}] load error`)
+        error(`plugin [${id}] load error` + `\n${err}`)
         return null
       }
       return {

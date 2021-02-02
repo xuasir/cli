@@ -30,6 +30,7 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
+    "@xus/cli-plugin-bundler-rollup": "^0.0.1",
     "@xus/cli-plugin-command-commit-lint": "^0.0.1",
     "@xus/cli-plugin-command-help": "^0.0.1",
     "chalk": "^4.1.0",

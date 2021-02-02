@@ -10,7 +10,15 @@ class EnvManager {
   }
 
   get mode(): string {
-    return process.env.XUS_CLI_MODE || 'development'
+    return process.env.XUS_CLI_MODE || process.env.NODE_ENV || 'development'
+  }
+
+  get babelEnv() {
+    return process.env?.BABEL_ENV
+  }
+
+  set babelEnv(val: string | undefined) {
+    process.env.BABEL_ENV = val
   }
 
   // for plugin
