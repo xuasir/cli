@@ -1,0 +1,50 @@
+{
+  "name": "@xus/cli-plugin-rollup-compiler",
+  "version": "0.0.1",
+  "description": "xus cli plugin rollup compiler",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "cli",
+    "rollup"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:compile": "tsc --watch",
+    "build:compile": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@rollup/plugin-babel": "^5.2.3",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@vue/compiler-sfc": "^3.0.5",
+    "@xus/babel-preset": "^0.1.1",
+    "@xus/cli": "^0.0.1",
+    "@xus/cli-plugin-bundler-rollup": "^0.0.1",
+    "chalk": "^4.1.0",
+    "deepmerge": "^4.2.2",
+    "rollup": "^2.38.3",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-vue": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/rollup-plugin-node-builtins": "^2.1.1",
+    "@types/rollup-plugin-node-globals": "^1.4.0"
+  }
+}

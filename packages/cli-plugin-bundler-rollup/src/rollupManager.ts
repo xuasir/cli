@@ -38,7 +38,7 @@ class RollupManager {
   }
 
   // for plugin user
-  setup(pluginConfig: RollupPluginConfig) {
+  setup(pluginConfig: Partial<RollupPluginConfig>) {
     // merge to default
     this.rollupPluginConfig = Object.assign(defaultRollupConfig(), pluginConfig)
 

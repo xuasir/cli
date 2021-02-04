@@ -33,6 +33,7 @@
     "@xus/cli-plugin-bundler-rollup": "^0.0.1",
     "@xus/cli-plugin-command-commit-lint": "^0.0.1",
     "@xus/cli-plugin-command-help": "^0.0.1",
+    "@xus/cli-plugin-rollup-compiler": "^0.0.1",
     "chalk": "^4.1.0",
     "joi": "^17.3.0",
     "minimist": "^1.2.5",

@@ -23,7 +23,7 @@ class Plugin<T = any> extends ChainedMap<T> {
     })
   }
 
-  use(plugin: PluginImpl, args?: any[]) {
+  use<T extends PluginImpl>(plugin: T, args?: Parameters<T>) {
     this.set('plugin', plugin)
     if (args) {
       this.set('args', args)
