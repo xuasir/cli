@@ -1,5 +1,6 @@
+import type { Mode } from '../types'
+import type { IPathManager } from './PathManager'
 import { createEnvName } from '../utils'
-import { IPathManager } from './PathManager'
 
 class EnvManager {
   // path for load env file ??
@@ -9,8 +10,15 @@ class EnvManager {
     this.PathManager = pathManager
   }
 
-  get mode(): string {
-    return process.env.XUS_CLI_MODE || process.env.NODE_ENV || 'development'
+  get mode(): Mode {
+    return (process.env.XUS_CLI_MODE ||
+      process.env.NODE_ENV ||
+      'development') as Mode
+  }
+
+  set mode(val: Mode) {
+    process.env.XUS_CLI_MODE = val
+    process.env.NODE_ENV = val
   }
 
   get babelEnv() {
@@ -23,7 +31,7 @@ class EnvManager {
 
   // for plugin
   getEnv(envName: string): string | null {
-    return process.env[envName] || null
+    return process.env[createEnvName(envName)] || null
   }
 
   setEnv(name: string, value: string): void {

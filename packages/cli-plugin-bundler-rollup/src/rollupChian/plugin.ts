@@ -47,6 +47,7 @@ class Plugin<T = any> extends ChainedMap<T> {
     const init = this.get('init')
     const plugin = this.get('plugin')
     const args = this.get('args')
+    if (!plugin) return undefined
     const pluginOps = init(plugin, args) as RollupPlugin
     Object.defineProperties(pluginOps, {
       __pluginName: { value: this.name },

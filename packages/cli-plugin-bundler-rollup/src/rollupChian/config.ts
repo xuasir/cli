@@ -35,10 +35,11 @@ class Config<T = any> extends ChainedMap<T> {
     const entries = this.entries() || {}
     entries.output = this.output.entries()
     entries.treeshake = this.treeshake.toConfig()
-    entries.watch = this.watch.toConfig()
+    entries.watch = this.watch.entries()
     entries.plugins = this.plugins
       .values()
       .map((plugin) => (plugin as IPlugin).toConfig())
+      .filter(Boolean)
 
     const finalEntries = this.clean(entries) as CompileConfig
     return !Object.keys(finalEntries).length ? null : finalEntries
@@ -50,7 +51,7 @@ class Config<T = any> extends ChainedMap<T> {
     entries.output = this.output.entries()
     entries.plugins = this.plugins.entries()
     entries.treeshake = this.treeshake.toConfig()
-    entries.watch = this.watch.toConfig()
+    entries.watch = this.watch.entries()
     // clean and output
     return this.clean(entries)
   }
@@ -71,7 +72,7 @@ class Config<T = any> extends ChainedMap<T> {
     }
     // merge watch
     if ('watch' in obj) {
-      this.watch.merge(obj?.watch || false)
+      this.watch.mergeBase(obj?.watch || {})
     }
 
     return this

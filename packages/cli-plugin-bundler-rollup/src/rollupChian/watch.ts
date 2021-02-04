@@ -9,7 +9,6 @@ class Watch<T = any> extends ChainedMap<T> {
   exclude!: ChainedMapSet<WatcherOptions['exclude'], this>
   include!: ChainedMapSet<WatcherOptions['include'], this>
   skipWrite!: ChainedMapSet<WatcherOptions['skipWrite'], this>
-  private default = true
 
   constructor(parent: T) {
     super(parent)
@@ -21,38 +20,6 @@ class Watch<T = any> extends ChainedMap<T> {
       'include',
       'skipWrite'
     ])
-  }
-
-  false() {
-    this.clear()
-    this.default = false
-    return this
-  }
-
-  true() {
-    this.clear()
-    this.default = true
-    return this
-  }
-
-  toConfig(): WatcherOptions | boolean {
-    const entries = this.clean(this.entries() || {})
-    if (Object.keys(entries).length) {
-      return entries
-    }
-    return this.default
-  }
-
-  merge(obj: boolean | Record<string, any>, omit: string[] = []) {
-    const isEmpty = this.isEmpty()
-    // empty and default is true user dont change should merge base config
-    if (isEmpty && this.default) {
-      if (typeof obj === 'boolean') {
-        this.default = obj
-      } else {
-        super.mergeBase(obj, omit)
-      }
-    }
   }
 }
 

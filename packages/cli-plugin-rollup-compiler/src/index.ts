@@ -17,7 +17,8 @@ export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
       desc: 'a js/ts/react/vue bundler based on rollup',
       options: {
         '--targets': 'point build target',
-        '--sourcemap': 'generate sourcemap'
+        '--sourcemap': 'generate sourcemap',
+        '--prod': 'able production'
       }
     },
     async (args: FinalArgs) => {
@@ -31,6 +32,9 @@ export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
             )}\n`
         )
         process.exit(1)
+      }
+      if (args?.prod) {
+        api.EnvManager.mode = 'production'
       }
       // handle of options
       if (args?.sourcemap) {
@@ -48,7 +52,7 @@ export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
       api.RollupManager.setup(rollupPluginConfig)
 
       return build(buildCmd, api).catch((err) => {
-        console.log(`build failed ${err}`)
+        console.info(`${chalk.red(err)}`)
       })
     }
   )

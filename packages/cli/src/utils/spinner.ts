@@ -30,3 +30,11 @@ export const stopSpinner = () => {
   }
   lastMsg = null
 }
+
+export const failSpinner = (text: string) => {
+  spinner.fail(text)
+}
+
+export const succeedSpinner = (text: string) => {
+  spinner.succeed(text)
+}

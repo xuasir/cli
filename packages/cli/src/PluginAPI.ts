@@ -1,8 +1,4 @@
-import type { CommandFn, CommandOps, Commands } from './types'
-import type { IRollupManager } from '@xus/cli-plugin-bundler-rollup'
-import type { IConfigManager } from './manager/ConfigManager'
-import type { IEnvManager } from './manager/EnvManager'
-import type { IPathManager } from './manager/PathManager'
+import type { CommandFn, CommandOps } from './types'
 import type { CliInstance } from './Cli'
 import type { ObjectSchema } from 'joi'
 
@@ -15,29 +11,28 @@ class PluginAPI {
     this.service = service
   }
 
-  get PathManager(): IPathManager {
+  get PathManager() {
     return this.service.PathManager
   }
 
-  get EnvManager(): IEnvManager {
+  get EnvManager() {
     return this.service.EnvManager
   }
 
-  get ConfigManager(): IConfigManager {
+  get ConfigManager() {
     return this.service.ConfigManager
   }
 
-  get RollupManager(): IRollupManager {
+  get RollupManager() {
     return this.service.RollupManager
   }
 
-  get commands(): Commands {
+  get commands() {
     return this.service.commands
   }
 
   registerCommand(name: string, fn: CommandFn): void
   registerCommand(name: string, ops: CommandOps, fn: CommandFn): void
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   registerCommand(name: string, ops: any, fn?: any): void {
     if (typeof ops === 'function') {
       fn = ops

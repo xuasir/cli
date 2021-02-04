@@ -39,12 +39,6 @@ class Treeshake<T = any> extends ChainedMap<T> {
     return this
   }
 
-  true() {
-    this.clear()
-    this.default = true
-    return this
-  }
-
   toConfig(): TreeshakingOptions | boolean {
     const entries = this.clean(this.entries() || {})
     if (Object.keys(entries).length) {
