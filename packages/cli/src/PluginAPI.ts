@@ -1,4 +1,5 @@
 import type { CommandFn, CommandOps, Commands } from './types'
+import type { IRollupManager } from '@xus/cli-plugin-bundler-rollup'
 import type { IConfigManager } from './manager/ConfigManager'
 import type { IEnvManager } from './manager/EnvManager'
 import type { IPathManager } from './manager/PathManager'
@@ -26,6 +27,10 @@ class PluginAPI {
     return this.service.ConfigManager
   }
 
+  get RollupManager(): IRollupManager {
+    return this.service.RollupManager
+  }
+
   get commands(): Commands {
     return this.service.commands
   }
@@ -50,6 +55,14 @@ class PluginAPI {
     schema: ObjectSchema<T>
   ): void {
     this.ConfigManager.$addConfigValidator<T>(pluginConfigName, schema)
+  }
+
+  registerBundler(bundler: 'rollup' | 'gulp' | 'webpack', bunder: any) {
+    switch (bundler) {
+      case 'rollup':
+        this.service.RollupManager = bunder
+        break
+    }
   }
 }
 

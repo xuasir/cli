@@ -1,4 +1,5 @@
 // types
+import type { IRollupManager } from '@xus/cli-plugin-bundler-rollup'
 import type { Commands, Args, RawArgs, Plugin, PluginApply } from './types'
 import { error, loadModule, builtInMap } from './utils'
 import ConfigManager, { IConfigManager } from './manager/ConfigManager'
@@ -14,6 +15,7 @@ class Cli {
   PathManager: IPathManager
   EnvManager: IEnvManager
   ConfigManager: IConfigManager
+  RollupManager!: IRollupManager
 
   constructor(context: string) {
     this.PathManager = new PathManager(context)

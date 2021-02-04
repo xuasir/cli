@@ -1,21 +1,22 @@
-import type { RollupOptions } from 'rollup'
+import type { IRollupChain } from '../rollupChian'
+// targets  formats
+export type CompileTargets = 'esm-bundler' | 'node' | 'global' | 'esm-browser'
 
-export type CompileMode = {
-  isESM: boolean
-  isCJS: boolean
-  isUMD: boolean
-  isBrowsers: boolean
+export type CompileFormats = 'esm' | 'cjs' | 'iife'
+
+export type ChainFn = (rollupChain: IRollupChain) => void
+
+export enum Target2Format {
+  'esm-bundler' = 'esm',
+  'node' = 'cjs',
+  'global' = 'iife',
+  'esm-browser' = 'esm'
 }
 
-export type SetOptionsFn<T = any> = (mode: CompileMode) => T
-
-export type OverridesFn = (
-  config: RollupOptions,
-  mode: CompileMode
-) => RollupOptions
-
-export type addOptionsFn<T = any> = (setOption: SetOptionsFn<T>) => OverridesFn
-
-export type Modes = 'esm' | 'cjs' | 'umd' | 'browsers'
-
-export type CompileFormats = 'esm' | 'cjs' | 'umd' | 'iife'
+// rollup plugin config
+export type RollupPluginConfig = {
+  // override fn
+  chainRollup: ChainFn
+  // output format node global esm-bundler esm-browser
+  targets: CompileTargets[]
+}
