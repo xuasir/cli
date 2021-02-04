@@ -1,5 +1,6 @@
 import type { IRollupChain, AllConfigs } from './rollupChian'
 import type { ChainFn, RollupPluginConfig, CompileTargets } from './types'
+import { Target2Format } from './types'
 import { rollup } from 'rollup'
 import { warn, logWithSpinner, stopSpinner } from '@xus/cli'
 import RollupChain from './rollupChian'
@@ -13,7 +14,29 @@ class RollupManager {
 
   constructor() {
     this.rollupChain = new RollupChain()
+    this.initFormat()
   }
+
+  initFormat() {
+    this.rollupChain
+      .when('esm-browser')
+      .output.format(Target2Format['esm-browser'])
+      .end()
+      .end()
+      .when('esm-bundler')
+      .output.format(Target2Format['esm-bundler'])
+      .end()
+      .end()
+      .when('global')
+      .output.format(Target2Format['global'])
+      .end()
+      .end()
+      .when('node')
+      .output.format(Target2Format['node'])
+      .end()
+      .end()
+  }
+
   // for plugin user
   setup(pluginConfig: RollupPluginConfig) {
     // merge to default
