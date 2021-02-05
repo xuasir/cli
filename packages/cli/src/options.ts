@@ -20,3 +20,5 @@ export function defaultProjectConfig(contextPath: string): ProjectConfig {
     contextPath
   }
 }
+
+export const createXusConfig = (config: ProjectConfig) => config

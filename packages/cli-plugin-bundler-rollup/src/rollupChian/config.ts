@@ -7,6 +7,16 @@ import Plugin, { IPlugin } from './plugin'
 import Treeshake from './treeshake'
 import Watch from './watch'
 
+type BuiltInlPlugins =
+  | 'nodeResolve'
+  | 'commonjs'
+  | 'babel'
+  | 'alias'
+  | 'replace'
+  | 'vue'
+  | 'ts'
+  | string
+
 class Config<T = any> extends ChainedMap<T> {
   input!: ChainedMapSet<RollupOptions['input'], this>
   cache!: ChainedMapSet<RollupOptions['cache'], this>
@@ -28,7 +38,7 @@ class Config<T = any> extends ChainedMap<T> {
     this.extend(['input', 'cache', 'onwarn', 'context'])
   }
 
-  plugin(name: string) {
+  plugin(name: BuiltInlPlugins) {
     return this.plugins.getOrCompute(name, () => new Plugin(this, name))
   }
 
