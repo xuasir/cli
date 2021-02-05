@@ -1,40 +1,40 @@
 import ora from 'ora'
 import chalk from 'chalk'
+import logSymbols from 'log-symbols'
 
-type LastMsg = { symbol: string; text: string } | null
+type OraIns = ora.Ora | null
 
 const spinner = ora()
-let lastMsg: LastMsg = null
+let oraIns: OraIns = null
 
-export const logWithSpinner = (symbol: string, msg?: string) => {
-  if (!msg) {
-    msg = symbol
-    symbol = chalk.green('✔')
+export const logWithSpinner = (msg: string) => {
+  if (oraIns) {
+    oraIns.stop()
   }
-  if (lastMsg) {
-    spinner.stop()
-  }
-  spinner.text = ' ' + msg
-  lastMsg = {
-    symbol: symbol + ' ',
-    text: msg
-  }
-  spinner.start()
+  spinner.text = chalk.yellow(' ' + msg)
+  oraIns = spinner.start()
 }
+
 export const stopSpinner = () => {
-  if (!spinner.isSpinning) {
+  if (!oraIns) {
     return
   }
-  if (lastMsg) {
-    spinner.stop()
-  }
-  lastMsg = null
+  oraIns.stop()
+  oraIns = null
 }
 
-export const failSpinner = (text: string) => {
-  spinner.fail(text)
+export const failSpinner = (text?: string) => {
+  oraIns &&
+    oraIns.stopAndPersist({
+      symbol: logSymbols.error,
+      text: chalk.red(text || oraIns.text)
+    })
 }
 
-export const succeedSpinner = (text: string) => {
-  spinner.succeed(text)
+export const succeedSpinner = (text?: string) => {
+  oraIns &&
+    oraIns.stopAndPersist({
+      symbol: logSymbols.success,
+      text: chalk.green(text || oraIns.text)
+    })
 }

@@ -2230,11 +2230,12 @@
   resolved "https://npm.c2cloud.cn/@vue/shared/download/@vue/shared-3.0.5.tgz#c131d88bd6713cc4d93b3bb1372edb1983225ff0"
   integrity sha1-wTHYi9ZxPMTZOzuxNy7bGYMiX/A=
 
-"@xus/babel-preset@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@xus/babel-preset/-/babel-preset-0.1.3.tgz#bfcfc9b01e9e5f6c22281b504b986ef7590dfec0"
-  integrity sha512-J+0saSE0B141sJ8/gZSuN1a5mHGeA+BOaycxIEF6aUDEgd787LdCSrO2TyZjZqw8bGO9pWxhf1H/MxAU7bmglQ==
+"@xus/babel-preset@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@xus/babel-preset/-/babel-preset-0.1.6.tgz#6cfb148b41f2b197d1fd65b938f8552fc832a131"
+  integrity sha512-kao+wbk3STgEvcgFhgHgH1IZMCzGD+Nl0rl905qBNhRzA/FTd1uwW/I3rQA/w5pPjiUgGbMPK9B8taduqxjnIw==
   dependencies:
+    "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "7.12.1"
     "@babel/plugin-proposal-decorators" "7.12.1"
     "@babel/plugin-proposal-nullish-coalescing-operator" "7.12.1"

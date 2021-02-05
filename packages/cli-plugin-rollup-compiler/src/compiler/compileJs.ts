@@ -1,9 +1,9 @@
 import type { IPluginAPI } from '@xus/cli'
-import DefaultBabelConfig from '../config/babel.config'
+import createBabelConfig from '../config/babel.config'
 // rollup plugins
 import nodeResolvePlugin from '@rollup/plugin-node-resolve'
 import commonjsPlugin from '@rollup/plugin-commonjs'
-import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+import { babel } from '@rollup/plugin-babel'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import aliasPlugin from 'rollup-plugin-alias'
@@ -13,7 +13,7 @@ export async function compileJs(api: IPluginAPI): Promise<void> {
   const babelConfig =
     (await api.ConfigManager.loadConfig(
       api.PathManager.getPath('babel.config.js')
-    )) || DefaultBabelConfig
+    )) || createBabelConfig('@xus/babel-preset')
   // 1.2 register common config
   api.RollupManager.registerChainFn((rollupChain) => {
     rollupChain
@@ -60,10 +60,23 @@ export async function compileJs(api: IPluginAPI): Promise<void> {
       .plugin('commonjs')
       .end()
 
+    // base babel
     rollupChain
       .when('all')
       .plugin('babel')
-      .use(getBabelOutputPlugin, [babelConfig])
+      .use(babel, [{ ...babelConfig, babelHelpers: 'runtime' }])
+    // set external
+    rollupChain.when('esm-bundler').external.set(/^@babel\/runtime/)
+    rollupChain.when('node').external.set(/^@babel\/runtime/)
+    // set full pkg babel
+    rollupChain
+      .when('global')
+      .plugin('babel')
+      .use(babel, [{ ...babelConfig, babelHelpers: 'bundled' }])
+    rollupChain
+      .when('esm-browser')
+      .plugin('babel')
+      .use(babel, [{ ...babelConfig, babelHelpers: 'bundled' }])
   }, true)
   // 2. run build
   return api.RollupManager.build(api)

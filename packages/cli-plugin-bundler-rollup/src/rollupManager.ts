@@ -118,16 +118,15 @@ class RollupManager {
       api.EnvManager.babelEnv = target
       // build
       const { output, ...bundleOps } = config
-      logWithSpinner(chalk.yellow(`run ${target} build...`))
-      console.info(chalk.blue(`\n${bundleOps.input} -> ${output.file}`))
+      console.info(chalk.blueBright(`\n${bundleOps.input} -> ${output.file}`))
+      logWithSpinner(`run ${target} build...`)
       try {
         const bundle = await rollup(bundleOps)
         await bundle.write(output)
+        succeedSpinner(`${target} build succeed`)
       } catch (error) {
-        failSpinner(chalk.red(`build failed`))
-        throw error
+        failSpinner(`${target} build faild ${error}`)
       }
-      succeedSpinner(chalk.green(`${target} build success`))
     }
   }
 }

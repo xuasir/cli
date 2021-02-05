@@ -1,7 +1,7 @@
 import type { RollupOptions } from 'rollup'
 import type { ChainedMapSet, CompileConfig } from './lib/types'
 // ops
-import { ChainedMap } from './lib'
+import { ChainedMap, ChainedSet } from './lib'
 import Output from './output'
 import Plugin, { IPlugin } from './plugin'
 import Treeshake from './treeshake'
@@ -9,10 +9,10 @@ import Watch from './watch'
 
 class Config<T = any> extends ChainedMap<T> {
   input!: ChainedMapSet<RollupOptions['input'], this>
-  external!: ChainedMapSet<RollupOptions['external'], this>
   cache!: ChainedMapSet<RollupOptions['cache'], this>
   onwarn!: ChainedMapSet<RollupOptions['onwarn'], this>
   context!: ChainedMapSet<RollupOptions['context'], this>
+  external
   watch
   treeshake
   output
@@ -20,11 +20,12 @@ class Config<T = any> extends ChainedMap<T> {
 
   constructor(parent: T) {
     super(parent)
+    this.external = new ChainedSet<this, string | RegExp>(this)
     this.output = new Output<this>(this)
     this.treeshake = new Treeshake<this>(this)
     this.watch = new Watch<this>(this)
     this.plugins = new ChainedMap<this>(this)
-    this.extend(['input', 'external', 'cache', 'onwarn', 'context'])
+    this.extend(['input', 'cache', 'onwarn', 'context'])
   }
 
   plugin(name: string) {
@@ -33,6 +34,7 @@ class Config<T = any> extends ChainedMap<T> {
 
   toConfig() {
     const entries = this.entries() || {}
+    entries.external = this.external.values()
     entries.output = this.output.entries()
     entries.treeshake = this.treeshake.toConfig()
     entries.watch = this.watch.entries()
@@ -47,7 +49,8 @@ class Config<T = any> extends ChainedMap<T> {
 
   entries() {
     const entries = super.entries() || {}
-    // patch output plugins
+    // patch other
+    entries.external = this.external.values()
     entries.output = this.output.entries()
     entries.plugins = this.plugins.entries()
     entries.treeshake = this.treeshake.toConfig()
@@ -57,7 +60,17 @@ class Config<T = any> extends ChainedMap<T> {
   }
 
   mergeBase(obj: Record<string, any>) {
-    super.mergeBase(obj, ['plugins', 'output', 'treeshake', 'watch'])
+    super.mergeBase(obj, [
+      'plugins',
+      'output',
+      'treeshake',
+      'watch',
+      'external'
+    ])
+    // merge external
+    if ('external' in obj) {
+      this.external.mergeBase(obj?.external || [])
+    }
     // merge output
     if ('output' in obj) {
       this.output.mergeBase(obj?.output || {})

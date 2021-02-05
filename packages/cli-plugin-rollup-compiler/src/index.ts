@@ -33,8 +33,11 @@ export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
         )
         process.exit(1)
       }
+      // set env
       if (args?.prod) {
         api.EnvManager.mode = 'production'
+      } else {
+        api.EnvManager.mode = 'development'
       }
       // handle of options
       if (args?.sourcemap) {

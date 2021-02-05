@@ -34,7 +34,7 @@ class ChainedSet<T = any, U = any> extends Chainable<T> {
   }
 
   // values
-  protected values() {
+  values() {
     return [...this.store]
   }
 

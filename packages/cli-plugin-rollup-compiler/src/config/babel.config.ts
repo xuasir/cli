@@ -1,13 +1,18 @@
-export default {
+type Preset =
+  | '@xus/babel-preset'
+  | '@xus/babel-preset/lib/react'
+  | '@xus/babel-preset/lib/vue'
+
+export default (preset: Preset) => ({
+  exclude: 'node_modules/**',
   env: {
     'esm-bundler': {
       presets: [
         [
-          '@xus/babel-preset',
+          preset,
           {
             useESModules: true,
-            absoluteRuntime: false,
-            useDynamicImport: false
+            absoluteRuntime: false
           }
         ]
       ]
@@ -15,11 +20,11 @@ export default {
     'esm-browser': {
       presets: [
         [
-          '@xus/babel-preset',
+          preset,
           {
+            usageMode: true,
             useESModules: true,
-            useTransformRuntime: false,
-            useDynamicImport: false
+            useTransformRuntime: false
           }
         ]
       ]
@@ -27,11 +32,11 @@ export default {
     global: {
       presets: [
         [
-          '@xus/babel-preset',
+          preset,
           {
+            usageMode: true,
             useTransformRuntime: false,
-            useDynamicImport: true,
-            modules: 'umd'
+            useDynamicImport: true
           }
         ]
       ]
@@ -39,7 +44,7 @@ export default {
     node: {
       presets: [
         [
-          '@xus/babel-preset',
+          preset,
           {
             targets: { node: 'current' },
             absoluteRuntime: false,
@@ -49,4 +54,4 @@ export default {
       ]
     }
   }
-}
+})
