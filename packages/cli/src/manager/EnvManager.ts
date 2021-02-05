@@ -31,10 +31,18 @@ class EnvManager {
 
   // for plugin
   getEnv(envName: string): string | null {
-    return process.env[createEnvName(envName)] || null
+    return process.env[envName] || null
   }
 
   setEnv(name: string, value: string): void {
+    process.env[name] = value
+  }
+
+  getCliEnv(envName: string): string | null {
+    return process.env[createEnvName(envName)] || null
+  }
+
+  setCliEnv(name: string, value: string): void {
     process.env[createEnvName(name)] = value
   }
 }
