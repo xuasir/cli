@@ -22,3 +22,6 @@ export function defaultRollupConfig(): RollupPluginConfig {
     targets: ['esm-bundler', 'esm-browser', 'node', 'global']
   }
 }
+
+export const createRollupPluginConfig = (config: Partial<RollupPluginConfig>) =>
+  config

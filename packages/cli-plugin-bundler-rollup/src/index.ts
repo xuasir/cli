@@ -1,15 +1,9 @@
-import type { IPluginAPI } from '@xus/cli'
-import { rollupSchema } from './options'
-import RollupManager from './rollupManager'
+import registerFn from './registerRollup'
+export default registerFn
 
-export default function (api: IPluginAPI): void {
-  // config validator
-  api.registerConfigValidator('rollup', rollupSchema)
-  // register bundler
-  api.registerBundler('rollup', new RollupManager())
-}
+export { createRollupPluginConfig } from './options'
 
 // export types
 export * from './types'
 export { IRollupChain } from './rollupChian'
-export { IRollupManager, createRollupChainFn } from './rollupManager'
+export { IRollupManager } from './rollupManager'
