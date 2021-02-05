@@ -12,4 +12,4 @@ export default function (api: IPluginAPI): void {
 // export types
 export * from './types'
 export { IRollupChain } from './rollupChian'
-export { IRollupManager } from './rollupManager'
+export { IRollupManager, createRollupChainFn } from './rollupManager'

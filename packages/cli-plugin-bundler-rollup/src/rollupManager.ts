@@ -131,6 +131,8 @@ class RollupManager {
   }
 }
 
+export const createRollupChainFn = (fn: ChainFn) => fn
+
 export type IRollupManager = InstanceType<typeof RollupManager>
 
 export default RollupManager
