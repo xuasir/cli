@@ -1,19 +1,22 @@
 import type { IPluginAPI } from '@xus/cli'
-import createBabelConfig from '../config/babel.config'
+import createBabelConfig, { Preset } from '../config/babel.config'
 // rollup plugins
-import nodeResolvePlugin from '@rollup/plugin-node-resolve'
+import { nodeResolve as nodeResolvePlugin } from '@rollup/plugin-node-resolve'
 import commonjsPlugin from '@rollup/plugin-commonjs'
 import { babel } from '@rollup/plugin-babel'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import aliasPlugin from 'rollup-plugin-alias'
 
-export async function compileJs(api: IPluginAPI): Promise<void> {
+export async function compileJs(
+  api: IPluginAPI,
+  isReact = false
+): Promise<void> {
   // 1.1 load babel config
+  let presetName = '@xus/babel-preset'
+  isReact && (presetName = '@xus/babel-preset/lib/react')
+
   const babelConfig =
     (await api.ConfigManager.loadConfig(
       api.PathManager.getPath('babel.config.js')
-    )) || createBabelConfig('@xus/babel-preset')
+    )) || createBabelConfig(presetName as Preset)
   // 1.2 register common config
   api.RollupManager.registerChainFn((rollupChain) => {
     rollupChain
@@ -23,7 +26,9 @@ export async function compileJs(api: IPluginAPI): Promise<void> {
       .end()
 
       .plugin('nodeResolve')
-      .use(nodeResolvePlugin, [{ preferBuiltins: true }])
+      .use(nodeResolvePlugin, [
+        { preferBuiltins: true, extensions: ['.js', '.jsx', '.json'] }
+      ])
       .before('commonjs')
       .end()
 
@@ -31,10 +36,15 @@ export async function compileJs(api: IPluginAPI): Promise<void> {
       .use(commonjsPlugin, [{ sourceMap: false }])
       .before('babel')
       .end()
-
-      .plugin('alias')
-      .use(aliasPlugin, [{ '@': api.PathManager.getPath('src') }])
-      .end()
+    // react set
+    if (isReact) {
+      rollupChain
+        .when('all')
+        .output.globals({ react: 'React', 'react-dom': 'ReactDom' })
+        .end()
+        .external.set('react')
+        .set('react-dom')
+    }
   }, true)
   // 1.3 register babel config
   api.RollupManager.registerChainFn((rollupChain) => {
@@ -61,13 +71,19 @@ export async function compileJs(api: IPluginAPI): Promise<void> {
       .end()
 
     // base babel
+    // set external
     rollupChain
-      .when('all')
+      .when('esm-bundler')
       .plugin('babel')
       .use(babel, [{ ...babelConfig, babelHelpers: 'runtime' }])
-    // set external
-    rollupChain.when('esm-bundler').external.set(/^@babel\/runtime/)
-    rollupChain.when('node').external.set(/^@babel\/runtime/)
+      .end()
+      .external.set(/^@babel\/runtime/)
+    rollupChain
+      .when('node')
+      .plugin('babel')
+      .use(babel, [{ ...babelConfig, babelHelpers: 'runtime' }])
+      .end()
+      .external.set(/^@babel\/runtime/)
     // set full pkg babel
     rollupChain
       .when('global')

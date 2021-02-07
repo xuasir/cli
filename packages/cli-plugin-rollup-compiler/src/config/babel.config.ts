@@ -1,7 +1,4 @@
-type Preset =
-  | '@xus/babel-preset'
-  | '@xus/babel-preset/lib/react'
-  | '@xus/babel-preset/lib/vue'
+export type Preset = '@xus/babel-preset' | '@xus/babel-preset/lib/react'
 
 export default (preset: Preset) => ({
   exclude: 'node_modules/**',

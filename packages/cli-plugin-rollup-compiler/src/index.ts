@@ -4,18 +4,19 @@ import type {
   CompileTargets
 } from '@xus/cli-plugin-bundler-rollup'
 import type { FinalArgs } from './types'
-import chalk from 'chalk'
 import { error } from '@xus/cli'
-import { compileCmds } from './compiler'
-import { build } from './commands'
+import chalk from 'chalk'
+import { build, Cmds, commands } from './commands'
 
 export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
   api.registerCommand(
-    'rollup',
+    'rollup-js',
     {
       usage: 'xus rollup <command> [options]',
       desc: 'a js/ts/react/vue bundler based on rollup',
       options: {
+        vue: 'rollup vue based on js',
+        react: 'rollup react based on js',
         '--targets': 'point build target',
         '--sourcemap': 'generate sourcemap',
         '--prod': 'able production'
@@ -23,18 +24,18 @@ export default function (api: IPluginAPI, projectConfig: ProjectConfig): void {
     },
     async (args: FinalArgs) => {
       // valid buildCmd
-      const buildCmd = args._.shift()
-      if (!buildCmd || !compileCmds.includes(buildCmd)) {
+      const buildCmd: Cmds = (args._.shift() || 'js') as Cmds
+      if (!buildCmd || !commands.includes(buildCmd)) {
         error(
           `\n  invalid command: ${chalk.red(buildCmd)}` +
             `\n  support commands: ${chalk.green(
-              `${compileCmds.join(' / ')}`
+              `${commands.filter((cmd) => cmd != 'js').join(' / ')}`
             )}\n`
         )
         process.exit(1)
       }
-      // set env
       if (args?.prod) {
+        // set env
         api.EnvManager.mode = 'production'
       } else {
         api.EnvManager.mode = 'development'

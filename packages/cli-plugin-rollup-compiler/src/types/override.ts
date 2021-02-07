@@ -4,4 +4,5 @@ export type FinalArgs = {
   targets?: string
   sourcemap?: string
   prod?: boolean
+  react?: boolean
 } & Args

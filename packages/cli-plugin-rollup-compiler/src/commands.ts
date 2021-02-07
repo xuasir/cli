@@ -1,19 +1,16 @@
 import type { IPluginAPI } from '@xus/cli'
-import { compileJs, compileTs, compileReact, compileVue } from './compiler'
+import { compileJs } from './compiler'
 
-export async function build(cmd: string, api: IPluginAPI): Promise<void> {
+export type Cmds = 'js' | 'react'
+export const commands = ['js', 'react']
+
+export async function build(cmd: Cmds, api: IPluginAPI): Promise<void> {
   switch (cmd) {
     case 'js':
       await compileJs(api)
       break
-    case 'ts':
-      await compileTs(api)
-      break
     case 'react':
-      await compileReact(api)
-      break
-    case 'vue':
-      await compileVue(api)
+      await compileJs(api, true)
       break
   }
 }
