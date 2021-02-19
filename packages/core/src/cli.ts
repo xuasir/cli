@@ -1,13 +1,13 @@
 // types
-import type { IRollupManager } from '@xus/cli-plugin-bundler-rollup'
+import type { IRollupManager } from '@xus/plugin-bundler-rollup'
 import type { Commands, Args, RawArgs, Plugin, PluginApply } from './types'
 import { error, loadModule, builtInMap } from './utils'
 import ConfigManager, { IConfigManager } from './manager/ConfigManager'
 import PathManager, { IPathManager } from './manager/PathManager'
 import EnvManager, { IEnvManager } from './manager/EnvManager'
-import PluginAPI from './PluginAPI'
+import PluginAPI from './pluginAPI'
 
-class Cli {
+export class Cli {
   private initialized = false
   plugins: Plugin[] = []
   commands: Commands = {}
@@ -88,5 +88,3 @@ class Cli {
 }
 
 export type CliInstance = InstanceType<typeof Cli>
-
-export default Cli

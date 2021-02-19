@@ -1,4 +1,4 @@
-import type { RollupPluginConfig } from '@xus/cli-plugin-bundler-rollup'
+import type { RollupPluginConfig } from '@xus/plugin-bundler-rollup'
 export interface ProjectConfig {
   contextPath?: string
   pluginOps?: {

@@ -1,5 +1,5 @@
 import type { CommandFn, CommandOps } from './types'
-import type { CliInstance } from './Cli'
+import type { CliInstance } from './cli'
 import type { ObjectSchema } from 'joi'
 
 class PluginAPI {

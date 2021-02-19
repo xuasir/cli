@@ -1,6 +1,6 @@
 // export types
 import minimist from 'minimist'
-import Cli from './Cli'
+import { Cli } from '@xus/core'
 // 1. init cli
 const cli = new Cli(process.env.XUS_CLI_CONTEXT || process.cwd())
 // 2. get args

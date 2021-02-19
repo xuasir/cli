@@ -1,5 +1,5 @@
 {
-  "name": "@xus/cli-plugin-rollup-compiler",
+  "name": "@xus/plugin-rollup-compiler",
   "version": "0.0.1",
   "description": "xus cli plugin rollup compiler",
   "main": "dist/index.js",
@@ -32,7 +32,7 @@
     "@rollup/plugin-node-resolve": "^11.1.0",
     "@xus/babel-preset": "^0.1.6",
     "@xus/cli": "^0.0.1",
-    "@xus/cli-plugin-bundler-rollup": "^0.0.1",
+    "@xus/plugin-bundler-rollup": "^0.0.1",
     "chalk": "^4.1.0",
     "rollup": "^2.38.3"
   },

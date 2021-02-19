@@ -1,12 +1,12 @@
 {
-  "name": "@xus/cli-plugin-command-commit-lint",
+  "name": "@xus/plugin-command-help",
   "version": "0.0.1",
-  "description": "xus cli plugin command-commit-lint",
+  "description": "xus cli plugin command-help",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
-    "commit-lint"
+    "rollup"
   ],
   "author": "guo.xu <xuguo@outlook.it>",
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
@@ -19,18 +19,14 @@
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:cl": "tsc --watch",
-    "build:cl": "tsc"
+    "dev:chelp": "tsc --watch",
+    "build:chelp": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
     "@xus/cli": "^0.0.1",
-    "chalk": "^4.1.0",
-    "fs-extra": "^9.1.0"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.6"
+    "chalk": "^4.1.0"
   }
 }

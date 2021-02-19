@@ -1,9 +1,9 @@
 {
-  "name": "@xus/cli-plugin-command-help",
+  "name": "@xus/plugin-bundler-rollup",
   "version": "0.0.1",
-  "description": "xus cli plugin command-help",
+  "description": "xus cli plugin rollup bundler",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "keywords": [
     "cli",
     "rollup"
@@ -12,21 +12,23 @@
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
   "license": "MIT",
   "files": [
-    "dist"
+    "lib"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:chelp": "tsc --watch",
-    "build:chelp": "tsc"
+    "dev:rollup": "tsc --watch",
+    "build:rollup": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
     "@xus/cli": "^0.0.1",
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "rollup": "^2.38.3",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }

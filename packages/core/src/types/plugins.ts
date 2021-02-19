@@ -1,6 +1,6 @@
 import { ProjectConfig } from './config'
 import { Args, RawArgs } from './args'
-import { IPluginAPI } from '../PluginAPI'
+import { IPluginAPI } from '../pluginAPI'
 
 export type PluginApply = (api: IPluginAPI, projectOps?: ProjectConfig) => void
 export interface Plugin {

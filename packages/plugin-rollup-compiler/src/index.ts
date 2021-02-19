@@ -2,7 +2,7 @@ import type { IPluginAPI, ProjectConfig } from '@xus/cli'
 import type {
   RollupPluginConfig,
   CompileTargets
-} from '@xus/cli-plugin-bundler-rollup'
+} from '@xus/plugin-bundler-rollup'
 import type { FinalArgs } from './types'
 import { error } from '@xus/cli'
 import chalk from 'chalk'
