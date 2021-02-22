@@ -1,8 +1,23 @@
-import type { RollupPluginConfig } from '@xus/plugin-bundler-rollup'
-export interface ProjectConfig {
-  contextPath?: string
-  pluginOps?: {
-    rollup?: RollupPluginConfig
-    [key: string]: any
-  }
+import type { IPlugin, IPreset } from '.'
+
+export interface IProjectConfig {
+  /**
+   * @description cwd or point path
+   */
+  ctxPath: string
+  /**
+   * @description mode
+   */
+  mode: string
+  /**
+   * @description plugins
+   */
+  plugins?: IPlugin[]
+  /**
+   * @description plugins
+   */
+  presets?: IPreset[]
+
+  // rest option
+  [key: string]: any
 }

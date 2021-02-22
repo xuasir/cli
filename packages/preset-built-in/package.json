@@ -1,12 +1,12 @@
 {
-  "name": "@xus/plugin-command-help",
+  "name": "@xus/preset-built-in",
   "version": "0.0.1",
-  "description": "xus cli plugin command-help",
+  "description": "xus cli built in preset",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
-    "rollup"
+    "preset"
   ],
   "author": "guo.xu <xuguo@outlook.it>",
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
@@ -19,13 +19,15 @@
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:chelp": "tsc --watch",
-    "build:chelp": "tsc"
+    "dev:preset": "tsc --watch",
+    "build:preset": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.0.1"
+    "@xus/cli": "^0.0.1",
+    "@xus/plugin-command-commit-lint": "^0.0.1",
+    "@xus/plugin-command-help": "^0.0.1"
   }
 }

@@ -1,22 +1,24 @@
-import type { Mode } from '../types'
-import type { IPathManager } from './PathManager'
-import { createEnvName } from '../utils'
+import type { ICliService } from '../cli/Service'
+import { createEnvNameWithXusPrefix } from '@xus/cli-shared'
 
-class EnvManager {
-  // path for load env file ??
-  private PathManager: IPathManager
+type IEnvManagerOps = {
+  mode: string
+  service: ICliService
+}
 
-  constructor(pathManager: IPathManager) {
-    this.PathManager = pathManager
+export class EnvManager {
+  // TODO: path for load .env file
+  private service: ICliService
+
+  constructor(ops: IEnvManagerOps) {
+    this.mode = ops.mode
+    this.service = ops.service
   }
 
-  get mode(): Mode {
-    return (process.env.XUS_CLI_MODE ||
-      process.env.NODE_ENV ||
-      'development') as Mode
+  get mode() {
+    return process.env.XUS_CLI_MODE || process.env.NODE_ENV || 'development'
   }
-
-  set mode(val: Mode) {
+  set mode(val: string) {
     process.env.XUS_CLI_MODE = val
     process.env.NODE_ENV = val
   }
@@ -39,14 +41,12 @@ class EnvManager {
   }
 
   getCliEnv(envName: string): string | null {
-    return process.env[createEnvName(envName)] || null
+    return process.env[createEnvNameWithXusPrefix(envName)] || null
   }
 
   setCliEnv(name: string, value: string): void {
-    process.env[createEnvName(name)] = value
+    process.env[createEnvNameWithXusPrefix(name)] = value
   }
 }
 
 export type IEnvManager = InstanceType<typeof EnvManager>
-
-export default EnvManager

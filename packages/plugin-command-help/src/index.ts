@@ -1,21 +1,30 @@
-import type { Command, Commands, IPluginAPI, Args } from '@xus/cli'
-import chalk from 'chalk'
+import {
+  // types
+  ICommand,
+  IArgs,
+  // usage
+  chalk,
+  createPlugin
+} from '@xus/cli'
 import { getPadLength } from './pad'
 
-export default function (api: IPluginAPI): void {
-  api.registerCommand('help', (args: Args) => {
-    const commandName = args._[0]
-    if (!commandName) {
-      // log all
-      logAll(api.commands)
-    } else {
-      // log point
-      logPointCommand(commandName, api.commands[commandName])
-    }
-  })
-}
+export default createPlugin({
+  name: 'commandHelp',
+  apply(api) {
+    api.registerCommand('help', (args: IArgs) => {
+      const commandName = args._[0]
+      if (!commandName) {
+        // log all
+        logAll(api.commands)
+      } else {
+        // log point
+        logPointCommand(commandName, api.commands[commandName])
+      }
+    })
+  }
+})
 
-function logAll(commads: Commands) {
+function logAll(commads: Record<string, ICommand>) {
   console.info(
     `\n  usage: ${chalk.green(`xus-cli <command> [options]`)}` + `\n  Commands:`
   )
@@ -32,7 +41,7 @@ function logAll(commads: Commands) {
   )
 }
 
-function logPointCommand(name: string, commad: Command) {
+function logPointCommand(name: string, commad: ICommand) {
   if (!commad) {
     console.info(chalk.red(`\n  command "${name}" does not exist.`))
   } else {

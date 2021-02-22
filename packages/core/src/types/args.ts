@@ -1,6 +1,6 @@
-export type Args = {
+export type IArgs = {
   _: string[]
   [key: string]: any
 }
 
-export type RawArgs = string[]
+export type IRawArgs = string[]

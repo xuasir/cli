@@ -1,41 +1,32 @@
 import { join } from 'path'
+import { getFileMeta } from '@xus/cli-shared'
 
-class PathManager {
-  ctxPath: string
+export class PathManager {
+  private ctxPath: string
   constructor(ctx: string) {
     this.ctxPath = ctx
   }
 
   get cwd(): string {
-    return process.cwd()
+    return this.ctxPath || process.cwd()
   }
 
-  get cliRootPath(): string {
-    return join(__dirname, '../../')
+  get cwdPkg() {
+    return this.getPathBasedOnCtx('package.json')
   }
 
-  get cliPkgJsonPath(): string {
-    return join(__dirname, '../../package.json')
-  }
-
-  get rootPkgJsonPath(): string {
-    return join(this.ctxPath, 'package.json')
-  }
-
-  get userConfigPath(): string {
-    return join(this.ctxPath, 'xus.config.js')
-  }
-
-  getPathBasedOnCliRoot(basedOnRoot: string): string {
-    return join(this.cliRootPath, basedOnRoot)
+  get userConfigPath() {
+    const fileMeta = getFileMeta({
+      base: this.ctxPath,
+      filenameWithoutExt: 'xus.config'
+    })
+    return fileMeta && fileMeta.path
   }
 
   // for plugins
-  getPath(basedOnRoot: string): string {
+  getPathBasedOnCtx(basedOnRoot: string): string {
     return join(this.ctxPath, basedOnRoot)
   }
 }
 
 export type IPathManager = InstanceType<typeof PathManager>
-
-export default PathManager
