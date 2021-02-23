@@ -1,10 +1,10 @@
-import type { CompileConfig } from '../rollupChian'
-import type { CompileTargets } from '../types'
+import type { RollupOptions } from 'rollup'
+
 // validator
 import validRequired from './validRequired'
 import validPlugins from './validPlugins'
 
-export default (config: CompileConfig, prefix: CompileTargets) => {
-  validRequired(config, prefix)
-  validPlugins(config.plugins, prefix)
+export default (config: RollupOptions) => {
+  validRequired(config)
+  validPlugins(config.plugins || [])
 }

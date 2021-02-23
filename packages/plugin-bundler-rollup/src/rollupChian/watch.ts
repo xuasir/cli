@@ -1,14 +1,14 @@
 import type { WatcherOptions } from 'rollup'
-import type { ChainedMapSet } from './lib/types'
+import type { IChainedMapSet } from './lib/types'
 import { ChainedMap } from './lib'
 
 class Watch<T = any> extends ChainedMap<T> {
-  buildDelay!: ChainedMapSet<WatcherOptions['buildDelay'], this>
-  chokidar!: ChainedMapSet<WatcherOptions['chokidar'], this>
-  clearScreen!: ChainedMapSet<WatcherOptions['clearScreen'], this>
-  exclude!: ChainedMapSet<WatcherOptions['exclude'], this>
-  include!: ChainedMapSet<WatcherOptions['include'], this>
-  skipWrite!: ChainedMapSet<WatcherOptions['skipWrite'], this>
+  buildDelay!: IChainedMapSet<WatcherOptions['buildDelay'], this>
+  chokidar!: IChainedMapSet<WatcherOptions['chokidar'], this>
+  clearScreen!: IChainedMapSet<WatcherOptions['clearScreen'], this>
+  exclude!: IChainedMapSet<WatcherOptions['exclude'], this>
+  include!: IChainedMapSet<WatcherOptions['include'], this>
+  skipWrite!: IChainedMapSet<WatcherOptions['skipWrite'], this>
 
   constructor(parent: T) {
     super(parent)

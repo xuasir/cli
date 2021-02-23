@@ -27,8 +27,8 @@ class PluginAPI {
   registerHook(hook: IHook) {
     this.service.HookManager.register(hook)
   }
-  async applyHook(ops: IHookApplyOps) {
-    await this.service.HookManager.apply(ops)
+  async applyHook<T = void>(ops: IHookApplyOps) {
+    return await this.service.HookManager.apply<T>(ops)
   }
 
   get commands() {

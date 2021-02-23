@@ -1,22 +1,22 @@
 import type { TreeshakingOptions } from 'rollup'
-import type { ChainedMapSet } from './lib/types'
+import type { IChainedMapSet } from './lib/types'
 import { ChainedMap } from './lib'
 
 class Treeshake<T = any> extends ChainedMap<T> {
-  annotations!: ChainedMapSet<TreeshakingOptions['annotations'], this>
-  moduleSideEffects!: ChainedMapSet<
+  annotations!: IChainedMapSet<TreeshakingOptions['annotations'], this>
+  moduleSideEffects!: IChainedMapSet<
     TreeshakingOptions['moduleSideEffects'],
     this
   >
-  propertyReadSideEffects!: ChainedMapSet<
+  propertyReadSideEffects!: IChainedMapSet<
     TreeshakingOptions['propertyReadSideEffects'],
     this
   >
-  tryCatchDeoptimization!: ChainedMapSet<
+  tryCatchDeoptimization!: IChainedMapSet<
     TreeshakingOptions['tryCatchDeoptimization'],
     this
   >
-  unknownGlobalSideEffects!: ChainedMapSet<
+  unknownGlobalSideEffects!: IChainedMapSet<
     TreeshakingOptions['unknownGlobalSideEffects'],
     this
   >

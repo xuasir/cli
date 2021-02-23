@@ -1,34 +1,31 @@
 {
-  "name": "@xus/plugin-bundler-rollup",
+  "name": "@xus/plugin-build-lib",
   "version": "0.0.1",
-  "description": "xus cli plugin rollup bundler",
+  "description": "xus cli plugin build-lib",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
-    "rollup"
+    "build"
   ],
   "author": "guo.xu <xuguo@outlook.it>",
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
   "license": "MIT",
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:rollup": "tsc --watch",
-    "build:rollup": "tsc"
+    "dev:clib": "tsc --watch",
+    "build:clib": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.0.1",
-    "@xus/plugin-build-lib": "^0.0.1",
-    "rollup": "^2.38.3",
-    "rollup-plugin-terser": "^7.0.2"
+    "@xus/cli": "^0.0.1"
   }
 }

@@ -109,7 +109,7 @@ export class HookManager {
           )
         }
         // no args null for tapable types check
-        return await parallelHook.promise(null)
+        return ((await parallelHook.promise(null)) as unknown) as Promise<T>
 
       default:
         throw new Error(`register hook.type ${type} is invalid`)

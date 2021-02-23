@@ -1,54 +1,97 @@
-import type { CompileTargets } from './../types'
-import type { AllConfigs } from './lib/types'
-import { ChainedMap } from './lib'
-import Config, { IConfig } from './config'
+import type { RollupOptions } from 'rollup'
+import type { IChainedMapSet } from './lib/types'
+// ops
+import { ChainedMap, ChainedSet } from './lib'
+import Output from './output'
+import Plugin, { IPlugin } from './plugin'
+import Treeshake from './treeshake'
+import Watch from './watch'
 
-class RollupChain {
-  private targets
+class RollupChain<T = any> extends ChainedMap<T> {
+  input!: IChainedMapSet<RollupOptions['input'], this>
+  cache!: IChainedMapSet<RollupOptions['cache'], this>
+  onwarn!: IChainedMapSet<RollupOptions['onwarn'], this>
+  context!: IChainedMapSet<RollupOptions['context'], this>
+  external
+  watch
+  treeshake
+  output
+  private plugins
 
-  constructor() {
-    this.targets = new ChainedMap<this>(this)
+  constructor(parent: T) {
+    super(parent)
+    this.external = new ChainedSet<this, string | RegExp>(this)
+    this.output = new Output<this>(this)
+    this.treeshake = new Treeshake<this>(this)
+    this.watch = new Watch<this>(this)
+    this.plugins = new ChainedMap<this>(this)
+    this.extend(['input', 'cache', 'onwarn', 'context'])
   }
 
-  when(target: CompileTargets | 'all') {
-    return this.targets.getOrCompute(target, () => new Config(this))
+  plugin(name: string) {
+    return this.plugins.getOrCompute(name, () => new Plugin(this, name))
   }
 
   toConfig() {
-    const configs: Record<string, any> = {}
-    const entries = this.targets.entries()
-    if (entries) {
-      const finalEntries = this.targets.clean(entries)
-      let commonConfig = {}
-      if ('all' in finalEntries) commonConfig = entries.all.entries() || {}
+    const entries = this.entries() || {}
+    entries.external = this.external.values()
+    entries.output = this.output.entries()
+    entries.treeshake = this.treeshake.toConfig()
+    entries.watch = this.watch.entries()
+    entries.plugins = this.plugins
+      .values()
+      .map((plugin) => (plugin as IPlugin).toConfig())
+      .filter(Boolean)
 
-      Object.keys(finalEntries).forEach((key) => {
-        if (key === 'all') return
-        const configChain = entries[key] as IConfig
-        // merge common config
-        configChain.mergeBase(commonConfig)
-        const config = configChain.toConfig()
-        configs[key] = config
-      })
-    }
-
-    return configs as AllConfigs
+    const finalEntries = this.clean(entries) as RollupOptions
+    return !Object.keys(finalEntries).length ? null : finalEntries
   }
 
   entries() {
-    const targets = this.targets.clean(this.targets.entries() || {})
+    const entries = super.entries() || {}
+    // patch other
+    entries.external = this.external.values()
+    entries.output = this.output.entries()
+    entries.plugins = this.plugins.entries()
+    entries.treeshake = this.treeshake.toConfig()
+    entries.watch = this.watch.entries()
+    // clean and output
+    return this.clean(entries)
+  }
 
-    return Object.keys(targets).reduce<Record<string, any>>((res, key) => {
-      const config = targets[key] as IConfig
-      res[key] = config.entries()
-      return res
-    }, {})
+  mergeBase(obj: Record<string, any>) {
+    super.mergeBase(obj, [
+      'plugins',
+      'output',
+      'treeshake',
+      'watch',
+      'external'
+    ])
+    // merge external
+    if ('external' in obj) {
+      this.external.mergeBase(obj?.external || [])
+    }
+    // merge output
+    if ('output' in obj) {
+      this.output.mergeBase(obj?.output || {})
+    }
+    // merge plugins
+    if ('plugins' in obj) {
+      this.plugins.mergeBase(obj?.plugins || {})
+    }
+    // merge treeshake
+    if ('treeshake' in obj) {
+      this.treeshake.merge(obj?.treeshake || true)
+    }
+    // merge watch
+    if ('watch' in obj) {
+      this.watch.mergeBase(obj?.watch || {})
+    }
+
+    return this
   }
 }
 
 export type IRollupChain = InstanceType<typeof RollupChain>
 
 export default RollupChain
-
-// export types
-export * from './lib/types'

@@ -6,6 +6,8 @@ import type {
   IPluginManager
 } from '@xus/core'
 import type { IConfig } from './create'
+import { IMethods as IBuildLibMethods } from '@xus/plugin-build-lib'
+import { IMethods as IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
 
 type noopFn = () => any
 
@@ -35,4 +37,13 @@ export interface IPluginAPI extends IPluginAPIBase {
 
   // plugin manager
   skipPlugin: IPluginManager['skipPlugin']
+
+  // build lib plugin
+  modifyLibBundler: IBuildLibMethods['modifyLibBundler']
+  onLibBuildFailed: IBuildLibMethods['onLibBuildFailed']
+  onLibBuildSucceed: IBuildLibMethods['onLibBuildSucceed']
+  runBuild: IBuildLibMethods['runBuild']
+
+  // bundler rollup plugin
+  modifyRollupConfig: IBundlerRollupMethods['modifyRollupConfig']
 }

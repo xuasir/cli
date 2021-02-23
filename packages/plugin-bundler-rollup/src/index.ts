@@ -1,9 +1,11 @@
-import registerFn from './registerRollup'
-export default registerFn
+// plugin export
+import rollupBundlerPlugin from './plugin'
+export default rollupBundlerPlugin
 
-export { createRollupPluginConfig } from './options'
+export { default as RollupBundler } from './rollupBundler'
+export { default as RollupChain } from './rollupChian'
 
 // export types
 export * from './types'
-export { IRollupChain } from './rollupChian'
-export { IRollupManager } from './rollupManager'
+export type { IRollupChain } from './rollupChian'
+export type { IRollupBundler } from './rollupBundler'

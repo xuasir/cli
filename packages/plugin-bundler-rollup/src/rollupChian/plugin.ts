@@ -1,11 +1,11 @@
 import type { PluginImpl, Plugin as RollupPlugin } from 'rollup'
-import type { ChainedMapSet } from './lib/types'
+import type { IChainedMapSet } from './lib/types'
 import { ChainedMap } from './lib'
 
 class Plugin<T = any> extends ChainedMap<T> {
   private name: string
   private type: string
-  private init!: ChainedMapSet<
+  private init!: IChainedMapSet<
     (plugin: PluginImpl, args: any[]) => RollupPlugin,
     this
   >

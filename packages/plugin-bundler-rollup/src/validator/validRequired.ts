@@ -1,14 +1,13 @@
-import type { CompileConfig } from '../rollupChian'
-import type { CompileTargets } from '../types'
+import type { RollupOptions } from 'rollup'
 
-export default (config: CompileConfig, prefix: CompileTargets) => {
-  if (!config.input) {
-    throw new Error(`[config: ${prefix}] has no input options`)
+export default (config: RollupOptions) => {
+  if (!config?.input) {
+    throw new Error(`config has no input options`)
   }
-  if (!config.output) {
-    throw new Error(`[config: ${prefix}] has no output options`)
+  if (!config?.output) {
+    throw new Error(`config has no output options`)
   }
-  if (!config.plugins || config.plugins.length < 1) {
-    throw new Error(`[config: ${prefix}] has no plugins`)
+  if (!config?.plugins || config.plugins.length < 1) {
+    throw new Error(`config has no plugins`)
   }
 }

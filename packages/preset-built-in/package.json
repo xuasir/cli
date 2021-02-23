@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@xus/cli": "^0.0.1",
+    "@xus/plugin-build-lib": "^0.0.1",
+    "@xus/plugin-bundler-rollup": "^0.0.1",
     "@xus/plugin-command-commit-lint": "^0.0.1",
     "@xus/plugin-command-help": "^0.0.1"
   }

@@ -32,6 +32,8 @@
   "dependencies": {
     "@xus/cli-shared": "^0.0.1",
     "@xus/core": "^0.0.1",
+    "@xus/plugin-build-lib": "^0.0.1",
+    "@xus/plugin-bundler-rollup": "^0.0.1",
     "@xus/preset-built-in": "^0.0.1",
     "minimist": "^1.2.5"
   },
