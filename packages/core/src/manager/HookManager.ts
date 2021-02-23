@@ -25,7 +25,7 @@ export class HookManager {
   }
 
   // when apply to new a hook
-  async apply(ops: IHookApplyOps) {
+  async apply<T = void>(ops: IHookApplyOps) {
     const { name, type } = ops
     const hooks = this.hooksMap.get(name) || []
     if (hooks.length < 1) {
@@ -50,7 +50,7 @@ export class HookManager {
           )
         }
         // no args null for tapable types check
-        return await eventHook.promise(null)
+        return (await eventHook.promise(null)) as Promise<T>
 
       case HookTypes.add:
         // eslint-disable-next-line no-case-declarations
@@ -70,7 +70,7 @@ export class HookManager {
             }
           )
         }
-        return await addHook.promise(ops?.initialValue || [])
+        return (await addHook.promise(ops?.initialValue || [])) as Promise<T>
 
       case HookTypes.serial:
         // eslint-disable-next-line no-case-declarations
@@ -89,7 +89,7 @@ export class HookManager {
             }
           )
         }
-        return await serialHook.promise(ops?.initialValue || [])
+        return (await serialHook.promise(ops?.initialValue || [])) as Promise<T>
 
       case HookTypes.parallel:
         // eslint-disable-next-line no-case-declarations

@@ -3,12 +3,7 @@ import type { IPluginAPI } from './pluginAPI'
 
 export type IConfig = IProjectConfig
 
-export interface IPlugin {
-  name: IPluginBase['name']
-  config?: IPluginBase['config']
-  enforce?: IPluginBase['enforce']
-  apply: (api: IPluginAPI) => void
-}
+export type IPlugin = IPluginBase<(api: IPluginAPI) => void>
 
 export interface IPreset {
   plugins: IPlugin[]

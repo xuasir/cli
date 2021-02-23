@@ -1,15 +1,16 @@
+import type { IPluginAPI } from '../cli/PluginAPI'
 import type { IConfigSchemaValidator } from '@xus/cli-shared'
 
 // plugins / presets
 // api type override in @xus/cli
-export type IPluginApply = (api: any) => void
+export type IPluginApply = (api: IPluginAPI) => void
 type IEnforce = 'post' | 'pre'
 
-export interface IPlugin {
+export interface IPlugin<T extends (api: any) => void = IPluginApply> {
   // plugin only key
   name: string
   // plugin register method
-  apply: IPluginApply
+  apply: T
   // optional
   // plugin order
   enforce?: IEnforce

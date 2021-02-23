@@ -4,4 +4,4 @@ export { CliService, HookTypes } from '@xus/core'
 export * from './exports'
 
 // types
-export type { IArgs, IRawArgs, ICommand } from '@xus/core'
+export type { IArgs, IRawArgs, ICommand, IHook } from '@xus/core'

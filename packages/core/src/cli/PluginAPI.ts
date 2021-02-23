@@ -72,7 +72,7 @@ class PluginAPI {
     this.service.pluginMethods[methodName] =
       ops?.fn ||
       // point this to caller
-      function (fn: (...args: any[]) => any) {
+      function (fn: Omit<IHook, 'name' | 'pluginName'> | IHook['fn']) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.registerHook({
@@ -80,7 +80,7 @@ class PluginAPI {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           pluginName: this.pluginName,
-          fn
+          ...(typeof fn === 'function' ? { fn } : fn)
         })
       }
   }
