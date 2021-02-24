@@ -43,7 +43,7 @@ export interface IPluginAPI extends IPluginAPIBase {
   modifyLibBundler: IBuildLibMethods['modifyLibBundler']
   onLibBuildFailed: IBuildLibMethods['onLibBuildFailed']
   onLibBuildSucceed: IBuildLibMethods['onLibBuildSucceed']
-  runBuild: IBuildLibMethods['runBuild']
+  runLibBuild: IBuildLibMethods['runLibBuild']
 
   // bundler rollup plugin
   modifyRollupConfig: IBundlerRollupMethods['modifyRollupConfig']

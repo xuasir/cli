@@ -1,45 +1,48 @@
-import type { IBundler } from './types'
-import { createPlugin, HookTypes } from '@xus/cli'
-import { Methods } from './enum'
+import type { IBundler, ILibBuildOps } from './types'
+import { createPlugin, HookTypes, RollupBundler } from '@xus/cli'
+import { BuildLibMethods } from './enum'
 
 export default createPlugin({
-  name: 'build:lib',
+  name: 'lib:build',
   apply(api) {
     // global method
     api.registerMethod({
-      methodName: Methods.ModifyLibBundler,
+      methodName: BuildLibMethods.ModifyLibBundler,
       throwOnExist: false
     })
     api.registerMethod({
-      methodName: Methods.OnLibBuildSucceed,
+      methodName: BuildLibMethods.OnLibBuildSucceed,
       throwOnExist: false
     })
     api.registerMethod({
-      methodName: Methods.OnLibBuildFailed,
+      methodName: BuildLibMethods.OnLibBuildFailed,
       throwOnExist: false
     })
     api.registerMethod({
-      methodName: Methods.RunBuild,
+      methodName: BuildLibMethods.RunLibBuild,
       throwOnExist: false,
-      fn: async () => {
+      fn: async (ops: ILibBuildOps) => {
+        api.logger.debug(`get lib bundler: `)
         // get lib bundler
         const LibBundler = await api.applyHook<IBundler>({
-          name: Methods.ModifyLibBundler,
-          type: HookTypes.serial
+          name: BuildLibMethods.ModifyLibBundler,
+          type: HookTypes.serial,
+          initialValue: RollupBundler
         })
+        api.logger.debug(LibBundler)
 
         const libBundler = new LibBundler(api)
 
         try {
-          const stats = await libBundler.build()
+          const stats = await libBundler.build(ops)
           await api.applyHook({
-            name: Methods.OnLibBuildSucceed,
+            name: BuildLibMethods.OnLibBuildSucceed,
             type: HookTypes.event,
             args: stats
           })
         } catch (e) {
           await api.applyHook({
-            name: Methods.OnLibBuildFailed,
+            name: BuildLibMethods.OnLibBuildFailed,
             type: HookTypes.event,
             args: e
           })

@@ -19,3 +19,11 @@ export interface IHookApplyOps {
   initialValue?: any
   args?: any
 }
+
+export type IRegisterMethodArgs<
+  T extends (...args: any[]) => any = (...args: any[]) => any
+> = Omit<IHook<T>, 'name' | 'pluginName'> | T
+
+export type IFastHookRegister<
+  T extends (...args: any[]) => any = (...args: any[]) => any
+> = (ops: IRegisterMethodArgs<T>) => void

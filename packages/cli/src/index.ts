@@ -7,4 +7,10 @@ export * from '@xus/plugin-build-lib'
 export * from '@xus/plugin-bundler-rollup'
 
 // types
-export type { IArgs, IRawArgs, ICommand, IHook } from '@xus/core'
+export type {
+  IArgs,
+  IRawArgs,
+  ICommand,
+  IHook,
+  IFastHookRegister
+} from '@xus/core'

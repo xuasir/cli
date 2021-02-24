@@ -19,8 +19,8 @@
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:clib": "tsc --watch",
-    "build:clib": "tsc"
+    "dev:blib": "tsc --watch",
+    "build:blib": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"

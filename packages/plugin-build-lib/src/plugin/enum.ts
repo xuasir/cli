@@ -1,6 +1,6 @@
-export enum Methods {
+export enum BuildLibMethods {
   ModifyLibBundler = 'modifyLibBundler',
   OnLibBuildSucceed = 'onLibBuildSucceed',
   OnLibBuildFailed = 'onLibBuildFailed',
-  RunBuild = 'runBuild'
+  RunLibBuild = 'runLibBuild'
 }

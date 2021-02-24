@@ -1,4 +1,10 @@
-import type { ICommandFn, ICommandOps, IHook, IHookApplyOps } from '../types'
+import type {
+  ICommandFn,
+  ICommandOps,
+  IHook,
+  IHookApplyOps,
+  IRegisterMethodArgs
+} from '../types'
 import type { ICliService } from './Service'
 import { Logger } from '@xus/cli-shared'
 
@@ -72,7 +78,7 @@ class PluginAPI {
     this.service.pluginMethods[methodName] =
       ops?.fn ||
       // point this to caller
-      function (fn: Omit<IHook, 'name' | 'pluginName'> | IHook['fn']) {
+      function (fn: IRegisterMethodArgs) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.registerHook({

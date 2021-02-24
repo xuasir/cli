@@ -1,29 +1,37 @@
-import type { IPluginAPI } from '@xus/cli'
-import { Methods } from './enum'
+import type { IPluginAPI, IFastHookRegister } from '@xus/cli'
+import { BuildLibMethods } from './enum'
 
 // for register method
-export interface IMethods {
-  [Methods.ModifyLibBundler]: (bundler: IBundlerImp) => IBundlerImp
-  [Methods.OnLibBuildFailed]: (e: any) => void
-  [Methods.OnLibBuildSucceed]: (stats: IBuildRes) => void
-  [Methods.RunBuild]: () => void
+export interface IBuildLibMethods {
+  [BuildLibMethods.ModifyLibBundler]: IFastHookRegister<
+    (bundler: IBundlerImp) => IBundlerImp
+  >
+  [BuildLibMethods.OnLibBuildFailed]: IFastHookRegister<(e: any) => void>
+  [BuildLibMethods.OnLibBuildSucceed]: IFastHookRegister<
+    (stats: ILibBuildRes) => void
+  >
+  [BuildLibMethods.RunLibBuild]: (ops: Partial<ILibBuildOps>) => void
 }
 
-export type IModifyConfigContext = {
-  [key in ITargets]: boolean
-}
-
-// for bundler inter
-export interface IBuildStats {
+// for bundler imp
+export interface ILibBuildStats {
   info: string
 }
 
-export type IBuildRes = {
-  [key in ITargets]?: IBuildRes
+export type ILibBuildRes = {
+  [key in ILibBuildTargets]?: ILibBuildStats
+}
+
+export interface ILibBuildOps {
+  targets: ILibBuildTargets[]
+  watch: boolean
+  [key: string]: any
 }
 
 export interface IBundlerImp {
-  build: () => Promise<IBuildRes>
+  build: <T extends ILibBuildOps = ILibBuildOps>(
+    ops: T
+  ) => Promise<ILibBuildRes>
   [key: string]: any
 }
 
@@ -32,4 +40,4 @@ export interface IBundler extends IBundlerImp {
 }
 
 // for esm tagret
-export type ITargets = 'esm' | 'cjs' | 'browser' | 'modern'
+export type ILibBuildTargets = 'esm' | 'cjs' | 'browser' | 'modern'
