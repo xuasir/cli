@@ -106,6 +106,17 @@ export class CliService {
     ;['onConfigReady', 'onPluginReady', 'onRunCmd'].forEach((methodName) => {
       api.registerMethod({ methodName, throwOnExist: false })
     })
+    // register cmd args getter
+    api.registerMethod({
+      methodName: 'getCmdArgs',
+      throwOnExist: false,
+      fn: async () => {
+        return await this.HookManager.apply({
+          name: 'cmd:args',
+          type: HookTypes.serial
+        })
+      }
+    })
     // only proxy get
     const managerProxyMap = {
       ConfigManager: ['projectConfig', 'cwdPkgJson', 'loadConfig'],
@@ -181,7 +192,14 @@ export class CliService {
       name: 'runCmd',
       type: HookTypes.event
     })
-
+    // for api
+    this.HookManager.register({
+      name: 'cmd:args',
+      pluginName: 'xus:service',
+      fn() {
+        return { args, rawArgs }
+      }
+    })
     const { fn } = command
     return fn(args, rawArgs)
   }

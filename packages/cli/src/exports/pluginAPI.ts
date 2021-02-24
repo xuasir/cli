@@ -3,7 +3,9 @@ import type {
   IPathManager,
   IConfigManager,
   IEnvManager,
-  IPluginManager
+  IPluginManager,
+  IArgs,
+  IRawArgs
 } from '@xus/core'
 import type { IConfig } from './create'
 import { IBuildLibMethods } from '@xus/plugin-build-lib'
@@ -15,6 +17,7 @@ export interface IPluginAPI extends IPluginAPIBase {
   // service lifycycle
   onPluginReady: noopFn
   onRunCmd: noopFn
+  getCmdArgs: () => { args: IArgs; rawArgs: IRawArgs }
 
   // path manager
   cwd: IPathManager['cwd']

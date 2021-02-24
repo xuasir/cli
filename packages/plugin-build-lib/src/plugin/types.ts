@@ -25,13 +25,12 @@ export type ILibBuildRes = {
 export interface ILibBuildOps {
   targets: ILibBuildTargets[]
   watch: boolean
+  pointPkg: string
   [key: string]: any
 }
 
 export interface IBundlerImp {
-  build: <T extends ILibBuildOps = ILibBuildOps>(
-    ops: T
-  ) => Promise<ILibBuildRes>
+  build: (ops: ILibBuildOps) => Promise<ILibBuildRes>
   [key: string]: any
 }
 
