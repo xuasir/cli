@@ -3,13 +3,8 @@ import { statSync, readdirSync } from 'fs'
 import { getFileMeta, isLernaPkg } from '@xus/cli-shared'
 
 export class PathManager {
-  private ctxPath: string
-  constructor(ctx: string) {
-    this.ctxPath = ctx
-  }
-
   get cwd(): string {
-    return this.ctxPath || process.cwd()
+    return process.cwd()
   }
 
   get cwdPkg() {
@@ -18,7 +13,7 @@ export class PathManager {
 
   get userConfigPath() {
     const fileMeta = getFileMeta({
-      base: this.ctxPath,
+      base: this.cwd,
       filenameWithoutExt: 'xus.config'
     })
     return fileMeta && fileMeta.path
@@ -26,10 +21,10 @@ export class PathManager {
 
   // for plugins
   getPathBasedOnCtx(basedOnRoot: string): string {
-    return join(this.ctxPath, basedOnRoot)
+    return join(this.cwd, basedOnRoot)
   }
 
-  getLernaPkgs({ root = this.ctxPath, isRelativeCwd = false } = {}): string[] {
+  getLernaPkgs({ root = this.cwd, isRelativeCwd = false } = {}): string[] {
     const pkgRoot = join(root, 'packages')
     if (isLernaPkg(root) && statSync(pkgRoot).isDirectory()) {
       return (readdirSync(pkgRoot) || []).reduce<string[]>(

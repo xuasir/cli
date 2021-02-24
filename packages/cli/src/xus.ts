@@ -7,7 +7,6 @@ const rawArgs = process.argv.slice(2)
 const args = minimist(rawArgs)
 const commandName = args._[0]
 const ops = {
-  ctxPath: process.env.XUS_CLI_CONTEXT || process.cwd(),
   mode: args?.mode || 'development'
 }
 const cli = new XUSCliService(ops)

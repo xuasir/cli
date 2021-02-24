@@ -2,7 +2,6 @@ import { CliService } from '@xus/core'
 import presetBuiltIn from '@xus/preset-built-in'
 
 type IXUSCliServiceOps = {
-  ctxPath: string
   mode: string
 }
 

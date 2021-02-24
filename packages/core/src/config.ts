@@ -4,7 +4,6 @@ import { createSchema, validateSchema } from '@xus/cli-shared'
 
 export const ProjectConfigSchema = createSchema<IProjectConfig>((joi) => {
   return joi.object({
-    ctxPath: joi.string(),
     mode: joi.string(),
     plugins: joi.array(),
     presets: joi.array()
@@ -23,7 +22,6 @@ export function defaultProjectConfig(
 ): IProjectConfig {
   return {
     ...ops,
-    ctxPath: ops?.ctxPath || process.cwd(),
     mode: ops?.mode || 'development'
   }
 }

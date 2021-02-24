@@ -38,7 +38,7 @@ export class CliService {
     logger.debug(ops)
     // 1. init manager
     this.setStage(CliServiceStage.initManager)
-    this.PathManager = new PathManager(ops.ctxPath)
+    this.PathManager = new PathManager()
     this.EnvManager = new EnvManager({
       service: this,
       mode: ops.mode

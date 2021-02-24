@@ -2,10 +2,6 @@ import type { IPlugin, IPreset } from '.'
 
 export interface IProjectConfig {
   /**
-   * @description cwd or point path
-   */
-  ctxPath: string
-  /**
    * @description mode
    */
   mode: string

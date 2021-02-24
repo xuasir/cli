@@ -41,7 +41,6 @@ export class ConfigManager {
 
     this.finalConfig = deepmerge(
       defaultProjectConfig({
-        ctxPath: this.service.PathManager.cwd,
         mode: this.service.EnvManager.mode
       }),
       this.loadUserConfig()
@@ -89,7 +88,7 @@ export class ConfigManager {
     // valid plugin config
     for (const [pluginName, pluginValidator] of this.pluginValidators) {
       if (pluginName in this.finalConfig) {
-        pluginValidator!(this.finalConfig, (msg) => {
+        pluginValidator!(this.finalConfig[pluginName], (msg) => {
           logger.error(`project config invalid ${msg}`)
           process.exit(1)
         })
