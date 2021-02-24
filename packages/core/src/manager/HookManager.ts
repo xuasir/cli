@@ -8,6 +8,8 @@ type IHookManagerOps = {
   service: ICliService
 }
 
+const builtinHooks = ['configReady', 'pluginsReady', 'runCmd']
+
 const logger = new Logger(`xus:service:HookManager`)
 export class HookManager {
   private service: ICliService
@@ -28,7 +30,7 @@ export class HookManager {
   async apply<T = void>(ops: IHookApplyOps) {
     const { name, type } = ops
     const hooks = this.hooksMap.get(name) || []
-    if (hooks.length < 1) {
+    if (hooks.length < 1 && !builtinHooks.includes(name)) {
       logger.wran(`hook ${name} is empty`)
     }
     switch (type) {
@@ -36,11 +38,11 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const eventHook = new AsyncSeriesWaterfallHook(['_'])
         for (const hook of hooks) {
-          if (!this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
             continue
           eventHook.tapPromise(
             {
-              name: hook.name,
+              name: hook.pluginName,
               stage: hook.stage || 0,
               before: hook.before
             },
@@ -56,11 +58,11 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const addHook = new AsyncSeriesWaterfallHook<any[]>(['memo'])
         for (const hook of hooks) {
-          if (!this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
             continue
           addHook.tapPromise(
             {
-              name: hook.name,
+              name: hook.pluginName,
               stage: hook.stage || 0,
               before: hook.before
             },
@@ -76,11 +78,11 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const serialHook = new AsyncSeriesWaterfallHook<any>(['memo'])
         for (const hook of hooks) {
-          if (!this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
             continue
           serialHook.tapPromise(
             {
-              name: hook.name,
+              name: hook.pluginName,
               stage: hook.stage || 0,
               before: hook.before
             },
@@ -95,11 +97,11 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const parallelHook = new AsyncParallelHook(['_'])
         for (const hook of hooks) {
-          if (!this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
             continue
           parallelHook.tapPromise(
             {
-              name: hook.name,
+              name: hook.pluginName,
               stage: hook.stage || 0,
               before: hook.before
             },

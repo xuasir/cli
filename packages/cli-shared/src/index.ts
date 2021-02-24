@@ -6,6 +6,7 @@ export { default as assert } from 'assert'
 export { default as deepmerge } from 'deepmerge'
 export { default as resolve } from 'resolve'
 export { default as lodash } from 'lodash'
+export { default as rimraf } from 'rimraf'
 
 // custom
 export { Logger } from './logger'

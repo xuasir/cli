@@ -117,7 +117,13 @@ export class CliService {
         'getCliEnv',
         'setCliEnv'
       ],
-      PathManager: ['cwd', 'cwdPkg', 'userConfigPath', 'getPathBasedOnCtx'],
+      PathManager: [
+        'cwd',
+        'cwdPkg',
+        'userConfigPath',
+        'getPathBasedOnCtx',
+        'getLernaPkgs'
+      ],
       PluginManager: ['skipPlugin']
     }
 
@@ -133,7 +139,7 @@ export class CliService {
           if (keys.includes(key)) {
             const ret = (this as any)[manager][key]
             return typeof ret === 'function'
-              ? ret.bind(this.ConfigManager)
+              ? ret.bind((this as any)[manager])
               : ret
           }
         }

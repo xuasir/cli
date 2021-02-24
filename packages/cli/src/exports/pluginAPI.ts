@@ -6,8 +6,8 @@ import type {
   IPluginManager
 } from '@xus/core'
 import type { IConfig } from './create'
-import { IMethods as IBuildLibMethods } from '@xus/plugin-build-lib'
-import { IMethods as IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
+import { IBuildLibMethods } from '@xus/plugin-build-lib'
+import { IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
 
 type noopFn = () => any
 
@@ -21,6 +21,7 @@ export interface IPluginAPI extends IPluginAPIBase {
   cwdPkg: IPathManager['cwdPkg']
   userConfigPath: IPathManager['userConfigPath']
   getPathBasedOnCtx: IPathManager['getPathBasedOnCtx']
+  getLernaPkgs: IPathManager['getLernaPkgs']
 
   // env manager
   mode: IEnvManager['mode']
