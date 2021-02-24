@@ -9,6 +9,7 @@ export default createPlugin({
       'clean',
       {
         desc: 'a command for clean dir',
+        usage: `xus clean --dirOrFile dist --point 'plugin|preset'`,
         options: {
           '--dirOrFile': 'point need to clean dir or file name',
           '--skip':
@@ -38,6 +39,8 @@ export default createPlugin({
             .flat()
             .filter((dirPath) => existsSync(dirPath))
             .forEach((dir) => {
+              api.logger.debug(`register dir to clean hook: `)
+              api.logger.debug(dir)
               api.registerHook({
                 name: `remove.dir`,
                 pluginName: 'cmd:clean',
@@ -48,6 +51,7 @@ export default createPlugin({
             })
 
           try {
+            api.logger.debug(`apply clean hook`)
             await api.applyHook({
               name: 'remove.dir',
               type: HookTypes.parallel

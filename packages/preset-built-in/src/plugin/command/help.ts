@@ -6,7 +6,6 @@ import {
   chalk,
   createPlugin
 } from '@xus/cli'
-import { getPadLength } from './pad'
 
 export default createPlugin({
   name: 'commandHelp',
@@ -26,18 +25,18 @@ export default createPlugin({
 
 function logAll(commads: Record<string, ICommand>) {
   console.info(
-    `\n  usage: ${chalk.green(`xus-cli <command> [options]`)}` + `\n  Commands:`
+    `\nusage: ${chalk.green(`xus-cli <command> [options]`)}` + `\nCommands:`
   )
   const padLen = getPadLength(commads)
   for (const name in commads) {
     if (name !== 'help') {
       const ops = commads[name].ops
-      console.info(`\n    ${chalk.blue(name.padEnd(padLen))}${ops?.desc || ''}`)
+      console.info(`\n  ${chalk.blue(name.padEnd(padLen))}${ops?.desc || ''}`)
     }
   }
   console.info(
-    `\n  run ${chalk.green(`xus-cli help [command]`)}` +
-      `\n  for detail information of specific command`
+    `\nrun ${chalk.green(`xus-cli help [command]`)}` +
+      `\nfor detail information of specific command\n`
   )
 }
 
@@ -61,4 +60,12 @@ function logPointCommand(name: string, commad: ICommand) {
     }
   }
   console.info('')
+}
+
+function getPadLength(obj: Record<string, any>): number {
+  let longest = 10
+  for (const name in obj) {
+    if (name.length + 1 > longest) longest = name.length + 1
+  }
+  return longest
 }

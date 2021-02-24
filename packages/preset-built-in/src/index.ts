@@ -1,12 +1,12 @@
 import { createPreset } from '@xus/cli'
 // plugins
-import commandHelp from '@xus/plugin-command-help'
-import commitlint from '@xus/plugin-command-commit-lint'
 import buildLib from '@xus/plugin-build-lib'
 import bundlerRollup from '@xus/plugin-bundler-rollup'
 // cmd
+import commandHelp from './plugin/command/help'
+import cmdCommitlint from './plugin/command/commitlint'
 import cmdClean from './plugin/command/clean'
 
 export default createPreset({
-  plugins: [commandHelp, commitlint, buildLib, bundlerRollup, cmdClean]
+  plugins: [buildLib, bundlerRollup, commandHelp, cmdCommitlint, cmdClean]
 })

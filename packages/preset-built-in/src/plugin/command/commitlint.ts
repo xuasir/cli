@@ -1,9 +1,14 @@
 import { createPlugin, chalk } from '@xus/cli'
-import { HuskyGitParamsEnv, GitParamsEnv, commitRE, mergeRE } from './constants'
 import { readFileSync } from 'fs-extra'
 
+// const
+const HuskyGitParamsEnv = 'HUSKY_GIT_PARAMS'
+const GitParamsEnv = 'GIT_PARAMS'
+const commitRE = /^(revert: )?(fix|feat|docs|perf|test|types|style|build|chore|refactor|ci|wip|breaking change)(\(.+\))?: .{1,50}/
+const mergeRE = /Merge /
+
 export default createPlugin({
-  name: 'commandCommitlint',
+  name: 'cmd:commitlint',
   apply(api) {
     api.registerCommand(
       'commit-lint',
@@ -14,11 +19,21 @@ export default createPlugin({
       () => {
         const gitMsgPath = api.getEnv(GitParamsEnv)
         const huskyMsgPath = api.getEnv(HuskyGitParamsEnv)
+
+        api.logger.debug(`git message path: `)
+        api.logger.debug(gitMsgPath)
+        api.logger.debug(`husky message path: `)
+        api.logger.debug(huskyMsgPath)
+
         const msgPath = gitMsgPath || huskyMsgPath
         if (msgPath) {
           const commitMsg = readFileSync(msgPath, 'utf-8').trim()
+
+          api.logger.debug(`commit message content: `)
+          api.logger.debug(commitMsg)
+
           if (!commitRE.test(commitMsg) && !mergeRE.test(commitMsg)) {
-            api.logger.info(`invalid commit message: "${chalk.red(
+            api.logger.error(`invalid commit message: "${chalk.red(
               commitMsg.replace(/# .*/, ' ')
             )}".
   
@@ -50,7 +65,7 @@ export default createPlugin({
           }
           return
         }
-        api.logger.log(chalk.red(`no HUSKY_GIT_PARAMS`))
+        api.logger.wran(chalk.red(`no HUSKY_GIT_PARAMS`))
         process.exit(1)
       }
     )
