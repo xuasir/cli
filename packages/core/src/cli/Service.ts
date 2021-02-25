@@ -1,7 +1,8 @@
 // types
 import type { ICliServerOps, ICommand, IArgs, IRawArgs } from '../types'
-import { Logger } from '@xus/cli-shared'
+import { Logger, BabelRegister } from '@xus/cli-shared'
 import { CliServiceStage, HookTypes } from '../enums'
+import { CONFIG_FILES } from '../constants'
 import {
   ConfigManager,
   EnvManager,
@@ -28,6 +29,8 @@ export class CliService {
   PluginManager
   HookManager
 
+  BabelRegister
+
   protected setStage(nextStage: CliServiceStage) {
     this.stage = nextStage
   }
@@ -38,6 +41,7 @@ export class CliService {
     logger.debug(ops)
     // 1. init manager
     this.setStage(CliServiceStage.initManager)
+    this.BabelRegister = new BabelRegister()
     this.PathManager = new PathManager()
     this.EnvManager = new EnvManager({
       service: this,
@@ -64,6 +68,10 @@ export class CliService {
     logger.debug(this.HookManager)
 
     // 2. init config (without plugin config)
+    this.BabelRegister.setOnlyMap({
+      key: 'xus:config',
+      value: CONFIG_FILES
+    })
     this.setStage(CliServiceStage.initUserConfig)
     this.ConfigManager.initUserConfig()
 
@@ -140,6 +148,10 @@ export class CliService {
 
     return new Proxy(api, {
       get: (target, key: string) => {
+        // proxy to service
+        if (['BabelRegister'].includes(key)) {
+          return (this as any)[key]
+        }
         // registerMethods
         if (this.pluginMethods[key]) {
           return this.pluginMethods[key].bind(api)

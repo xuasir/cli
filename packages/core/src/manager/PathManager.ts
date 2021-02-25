@@ -1,6 +1,7 @@
 import { join, relative } from 'path'
 import { statSync, readdirSync } from 'fs'
 import { getFileMeta, isLernaPkg } from '@xus/cli-shared'
+import { CONFIG_FILENAME } from '../constants'
 
 export class PathManager {
   get cwd(): string {
@@ -14,7 +15,8 @@ export class PathManager {
   get userConfigPath() {
     const fileMeta = getFileMeta({
       base: this.cwd,
-      filenameWithoutExt: 'xus.config'
+      filenameWithoutExt: CONFIG_FILENAME,
+      type: 'js'
     })
     return fileMeta && fileMeta.path
   }

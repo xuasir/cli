@@ -7,6 +7,7 @@ import type {
   IArgs,
   IRawArgs
 } from '@xus/core'
+import type { IBabelRegister } from '@xus/cli-shared'
 import type { IConfig } from './create'
 import { IBuildLibMethods } from '@xus/plugin-build-lib'
 import { IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
@@ -14,6 +15,8 @@ import { IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
 type noopFn = () => any
 
 export interface IPluginAPI extends IPluginAPIBase {
+  // service api
+  BabelRegister: IBabelRegister
   // service lifycycle
   onPluginReady: noopFn
   onRunCmd: noopFn

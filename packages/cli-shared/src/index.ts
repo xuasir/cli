@@ -18,7 +18,7 @@ export { createEnvNameWithXusPrefix } from './env'
 export * from './file'
 export { loadModule } from './loadModule'
 export * from './pkg'
-export { BabelRegister } from './BabelRegister'
+export { BabelRegister, IBabelRegister } from './BabelRegister'
 
 // types export
 export type {

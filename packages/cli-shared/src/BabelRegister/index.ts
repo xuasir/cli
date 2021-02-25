@@ -3,7 +3,7 @@ import { createDebug, lodash, winPath } from '../'
 const debug = createDebug('xus:shared:BabelRegister')
 
 export class BabelRegister {
-  only: Record<string, string[]> = {}
+  private only: Record<string, string[]> = {}
 
   setOnlyMap({ key, value }: { key: string; value: string[] }) {
     debug(`set ${key} of only map:`)
@@ -12,7 +12,7 @@ export class BabelRegister {
     this.register()
   }
 
-  register() {
+  private register() {
     const only = lodash.uniq(
       Object.keys(this.only)
         .reduce<string[]>((memo, key) => {
@@ -38,3 +38,5 @@ export class BabelRegister {
     })
   }
 }
+
+export type IBabelRegister = InstanceType<typeof BabelRegister>
