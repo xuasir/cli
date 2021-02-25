@@ -22,6 +22,8 @@ export class HookManager {
 
   register(hook: IHook) {
     const { name } = hook
+    logger.debug(`register hook ${name}`)
+    logger.debug(hook)
     // TODO: valid name fn ??
     this.hooksMap.set(name, [...(this.hooksMap.get(name) || []), hook])
   }
@@ -30,6 +32,8 @@ export class HookManager {
   async apply<T = void>(ops: IHookApplyOps) {
     const { name, type } = ops
     const hooks = this.hooksMap.get(name) || []
+    logger.debug(`run hook ${name} `)
+    logger.debug(hooks)
     if (hooks.length < 1 && !builtinHooks.includes(name)) {
       logger.wran(`hook ${name} is empty`)
     }
@@ -38,7 +42,7 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const eventHook = new AsyncSeriesWaterfallHook(['_'])
         for (const hook of hooks) {
-          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsDisable(hook.pluginName))
             continue
           eventHook.tapPromise(
             {
@@ -58,7 +62,7 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const addHook = new AsyncSeriesWaterfallHook<any[]>(['memo'])
         for (const hook of hooks) {
-          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsDisable(hook.pluginName))
             continue
           addHook.tapPromise(
             {
@@ -78,7 +82,7 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const serialHook = new AsyncSeriesWaterfallHook<any>(['memo'])
         for (const hook of hooks) {
-          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsDisable(hook.pluginName))
             continue
           serialHook.tapPromise(
             {
@@ -97,7 +101,7 @@ export class HookManager {
         // eslint-disable-next-line no-case-declarations
         const parallelHook = new AsyncParallelHook(['_'])
         for (const hook of hooks) {
-          if (this.service.PluginManager.pluginIsEnable(hook.pluginName))
+          if (this.service.PluginManager.pluginIsDisable(hook.pluginName))
             continue
           parallelHook.tapPromise(
             {

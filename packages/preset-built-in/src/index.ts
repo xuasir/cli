@@ -1,12 +1,7 @@
-import { createPreset } from '@xus/cli'
-// plugins
-import buildLib from '@xus/plugin-build-lib'
-import bundlerRollup from '@xus/plugin-bundler-rollup'
-// cmd
-import commandHelp from './plugin/command/help'
-import cmdCommitlint from './plugin/command/commitlint'
-import cmdClean from './plugin/command/clean'
+import presetBuiltIn from './preset'
+export default presetBuiltIn
 
-export default createPreset({
-  plugins: [buildLib, bundlerRollup, commandHelp, cmdCommitlint, cmdClean]
-})
+// export
+export * from '@xus/plugin-build-lib'
+export * from '@xus/plugin-bundler-rollup'
+export * from '@xus/plugin-cmd-lib'

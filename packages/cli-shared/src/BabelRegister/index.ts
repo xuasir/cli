@@ -23,16 +23,18 @@ export class BabelRegister {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('@babel/register')({
       presets: [
-        require.resolve('@xus/babel-preset'),
-        {
-          targets: { node: 'current' },
-          useTransformRuntime: false,
-          useTypescript: true
-        }
+        [
+          require('@xus/babel-preset'),
+          {
+            targets: { node: 'current' },
+            useTransformRuntime: false,
+            useTypescript: true
+          }
+        ]
       ],
       ignore: [/node_modules/],
       only,
-      extensions: ['.jsx', '.js', '.ts', '.tsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       babelrc: false,
       cache: false
     })

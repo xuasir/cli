@@ -1,5 +1,5 @@
 import { createPlugin, chalk } from '@xus/cli'
-import { readFileSync } from 'fs-extra'
+import { readFileSync } from 'fs'
 
 // const
 const HuskyGitParamsEnv = 'HUSKY_GIT_PARAMS'

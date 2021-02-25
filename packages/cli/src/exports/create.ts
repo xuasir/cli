@@ -1,7 +1,10 @@
 import type { IPlugin as IPluginBase, IProjectConfig } from '@xus/core'
+import type { ILibBuildConfig } from '@xus/preset-built-in'
 import type { IPluginAPI } from './pluginAPI'
 
-export type IConfig = IProjectConfig
+export interface IConfig extends Partial<IProjectConfig> {
+  libBuild: Partial<ILibBuildConfig>
+}
 
 export type IPlugin = IPluginBase<(api: IPluginAPI) => void>
 

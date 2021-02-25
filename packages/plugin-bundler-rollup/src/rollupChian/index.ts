@@ -1,5 +1,5 @@
 import type { RollupOptions } from 'rollup'
-import type { IChainedMapSet } from './lib/types'
+import type { IChainedMapSet, IRollupConfig } from './lib/types'
 // ops
 import { ChainedMap, ChainedSet } from './lib'
 import Output from './output'
@@ -7,8 +7,8 @@ import Plugin, { IPlugin } from './plugin'
 import Treeshake from './treeshake'
 import Watch from './watch'
 
-class RollupChain<T = any> extends ChainedMap<T> {
-  input!: IChainedMapSet<RollupOptions['input'], this>
+class RollupChain extends ChainedMap {
+  input!: IChainedMapSet<string | string[], this>
   cache!: IChainedMapSet<RollupOptions['cache'], this>
   onwarn!: IChainedMapSet<RollupOptions['onwarn'], this>
   context!: IChainedMapSet<RollupOptions['context'], this>
@@ -18,8 +18,8 @@ class RollupChain<T = any> extends ChainedMap<T> {
   output
   private plugins
 
-  constructor(parent: T) {
-    super(parent)
+  constructor() {
+    super()
     this.external = new ChainedSet<this, string | RegExp>(this)
     this.output = new Output<this>(this)
     this.treeshake = new Treeshake<this>(this)
@@ -43,7 +43,7 @@ class RollupChain<T = any> extends ChainedMap<T> {
       .map((plugin) => (plugin as IPlugin).toConfig())
       .filter(Boolean)
 
-    const finalEntries = this.clean(entries) as RollupOptions
+    const finalEntries = this.clean(entries) as IRollupConfig
     return !Object.keys(finalEntries).length ? null : finalEntries
   }
 

@@ -1,10 +1,9 @@
-// export types
-import minimist from 'minimist'
+import { yParser } from '@xus/cli-shared'
 import { XUSCliService } from './Service'
 // 1. init cli
 // 2. get args
 const rawArgs = process.argv.slice(2)
-const args = minimist(rawArgs)
+const args = yParser(rawArgs)
 const commandName = args._[0]
 const ops = {
   mode: args?.mode || 'development'

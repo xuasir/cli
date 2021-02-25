@@ -1,17 +1,24 @@
-import type { ITargets } from '@xus/plugin-build-lib'
+import type { ILibBuildTargets, IFastHookRegister } from '@xus/cli'
 import type { IRollupChain } from './rollupChian'
 
-export enum Methods {
+// for plugin
+export enum BundlerRollupMethods {
   ModifyRollupConfig = 'modifyRollupConfig'
 }
 
 export type IModifyRollupConfigCtx = {
-  [key in ITargets]: boolean
+  [key in ILibBuildTargets]: boolean
 }
 
-export type IMethods = {
-  [Methods.ModifyRollupConfig]: (
-    rollupChain: IRollupChain,
-    ctx: IModifyRollupConfigCtx
-  ) => IRollupChain
+export type IBundlerRollupMethods = {
+  [BundlerRollupMethods.ModifyRollupConfig]: IFastHookRegister<
+    (rollupChain: IRollupChain, ctx: IModifyRollupConfigCtx) => IRollupChain
+  >
+}
+
+// for bundler
+export interface IDoBuildOps {
+  target: ILibBuildTargets
+  watch: boolean
+  pointPkg: string
 }

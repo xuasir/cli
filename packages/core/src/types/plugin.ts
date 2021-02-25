@@ -1,4 +1,4 @@
-import type { IConfigSchemaValidator } from '@xus/cli-shared'
+import type { IConfigSchema } from '@xus/cli-shared'
 
 // plugins / presets
 // api type override in @xus/cli
@@ -22,8 +22,10 @@ export interface IPreset {
 }
 
 export interface IPluginConfig<T = any> {
+  key: string
   default?: () => T
-  validator?: IConfigSchemaValidator<T>
+  // validator?: IConfigSchemaValidator<T>
+  schema?: IConfigSchema
   // when config change how to do
   // onChange
 }

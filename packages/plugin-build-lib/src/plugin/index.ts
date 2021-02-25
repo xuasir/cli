@@ -4,6 +4,7 @@ import { BuildLibMethods } from './enum'
 
 export default createPlugin({
   name: 'lib:build',
+  enforce: 'pre',
   apply(api) {
     // global method
     api.registerMethod({

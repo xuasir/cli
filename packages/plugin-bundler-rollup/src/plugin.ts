@@ -1,13 +1,14 @@
 import { createPlugin } from '@xus/cli'
-import { Methods } from './types'
+import { BundlerRollupMethods } from './types'
+import RollupBundler from './rollupBundler'
 
 export default createPlugin({
-  name: 'rollup:bundler',
-  enforce: 'pre',
+  name: 'bundler:rollup',
   apply(api) {
     api.registerMethod({
-      methodName: Methods.ModifyRollupConfig,
+      methodName: BundlerRollupMethods.ModifyRollupConfig,
       throwOnExist: false
     })
+    api.modifyLibBundler(() => RollupBundler)
   }
 })

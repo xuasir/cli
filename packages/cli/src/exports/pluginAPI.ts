@@ -8,9 +8,8 @@ import type {
   IRawArgs
 } from '@xus/core'
 import type { IBabelRegister } from '@xus/cli-shared'
+import { IBuildLibMethods, IBundlerRollupMethods } from '@xus/preset-built-in'
 import type { IConfig } from './create'
-import { IBuildLibMethods } from '@xus/plugin-build-lib'
-import { IBundlerRollupMethods } from '@xus/plugin-bundler-rollup'
 
 type noopFn = () => any
 

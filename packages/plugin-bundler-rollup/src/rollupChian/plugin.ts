@@ -23,7 +23,10 @@ class Plugin<T = any> extends ChainedMap<T> {
     })
   }
 
-  use<T extends PluginImpl>(plugin: T, args?: Parameters<T>) {
+  use<T extends PluginImpl<Record<string, any>>>(
+    plugin: T,
+    args?: Parameters<T>
+  ) {
     this.set('plugin', plugin)
     if (args) {
       this.set('args', args)

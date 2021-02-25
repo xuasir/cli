@@ -28,7 +28,6 @@
   "dependencies": {
     "@xus/cli": "^0.0.1",
     "@xus/plugin-build-lib": "^0.0.1",
-    "rollup": "^2.38.3",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup": "^2.38.3"
   }
 }

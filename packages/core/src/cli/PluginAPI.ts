@@ -79,11 +79,9 @@ class PluginAPI {
       ops?.fn ||
       // point this to caller
       function (fn: IRegisterMethodArgs) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.registerHook({
           name: methodName,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           pluginName: this.pluginName,
           ...(typeof fn === 'function' ? { fn } : fn)

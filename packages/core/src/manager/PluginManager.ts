@@ -80,16 +80,17 @@ export class PluginManager {
     logger.debug(`apply plugins success`)
   }
 
-  pluginIsEnable(pluginName: string) {
+  pluginIsDisable(pluginName: string) {
     // custom skip
-    if (this.skipPluginNames.has(pluginName)) return false
+    if (this.skipPluginNames.has(pluginName)) return true
 
     // config set to false
     const pluginConfig =
       this.service.ConfigManager.projectConfig[pluginName] || null
-    if (pluginConfig === false) return false
+    if (pluginConfig === false) return true
 
     // TODO: plugin enableBy ??
+    return false
   }
 
   // for plugin api

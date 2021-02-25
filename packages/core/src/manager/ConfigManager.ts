@@ -1,7 +1,7 @@
 import type { IProjectConfig, IPluginConfig, IPackage } from '../types'
 import type { ICliService } from '../cli/Service'
-import { Logger, loadModule, deepmerge } from '@xus/cli-shared'
-import { projectConfigValidator, defaultProjectConfig } from '../config'
+import { Logger, loadModule, deepmerge, validateSchema } from '@xus/cli-shared'
+import { defaultProjectConfig, ProjectConfigSchema } from '../config'
 
 type IProjectConfigPartial = Partial<IProjectConfig>
 
@@ -18,7 +18,7 @@ export class ConfigManager {
   private pkgJson
 
   private pluginConfigs = new Map<string, IPluginConfig>()
-  private pluginValidators = new Map<string, IPluginConfig['validator']>()
+  private projectSchema = ProjectConfigSchema
   private pluginDefaults: Record<string, any> = {}
 
   constructor(ops: IConfigManagerOps) {
@@ -79,21 +79,13 @@ export class ConfigManager {
   }
 
   validConfig() {
+    logger.debug(`valid config `)
+    logger.debug(this.projectSchema)
     // valid project
-    projectConfigValidator(this.finalConfig, (msg) => {
+    validateSchema(this.finalConfig, this.projectSchema, (msg) => {
       logger.error(`project config invalid ${msg}`)
       process.exit(1)
     })
-
-    // valid plugin config
-    for (const [pluginName, pluginValidator] of this.pluginValidators) {
-      if (pluginName in this.finalConfig) {
-        pluginValidator!(this.finalConfig[pluginName], (msg) => {
-          logger.error(`project config invalid ${msg}`)
-          process.exit(1)
-        })
-      }
-    }
     logger.debug(`valid config success`)
   }
 
@@ -111,10 +103,12 @@ export class ConfigManager {
     this.pluginConfigs.set(pluginName, pluginConfig)
     // split plugin config
     if (pluginConfig.default) {
-      this.pluginDefaults[pluginName] = pluginConfig.default()
+      this.pluginDefaults[pluginConfig.key] = pluginConfig.default()
     }
-    if (pluginConfig.validator) {
-      this.pluginValidators.set(pluginName, pluginConfig.validator)
+    if (pluginConfig.schema) {
+      this.projectSchema = this.projectSchema.keys({
+        [pluginConfig.key]: pluginConfig.schema
+      })
     }
   }
 

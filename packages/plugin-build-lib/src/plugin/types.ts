@@ -4,7 +4,7 @@ import { BuildLibMethods } from './enum'
 // for register method
 export interface IBuildLibMethods {
   [BuildLibMethods.ModifyLibBundler]: IFastHookRegister<
-    (bundler: IBundlerImp) => IBundlerImp
+    (bundler: IBundler) => IBundler
   >
   [BuildLibMethods.OnLibBuildFailed]: IFastHookRegister<(e: any) => void>
   [BuildLibMethods.OnLibBuildSucceed]: IFastHookRegister<
@@ -34,7 +34,7 @@ export interface IBundlerImp {
   [key: string]: any
 }
 
-export interface IBundler extends IBundlerImp {
+export interface IBundler {
   new (api: IPluginAPI): IBundlerImp
 }
 
