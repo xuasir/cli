@@ -44,15 +44,18 @@ class RollupBundler implements IBundlerImp {
       pointPkg: ''
     }
   ) {
+    logger.debug(`build ops `)
+    logger.debug(ops)
     const { targets, ...rest } = ops
     for (const target of targets as ILibBuildTargets[]) {
+      logger.info(chalk.yellow(`build ${target} bundler start \n`))
       if (isLernaPkg(this.api.cwd)) {
-        return await this.doBuildForLerna({
+        await this.doBuildForLerna({
           target,
           ...rest
         })
       } else {
-        return await this.doBuild({
+        await this.doBuild({
           target,
           ...rest
         })
@@ -72,7 +75,6 @@ class RollupBundler implements IBundlerImp {
     if (config) {
       // 2. validate config
       this.validConfig(config)
-      logger.info(chalk.yellow(`build ${target} bundler start \n`))
       // real build
       const { input, ...restConfig } = config
       if (Array.isArray(input)) {
@@ -114,15 +116,12 @@ class RollupBundler implements IBundlerImp {
 
   private async rollup(config: IRollupConfig) {
     const { input, output, ...buildConfig } = config
-    logger.info(`Rollup ${input}...`)
+    logger.info(chalk.green(`Rollup ${input}... -> ${output.file}...`))
     const bundler = await rollup({
       input,
       ...buildConfig
     })
-    if (output) {
-      logger.info(`write ${output.file}...`)
-      await bundler.write(output)
-    }
+    await bundler.write(output)
   }
 }
 

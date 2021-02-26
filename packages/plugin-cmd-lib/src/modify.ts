@@ -67,19 +67,23 @@ export const ensureOutput = (
   if (ctx.esm) {
     rc.output.file(outFile.replace(/.js$/, getExt('esm', isProd))).format('es')
   } else if (ctx.cjs) {
-    rc.output.file(outFile.replace(/.js$/, getExt('cjs', isProd))).format('cjs')
+    rc.output
+      .file(outFile.replace(/.js$/, getExt('cjs', isProd)))
+      .format('cjs')
+      .exports('named')
   } else if (ctx.browser) {
     if (!globalName)
       throw new Error(`build for browser should has a global name`)
 
     rc.output
       .file(outFile.replace(/.js$/, getExt('global', isProd)))
-      .format('iife')
+      .format('umd')
       .globals({
         vue: 'Vue',
         react: 'React',
         'react-dom': 'ReactDom'
       })
+      .exports('named')
   } else if (ctx.modern) {
     rc.output
       .file(outFile.replace(/.js$/, getExt('modern', isProd)))
@@ -112,8 +116,16 @@ export const ensureCommonPlugin = (
   }
 
   rc.plugin(BuiltInRollupPlugin.Json).use(json)
-  rc.plugin(BuiltInRollupPlugin.Alias).use(alias)
-  rc.plugin(BuiltInRollupPlugin.Replace).use(replace)
+  rc.plugin(BuiltInRollupPlugin.Alias).use(alias, [
+    {
+      entries: [{ find: '@', replacement: join(api.cwd, 'src') }]
+    }
+  ])
+  rc.plugin(BuiltInRollupPlugin.Replace).use(replace, [
+    {
+      preventAssignment: true
+    }
+  ])
 }
 
 export const ensureCorePlugin = (
@@ -147,6 +159,7 @@ export const ensureCorePlugin = (
       }
     ])
   }
+  api.logger.debug(`vue version ${vueVersion}`)
 
   // babel
   rc.plugin(BuiltInRollupPlugin.Babel).use(babel, [
@@ -172,6 +185,9 @@ export const ensureCorePlugin = (
         `current build for typescript, but don't have a tsconfig.json`
       )
 
+    // vue jsxFactory h
+    const vueTsx = vueVersion ? { jsx: 'preserve', jsxFactory: 'h' } : {}
+
     rc.plugin(BuiltInRollupPlugin.Typescript)
       .use(typescript2, [
         {
@@ -181,7 +197,8 @@ export const ensureCorePlugin = (
           tsconfig: tsconfigPath,
           tsconfigDefaults: {
             compilerOptions: {
-              declaration: true
+              declaration: true,
+              ...vueTsx
             }
           },
           tsconfigOverride: {

@@ -46,5 +46,8 @@
   },
   "devDependencies": {
     "@types/semver": "^7.3.4"
+  },
+  "peerDependencies": {
+    "core-js": "^3.9.0"
   }
 }

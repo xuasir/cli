@@ -21,21 +21,27 @@ export default createPlugin({
         usage: 'xus lib',
         options: {
           '--pkg': 'point pkg dir name with RegExp',
-          '--target': 'point build target esm|cjs|browser|modern',
+          '--targets': 'point build target esm|cjs|browser|modern',
           '--watch': 'watch mode'
         }
       },
       (args) => {
+        api.logger.debug(`raw args `)
+        api.logger.debug(args)
+
         const config = api.projectConfig.libBuild
         // handle of args
         let targets = config?.targets || DefaultTargets
-        if (args?.target) {
-          targets = args?.target
+        if (args?.targets) {
+          targets = (args?.targets as string)
             .split(',')
-            .filter((target: string) =>
+            .filter((target) =>
               DefaultTargets.includes(target as ILibBuildTargets)
             )
         }
+
+        api.logger.debug(`build targets `)
+        api.logger.debug(targets)
 
         api.logger.debug(`modify config `)
         // default config should run before user modify

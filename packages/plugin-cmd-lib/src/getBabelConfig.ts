@@ -10,8 +10,10 @@ export default (ctx: IModifyRollupConfigCtx, isVue = false) => {
         [
           preset,
           {
+            modules: false,
             useESModules: true,
-            absoluteRuntime: false
+            absoluteRuntime: false,
+            vueJSX: isVue
           }
         ]
       ]
@@ -22,9 +24,12 @@ export default (ctx: IModifyRollupConfigCtx, isVue = false) => {
         [
           preset,
           {
+            modules: false,
             usageMode: true,
             useESModules: true,
-            useTransformRuntime: false
+            useTransformRuntime: false,
+            useDynamicImport: true,
+            vueJSX: isVue
           }
         ]
       ]
@@ -37,7 +42,8 @@ export default (ctx: IModifyRollupConfigCtx, isVue = false) => {
           {
             targets: { node: 'current' },
             absoluteRuntime: false,
-            useDynamicImport: true
+            useDynamicImport: true,
+            vueJSX: isVue
           }
         ]
       ]
@@ -50,7 +56,8 @@ export default (ctx: IModifyRollupConfigCtx, isVue = false) => {
           {
             usageMode: true,
             useTransformRuntime: false,
-            useDynamicImport: true
+            useDynamicImport: true,
+            vueJSX: isVue
           }
         ]
       ]
