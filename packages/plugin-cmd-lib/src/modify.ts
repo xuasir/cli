@@ -1,6 +1,6 @@
 import type { IRollupChain, IModifyRollupConfigCtx, IPluginAPI } from '@xus/cli'
 import type { IPkg } from './types'
-import { getFileMeta, lookUpFile } from '@xus/cli'
+import { getFileMeta, lookUpFile, resolve } from '@xus/cli'
 import semver from 'semver'
 import { join, extname } from 'path'
 import { BuiltInRollupPlugin } from './enum'
@@ -20,6 +20,9 @@ import typescript2 from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import vue2 from '@xus/rollup-plugin-vue2'
 import vue3 from 'rollup-plugin-vue'
+// css
+import postcss from 'rollup-plugin-postcss'
+import autoprefixer from 'autoprefixer'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.vue']
 
@@ -139,7 +142,9 @@ export const ensureCorePlugin = (
   let vueVersion: null | number = null
   try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const Vue = require('vue')
+    const Vue = require(resolve.sync('vue', {
+      basedir: api.getCliEnv('Lerna_Root') || api.cwd
+    }))
     vueVersion = semver.major(Vue.version)
   } catch (e) {
     //
@@ -154,7 +159,7 @@ export const ensureCorePlugin = (
   } else if (vueVersion === 3) {
     rc.plugin(BuiltInRollupPlugin.Vue).use(vue3, [
       {
-        target: 'browser',
+        target: ctx.cjs ? 'node' : 'browser',
         exposeFilename: false
       }
     ])
@@ -162,9 +167,15 @@ export const ensureCorePlugin = (
   api.logger.debug(`vue version ${vueVersion}`)
 
   // babel
+  // change cwd to lerna root for preset/vue sniff vue version
+  const cwd = api.cwd
+  const lernaRoot = api.getCliEnv('Lerna_Root') || cwd
+  process.chdir(lernaRoot)
+  const babelConfig = getBabelConfig(ctx, !!vueVersion)
+  process.chdir(cwd)
   rc.plugin(BuiltInRollupPlugin.Babel).use(babel, [
     {
-      ...getBabelConfig(ctx, !!vueVersion),
+      ...babelConfig,
       babelHelpers: ctx.browser || ctx.modern ? 'bundled' : 'runtime',
       exclude: /\/node_modules\//,
       babelrc: false,
@@ -225,6 +236,17 @@ export const ensureCorePlugin = (
       }
     ])
   }
+
+  // postcss
+  rc.plugin(BuiltInRollupPlugin.Postcss).use(postcss, [
+    {
+      extract: true,
+      inject: false,
+      modules: false,
+      autoModules: true,
+      plugins: [autoprefixer({ remove: false })]
+    }
+  ])
 }
 
 export const ensureOtherConfig = (

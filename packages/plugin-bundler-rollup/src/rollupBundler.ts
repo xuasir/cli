@@ -50,6 +50,7 @@ class RollupBundler implements IBundlerImp {
     for (const target of targets as ILibBuildTargets[]) {
       logger.info(chalk.yellow(`build ${target} bundler start \n`))
       if (isLernaPkg(this.api.cwd)) {
+        this.api.setCliEnv('Lerna_Root', this.api.cwd)
         await this.doBuildForLerna({
           target,
           ...rest

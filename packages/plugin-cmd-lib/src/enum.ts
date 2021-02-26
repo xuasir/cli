@@ -4,7 +4,7 @@ export enum BuiltInRollupPlugin {
   Typescript = 'typescript',
   Babel = 'babel',
   Vue = 'vue',
-  Inject = 'inject',
+  Postcss = 'postcss',
   Alias = 'alias',
   Replace = 'replace',
   Svgr = 'svgr',
