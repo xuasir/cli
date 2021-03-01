@@ -1,11 +1,12 @@
 # `cli`
 
-> TODO: description
+插件化脚手架
 
 ## Usage
 
 ```
-const cli = require('cli');
+npm i @xus.cli
 
-// TODO: DEMONSTRATE API
+cmd:
+xus <sub-cmd> [options]
 ```

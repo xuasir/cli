@@ -1,11 +1,3 @@
 # `cli`
 
-> TODO: description
-
-## Usage
-
-```
-const cli = require('cli');
-
-// TODO: DEMONSTRATE API
-```
+脚手架核心代码
