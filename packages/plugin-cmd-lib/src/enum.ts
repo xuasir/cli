@@ -12,3 +12,5 @@ export enum BuiltInRollupPlugin {
   Json = 'json',
   Terser = 'terser'
 }
+
+export const ExternalMatchBabelReg = new RegExp(/^@babel\/runtime/)

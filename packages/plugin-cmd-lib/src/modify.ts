@@ -3,7 +3,7 @@ import type { IPkg } from './types'
 import { getFileMeta, lookUpFile, resolve } from '@xus/cli'
 import semver from 'semver'
 import { join, extname } from 'path'
-import { BuiltInRollupPlugin } from './enum'
+import { BuiltInRollupPlugin, ExternalMatchBabelReg } from './enum'
 import getBabelConfig from './getBabelConfig'
 // rollup plugin
 // @ts-ignore
@@ -275,13 +275,9 @@ export const ensureOtherConfig = (
   }
 
   // external
-  rc.external
-    .set(/^vue/)
-    .set(/^@babel\/runtime/)
-    .set('react')
-    .set('react-dom')
-  if (ctx.browser || ctx.modern) {
-    rc.external.delete(/^@babel\/runtime/)
+  rc.external.set('vue').set('react').set('react-dom')
+  if (ctx.esm || ctx.cjs) {
+    rc.external.set(ExternalMatchBabelReg)
   }
 
   api.logger.debug(`external: ${rc.external.values()}`)
