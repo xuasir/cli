@@ -20,7 +20,7 @@ export default createPlugin({
         desc: 'bunlde js ts react for lib mode, based on rollup',
         usage: 'xus lib',
         options: {
-          '--pkg': 'point pkg dir name with RegExp',
+          '--pkg': 'point pkg dir name',
           '--targets': 'point build target esm|cjs|browser|modern',
           '--watch': 'watch mode'
         }
@@ -73,10 +73,14 @@ export default createPlugin({
 
         // run
         api.logger.debug(`run lib build `)
+        const pointPkgs = args?.pkg
+          ? (args?.pkg as string).split(',')
+          : undefined
         api.runLibBuild({
           targets: targets as ILibBuildTargets[],
-          pointPkg: config?.pkg || args?.pkg || '',
-          watch: !!args?.watch
+          pointPkg: config?.pointPkgs || pointPkgs || undefined,
+          watch: !!args?.watch,
+          order: config?.pkgOrder
         })
 
         // on success

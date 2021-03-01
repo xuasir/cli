@@ -8,29 +8,26 @@ export interface IBuildLibMethods {
   >
   [BuildLibMethods.OnLibBuildFailed]: IFastHookRegister<(e: any) => void>
   [BuildLibMethods.OnLibBuildSucceed]: IFastHookRegister<
-    (stats: ILibBuildRes) => void
+    (stats: ILibBuildStats) => void
   >
   [BuildLibMethods.RunLibBuild]: (ops: Partial<ILibBuildOps>) => void
 }
 
 // for bundler imp
 export interface ILibBuildStats {
-  info: string
-}
-
-export type ILibBuildRes = {
-  [key in ILibBuildTargets]?: ILibBuildStats
+  info?: string
+  watch: boolean
 }
 
 export interface ILibBuildOps {
   targets: ILibBuildTargets[]
   watch: boolean
-  pointPkg: string
-  [key: string]: any
+  pointPkg?: string[]
+  order?: string[]
 }
 
 export interface IBundlerImp {
-  build: (ops: ILibBuildOps) => Promise<ILibBuildRes>
+  build: (ops: ILibBuildOps) => Promise<ILibBuildStats>
   [key: string]: any
 }
 

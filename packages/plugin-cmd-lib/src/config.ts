@@ -1,19 +1,17 @@
-import type { IConfigSchemaValidator } from '@xus/cli'
 import type { ILibBuildConfig } from './types'
-import { createSchema, validateSchema } from '@xus/cli'
+import { createSchema } from '@xus/cli'
 
 export const libBuildSchema = createSchema<ILibBuildConfig>((joi) =>
   joi.object({
     targets: joi.array(),
-    pkg: joi.string(),
+    pointPkgs: joi.array(),
+    pkgOrder: joi.array(),
     rollupChain: joi.function()
   })
 )
 
 export const defaultLibBuildConfig: () => ILibBuildConfig = () => {
   return {
-    targets: ['esm', 'cjs', 'browser', 'modern'],
-    pkg: '',
-    rollupChain: (rc) => rc
+    targets: ['esm', 'cjs', 'browser']
   }
 }

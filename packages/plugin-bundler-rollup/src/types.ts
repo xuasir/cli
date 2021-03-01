@@ -1,4 +1,8 @@
-import type { ILibBuildTargets, IFastHookRegister } from '@xus/cli'
+import type {
+  ILibBuildTargets,
+  IFastHookRegister,
+  ILibBuildOps
+} from '@xus/cli'
 import type { IRollupChain } from './rollupChian'
 
 // for plugin
@@ -16,9 +20,6 @@ export type IBundlerRollupMethods = {
   >
 }
 
-// for bundler
-export interface IDoBuildOps {
+export type IDoBuildOps = {
   target: ILibBuildTargets
-  watch: boolean
-  pointPkg: string
-}
+} & Omit<ILibBuildOps, 'targets'>
