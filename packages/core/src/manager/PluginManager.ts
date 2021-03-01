@@ -25,12 +25,17 @@ export class PluginManager {
 
   resolvePluginAndPreset() {
     const finalPlugins = []
+    const configPlugins =
+      this.service.ConfigManager.projectConfig?.plugins || []
+    const configPresets =
+      this.service.ConfigManager.projectConfig?.presets || []
     // 1. resolve preset to plugin head
-    this.presets.forEach((preset) => {
+    ;[...this.presets, ...configPresets].forEach((preset) => {
       const { plugins = [] } = preset
       finalPlugins.push(...plugins)
     })
     finalPlugins.push(...this.plugins)
+    finalPlugins.push(...configPlugins)
 
     // 2. skip/deduplication/order/register config
     const prePlugins: IPlugin[] = []
