@@ -1,6 +1,6 @@
 {
   "name": "@xus/preset-built-in",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "xus cli built in preset",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

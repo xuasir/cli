@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-bundler-rollup",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "xus cli plugin rollup bundler",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

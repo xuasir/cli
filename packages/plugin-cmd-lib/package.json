@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-cmd-lib",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a bundle for js ts react",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
