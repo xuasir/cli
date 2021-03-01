@@ -30,8 +30,8 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-shared": "^0.0.1",
-    "@xus/core": "^0.0.1",
-    "@xus/preset-built-in": "^0.0.1"
+    "@xus/cli-shared": "^0.1.0",
+    "@xus/core": "^0.1.0",
+    "@xus/preset-built-in": "^0.1.0"
   }
 }

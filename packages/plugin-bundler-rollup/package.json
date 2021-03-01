@@ -26,8 +26,8 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.0.1",
-    "@xus/plugin-build-lib": "^0.0.1",
+    "@xus/cli": "^0.1.0",
+    "@xus/plugin-build-lib": "^0.1.0",
     "rollup": "^2.38.3"
   }
 }
