@@ -5,7 +5,8 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "allowBranch": ["main"]
+      "allowBranch": ["main"],
+      "message": "release: "
     }
   }
 }
