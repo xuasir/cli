@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-bundler-rollup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "xus cli plugin rollup bundler",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
   "license": "MIT",
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
