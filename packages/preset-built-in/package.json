@@ -1,6 +1,6 @@
 {
   "name": "@xus/preset-built-in",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "xus cli built in preset",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,9 +26,9 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.1.0",
-    "@xus/plugin-build-lib": "^0.1.0",
-    "@xus/plugin-bundler-rollup": "^0.1.0",
-    "@xus/plugin-cmd-lib": "^0.1.0"
+    "@xus/cli": "^0.1.1",
+    "@xus/plugin-build-lib": "^0.1.1",
+    "@xus/plugin-bundler-rollup": "^0.1.1",
+    "@xus/plugin-cmd-lib": "^0.1.1"
   }
 }

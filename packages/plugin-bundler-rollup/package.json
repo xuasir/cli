@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-bundler-rollup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "xus cli plugin rollup bundler",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,8 +26,8 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.1.0",
-    "@xus/plugin-build-lib": "^0.1.0",
+    "@xus/cli": "^0.1.1",
+    "@xus/plugin-build-lib": "^0.1.1",
     "rollup": "^2.38.3"
   }
 }
