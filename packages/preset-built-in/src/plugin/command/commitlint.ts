@@ -4,7 +4,7 @@ import { readFileSync } from 'fs'
 // const
 const HuskyGitParamsEnv = 'HUSKY_GIT_PARAMS'
 const GitParamsEnv = 'GIT_PARAMS'
-const commitRE = /^(revert: )?(fix|feat|docs|perf|test|types|style|build|chore|refactor|ci|wip|breaking change)(\(.+\))?: .{1,50}/
+const commitRE = /^(revert: )?(fix|feat|docs|perf|test|types|style|build|chore|refactor|ci|wip|breaking change|release)(\(.+\))?: .{1,50}/
 const mergeRE = /Merge /
 
 export default createPlugin({
@@ -60,6 +60,7 @@ export default createPlugin({
   - refactor (代码重构)
   - breaking change (重大变更)
   - Merge branch 'foo' into 'bar' (分支合并)
+  - release (发布版本)
           `)
             process.exit(1)
           }
