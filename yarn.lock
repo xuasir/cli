@@ -2713,10 +2713,10 @@
     core-js "^3.8.1"
     semver "^7.3.4"
 
-"@xus/babel-preset@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@xus/babel-preset/-/babel-preset-0.1.8.tgz#b73a8219655d2580391c6669a376a52cb1f2ee64"
-  integrity sha512-fqkobkbwUV3h8sotZYMfFbv6ijrxmDqyzcv9uEgkVaP9tBkoGeOxeHlJ2mtHEG9zIiGVOLAYUNl7pFfFHuuN/A==
+"@xus/babel-preset@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@xus/babel-preset/-/babel-preset-0.1.9.tgz#20a6a8f0d811d3027efb1e1baab1adff2a303db0"
+  integrity sha512-CLnYmKz9AmPDghEvUXLrpMdLygto6zLwsRGv7DsFCh7NgXgmRqMaiblh1HB06jlc3RxtGFKL6eskh6oWyZ5K3g==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "7.12.1"
