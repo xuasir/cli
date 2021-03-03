@@ -1,14 +1,23 @@
-import type { IBundler, ILibBuildOps } from './types'
-import { createPlugin, HookTypes, RollupBundler } from '@xus/cli'
+import type { IBundler, ILibBuildOps, ILibBuildTargets } from './types'
+import RollupChain from '@xus/rollup-chain'
+import { createPlugin, HookTypes } from '@xus/cli'
+import { RollupBundler } from '../bundler'
+import { defaultLibBuildConfig, libBuildSchema } from './config'
 import { BuildLibMethods } from './enum'
+import { getModifyConfigCtx } from './utils'
 
 export default createPlugin({
   name: 'lib:build',
   enforce: 'pre',
   apply(api) {
     // global method
+    // fast hook register method
     api.registerMethod({
       methodName: BuildLibMethods.ModifyLibBundler,
+      throwOnExist: false
+    })
+    api.registerMethod({
+      methodName: BuildLibMethods.ModifyRollupConfig,
       throwOnExist: false
     })
     api.registerMethod({
@@ -18,6 +27,20 @@ export default createPlugin({
     api.registerMethod({
       methodName: BuildLibMethods.OnLibBuildFailed,
       throwOnExist: false
+    })
+    // quick get
+    api.registerMethod({
+      methodName: BuildLibMethods.GetRollupChainConfig,
+      throwOnExist: false,
+      fn: async (target: ILibBuildTargets) => {
+        const rc = new RollupChain()
+        return await api.applyHook({
+          name: BuildLibMethods.ModifyRollupConfig,
+          type: HookTypes.serial,
+          initialValue: rc,
+          args: getModifyConfigCtx(target)
+        })
+      }
     })
     api.registerMethod({
       methodName: BuildLibMethods.RunLibBuild,
@@ -50,5 +73,10 @@ export default createPlugin({
         }
       }
     })
+  },
+  config: {
+    key: 'libBuild',
+    default: defaultLibBuildConfig,
+    schema: libBuildSchema
   }
 })

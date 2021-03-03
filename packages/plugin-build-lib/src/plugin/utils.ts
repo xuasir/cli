@@ -1,4 +1,4 @@
-import type { ILibBuildTargets } from '@xus/cli'
+import type { ILibBuildTargets } from './types'
 
 export const getModifyConfigCtx = (target: ILibBuildTargets) => {
   const ctx = {
@@ -9,8 +9,4 @@ export const getModifyConfigCtx = (target: ILibBuildTargets) => {
   }
   ctx[target] = true
   return ctx
-}
-
-export const normalizeRollupConfig = () => {
-  //
 }

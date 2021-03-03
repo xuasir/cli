@@ -8,7 +8,7 @@ import type {
   IRawArgs
 } from '@xus/core'
 import type { IBabelRegister } from '@xus/cli-shared'
-import { IBuildLibMethods, IBundlerRollupMethods } from '@xus/preset-built-in'
+import { IBuildLibMethods } from '@xus/preset-built-in'
 import type { IConfig } from './create'
 
 type noopFn = () => any
@@ -46,10 +46,9 @@ export interface IPluginAPI extends IPluginAPIBase {
 
   // build lib plugin
   modifyLibBundler: IBuildLibMethods['modifyLibBundler']
+  modifyRollupConfig: IBuildLibMethods['modifyRollupConfig']
+  getRollupChainConfig: IBuildLibMethods['getRollupChainConfig']
   onLibBuildFailed: IBuildLibMethods['onLibBuildFailed']
   onLibBuildSucceed: IBuildLibMethods['onLibBuildSucceed']
   runLibBuild: IBuildLibMethods['runLibBuild']
-
-  // bundler rollup plugin
-  modifyRollupConfig: IBundlerRollupMethods['modifyRollupConfig']
 }

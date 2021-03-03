@@ -2713,6 +2713,11 @@
     core-js "^3.8.1"
     semver "^7.3.4"
 
+"@xus/rollup-chain@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@xus/rollup-chain/-/rollup-chain-0.2.2.tgz#cddc844a239a0146221c2c302b7a86983194a4fc"
+  integrity sha512-SxuDyHm4xQ06A/9H7THptgTk05dfoV1VmJFVwE9t6rRqUkmjdOSzpcKQ0sy66p2BJODHuAPC118CR/qdaAsCGw==
+
 "@xus/rollup-plugin-vue2@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@xus/rollup-plugin-vue2/-/rollup-plugin-vue2-1.0.0.tgz#f169c3867b062fd1e21369ec93dca0423d1937da"
@@ -8526,13 +8531,6 @@ rollup-pluginutils@^2.8.2:
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
   dependencies:
     estree-walker "^0.6.1"
-
-rollup@^2.38.3:
-  version "2.38.3"
-  resolved "https://npm.c2cloud.cn/rollup/download/rollup-2.38.3.tgz#2a0b6cc6eab1da4431aab875a31a401fa2988c10"
-  integrity sha1-Kgtsxuqx2kQxqrh1oxpAH6KYjBA=
-  optionalDependencies:
-    fsevents "~2.3.1"
 
 run-async@^2.2.0:
   version "2.4.1"

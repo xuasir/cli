@@ -1,6 +1,5 @@
 import type { ILibBuildTargets } from '@xus/cli'
 import { createPlugin } from '@xus/cli'
-import { defaultLibBuildConfig, libBuildSchema } from './config'
 import {
   defaultInput,
   ensureOutput,
@@ -93,10 +92,5 @@ export default createPlugin({
         })
       }
     )
-  },
-  config: {
-    key: 'libBuild',
-    default: defaultLibBuildConfig,
-    schema: libBuildSchema
   }
 })

@@ -1,17 +1,14 @@
-import type { IPluginAPI, IBundlerImp, ILibBuildTargets } from '@xus/cli'
-import type { IRollupChain } from './rollupChian'
-import type { IRollupConfig } from './rollupChian/lib/types'
+import type { IPluginAPI } from '@xus/cli'
+import type { IRollupChainConfig } from '@xus/rollup-chain'
+import type { IBundlerImp, ILibBuildTargets } from '../plugin/types'
 import type { IDoBuildOps } from './types'
+import { Logger, isLernaPkg, chalk } from '@xus/cli'
 import { basename, join } from 'path'
 import { rollup, watch } from 'rollup'
-import { Logger, HookTypes, isLernaPkg, chalk } from '@xus/cli'
-import { getModifyConfigCtx } from './utils'
-import { BundlerRollupMethods } from './types'
-import RollupChain from './rollupChian'
 import rollupValidator from './validator'
 
 const logger = new Logger(`xus:bundler:rollup`)
-class RollupBundler implements IBundlerImp {
+export class RollupBundler implements IBundlerImp {
   private api
 
   constructor(api: IPluginAPI) {
@@ -19,21 +16,15 @@ class RollupBundler implements IBundlerImp {
   }
 
   private async getConfig(target: ILibBuildTargets) {
-    const rc = new RollupChain()
     // get final config
-    const rollupChain = await this.api.applyHook<IRollupChain>({
-      name: BundlerRollupMethods.ModifyRollupConfig,
-      type: HookTypes.serial,
-      initialValue: rc,
-      args: getModifyConfigCtx(target)
-    })
+    const rollupChain = await this.api.getRollupChainConfig(target)
 
     logger.debug(`apply modify rollup config hook success`)
 
     return rollupChain.toConfig()
   }
 
-  private validConfig(config: IRollupConfig) {
+  private validConfig(config: IRollupChainConfig) {
     rollupValidator(config)
   }
 
@@ -133,7 +124,7 @@ class RollupBundler implements IBundlerImp {
     return {}
   }
 
-  private async rollup(config: IRollupConfig, isWatch = false) {
+  private async rollup(config: IRollupChainConfig, isWatch = false) {
     if (isWatch) {
       const watcher = watch([
         {
@@ -166,5 +157,3 @@ class RollupBundler implements IBundlerImp {
 }
 
 export type IRollupBundler = InstanceType<typeof RollupBundler>
-
-export default RollupBundler

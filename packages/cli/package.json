@@ -1,6 +1,6 @@
 {
   "name": "@xus/cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "xus cli",
   "keywords": [
     "cli",
@@ -32,6 +32,6 @@
   "dependencies": {
     "@xus/cli-shared": "^0.1.1",
     "@xus/core": "^0.1.2",
-    "@xus/preset-built-in": "^0.1.2"
+    "@xus/preset-built-in": "^0.1.3"
   }
 }
