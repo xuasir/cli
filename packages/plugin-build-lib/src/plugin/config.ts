@@ -12,6 +12,6 @@ export const libBuildSchema = createSchema<ILibBuildConfig>((joi) =>
 
 export const defaultLibBuildConfig: () => ILibBuildConfig = () => {
   return {
-    targets: ['esm', 'cjs', 'browser']
+    targets: []
   }
 }
