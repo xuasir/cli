@@ -8,6 +8,7 @@ export { default as resolve } from 'resolve'
 export { default as lodash } from 'lodash'
 export { default as semver } from 'semver'
 export { prompt } from 'enquirer'
+export { default as fastGlob } from 'fast-glob'
 
 // custom
 export { Logger } from './logger'

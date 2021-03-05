@@ -37,6 +37,7 @@
     "deepmerge": "^4.2.2",
     "enquirer": "^2.3.6",
     "execa": "^5.0.0",
+    "fast-glob": "^3.2.5",
     "joi": "^17.4.0",
     "lodash": "^4.17.21",
     "log-symbols": "^4.0.0",

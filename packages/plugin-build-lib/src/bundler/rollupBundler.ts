@@ -148,7 +148,7 @@ export class RollupBundler implements IBundlerImp {
       })
     } else {
       const { input, output, ...buildConfig } = config
-      logger.info(chalk.green(`[write] ${input} -> ${output.file}`))
+      logger.info(chalk.green(`[Write] ${input} -> ${output.file}`))
       const bundler = await rollup({
         input,
         ...buildConfig,

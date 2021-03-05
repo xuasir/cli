@@ -1,6 +1,14 @@
 import type { IRollupChain, IModifyRollupConfigCtx, IPluginAPI } from '@xus/cli'
 import type { IPkg } from './types'
-import { getFileMeta, lookUpFile, resolve, semver } from '@xus/cli'
+import {
+  getFileMeta,
+  lookUpFile,
+  resolve,
+  semver,
+  fastGlob,
+  removeDirOrFile
+} from '@xus/cli'
+import { readdirSync, statSync } from 'fs'
 import { join, extname, dirname } from 'path'
 import { BuiltInRollupPlugin, ExternalMatchBabelReg } from './enum'
 import getBabelConfig from './getBabelConfig'
@@ -94,10 +102,21 @@ export const ensureOutput = (
       .file(outFile.replace(/.js$/, getExt('modern', isProd)))
       .format('es')
   } else if (ctx.rollTypes) {
+    const outDir = dirname(outFile)
     rc.clear()
-    rc.input(join(dirname(outFile), 'index.d.ts'))
+    rc.input(join(outDir, 'index.d.ts'))
     rc.plugin(BuiltInRollupPlugin.Dts).use(dts)
-    rc.output.file(join(dirname(outFile), 'index.d.ts')).format('es')
+    rc.output.file(join(outDir, 'index.d.ts')).format('es')
+    api.onLibBuildSucceed(async () => {
+      const match = await fastGlob([
+        join(outDir, '**/*.d.ts'),
+        `!${join(outDir, 'index.d.ts')}`
+      ])
+      const dir = readdirSync(outDir)
+        .map((d) => join(outDir, d))
+        .filter((p) => statSync(p).isDirectory())
+      await removeDirOrFile([...match, ...dir])
+    })
   }
 
   api.logger.debug(rc.output.get('file'))
@@ -224,8 +243,8 @@ export const ensureCorePlugin = (
               target: 'esnext',
               module: 'esnext',
               // sourceMap: !isCheckedTypes,
-              declaration: !isCheckedTypes,
-              declarationMap: !isCheckedTypes
+              declaration: !isCheckedTypes
+              // declarationMap: !isCheckedTypes
             }
           }
         }
