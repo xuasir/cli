@@ -24,6 +24,7 @@ export { BabelRegister, IBabelRegister } from './BabelRegister'
 export * from './rimraf'
 export * from './runCmd'
 export * from './orderBy'
+export * from './pkgManager'
 
 // types export
 export type {

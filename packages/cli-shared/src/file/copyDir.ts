@@ -1,16 +1,16 @@
 import { mkdirSync, readdirSync, statSync, copyFileSync } from 'fs'
 import { resolve } from 'path'
 
-export function copyDir(srcDir: string, destDir: string) {
-  mkdirSync(destDir, { recursive: true })
-  for (const file of readdirSync(srcDir)) {
-    const srcFile = resolve(srcDir, file)
-    const destFile = resolve(destDir, file)
-    const stat = statSync(srcFile)
+export function copy(src: string, dest: string) {
+  mkdirSync(dest, { recursive: true })
+  for (const file of readdirSync(src)) {
+    const srcPath = resolve(src, file)
+    const destPath = resolve(dest, file)
+    const stat = statSync(srcPath)
     if (stat.isDirectory()) {
-      copyDir(srcFile, destFile)
+      copy(srcPath, destPath)
     } else {
-      copyFileSync(srcFile, destFile)
+      copyFileSync(srcPath, destPath)
     }
   }
 }
