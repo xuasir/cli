@@ -1,9 +1,17 @@
 import type { IPlugin as IPluginBase, IProjectConfig } from '@xus/core'
-import type { ILibBuildConfig } from '@xus/preset-built-in'
+import type {
+  ILibBuildConfig,
+  ILintConfig,
+  IChangelogConfig,
+  IReleaseConfig
+} from '@xus/preset-built-in'
 import type { IPluginAPI } from './pluginAPI'
 
-export interface IConfig extends Partial<IProjectConfig> {
-  libBuild: Partial<ILibBuildConfig>
+export interface IConfig extends IProjectConfig {
+  libBuild: ILibBuildConfig
+  lint: ILintConfig
+  changelog: IChangelogConfig
+  release: IReleaseConfig
 }
 
 export type IPlugin = IPluginBase<(api: IPluginAPI) => void>
@@ -15,4 +23,4 @@ export interface IPreset {
 export const createPlugin = (plugin: IPlugin) => plugin
 export const createPreset = (preset: IPreset) => preset
 
-export const defineConfig = (config: IConfig) => config
+export const defineConfig = (config: Partial<IConfig>) => config

@@ -19,7 +19,7 @@ export class ConfigManager {
 
   private pluginConfigs = new Map<string, IPluginConfig>()
   private projectSchema = ProjectConfigSchema
-  private pluginDefaults: Record<string, any> = {}
+  private pluginDefaults: Record<string, IPluginConfig> = {}
 
   constructor(ops: IConfigManagerOps) {
     this.service = ops.service
@@ -53,7 +53,7 @@ export class ConfigManager {
   initPluginConfig() {
     this.finalConfig = deepmerge(
       {
-        ...this.pluginConfigs
+        ...this.pluginDefaults
       },
       this.finalConfig
     )

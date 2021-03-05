@@ -6,7 +6,8 @@ export { default as assert } from 'assert'
 export { default as deepmerge } from 'deepmerge'
 export { default as resolve } from 'resolve'
 export { default as lodash } from 'lodash'
-export { default as rimraf } from 'rimraf'
+export { default as semver } from 'semver'
+export { prompt } from 'enquirer'
 
 // custom
 export { Logger } from './logger'
@@ -19,6 +20,9 @@ export * from './file'
 export { loadModule } from './loadModule'
 export * from './pkg'
 export { BabelRegister, IBabelRegister } from './BabelRegister'
+export * from './rimraf'
+export * from './runCmd'
+export * from './orderBy'
 
 // types export
 export type {

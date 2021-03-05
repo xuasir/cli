@@ -1,4 +1,4 @@
-import { createPlugin, HookTypes, rimraf } from '@xus/cli'
+import { createPlugin, removeDirOrFile, emptyDir } from '@xus/cli'
 import { existsSync } from 'fs'
 import { join, relative } from 'path'
 
@@ -9,8 +9,9 @@ export default createPlugin({
       'clean',
       {
         desc: 'a command for clean dir',
-        usage: `xus clean --dirOrFile dist --point 'plugin|preset'`,
+        usage: `xus clean --dirOrFile dist --point 'core|shared'`,
         options: {
+          '--mode': 'empty or remove',
           '--dirOrFile': 'point need to clean dir or file name',
           '--skip':
             'use RegExp to skip some packages/** dir name in lerna project',
@@ -21,8 +22,8 @@ export default createPlugin({
         if (args.dirOrFile) {
           const skipRE = args?.skip ? new RegExp(args.skip) : false
           const pointRE = args?.point ? new RegExp(args.point) : false
-
-          ;(args.dirOrFile as string)
+          api.logger.debug(`handle of dir `)
+          const dirs = (args.dirOrFile as string)
             .split(',')
             .map((dir) => [
               api.getPathBasedOnCtx(dir),
@@ -38,24 +39,15 @@ export default createPlugin({
             ])
             .flat()
             .filter((dirPath) => existsSync(dirPath))
-            .forEach((dir) => {
-              api.logger.debug(`register dir to clean hook: `)
-              api.logger.debug(dir)
-              api.registerHook({
-                name: `remove.dir`,
-                pluginName: 'cmd:clean',
-                fn: () => {
-                  rimraf.sync(dir)
-                }
-              })
-            })
 
           try {
-            api.logger.debug(`apply clean hook`)
-            await api.applyHook({
-              name: 'remove.dir',
-              type: HookTypes.parallel
-            })
+            api.logger.debug(`clean dir or file ${dirs}`)
+            const mode = args?.mode || 'remove'
+            if (mode === 'remove') {
+              await removeDirOrFile(dirs)
+            } else if (mode === 'empty') {
+              await Promise.all(dirs.map(emptyDir))
+            }
             api.logger.success(`clean dir or file succeed`)
           } catch (e) {
             api.logger.error(`clean dir or file failed, ${e.massage}`)

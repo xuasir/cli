@@ -1,2 +1,6 @@
 export * from './getFileMeta'
 export * from './lookUpFile'
+export * from './removeDirOrFile'
+export * from './writeFile'
+export * from './emptyDir'
+export * from './copyDir'

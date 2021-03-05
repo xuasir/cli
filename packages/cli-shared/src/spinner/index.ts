@@ -5,13 +5,9 @@ import logSymbols from 'log-symbols'
 type OraIns = ora.Ora | null
 
 export class Spinner {
-  private oraIns: OraIns
+  private oraIns!: OraIns
 
-  constructor() {
-    this.oraIns = ora()
-  }
-
-  log(msg: string) {
+  start(msg: string) {
     if (this.oraIns) {
       this.oraIns.stop()
     } else {
