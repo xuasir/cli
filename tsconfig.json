@@ -6,6 +6,7 @@
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "moduleResolution": "node",
     "lib": ["esnext", "dom"]
   },
   "exclude": ["**/__test__/**/*"]

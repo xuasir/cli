@@ -37,13 +37,15 @@ export class RollupBundler implements IBundlerImp {
     logger.debug(`build ops `)
     logger.debug(ops)
     const { targets, ...rest } = ops
+    const islerna = isLernaPkg(this.api.cwd)
+    this.memoPkgs = null
     for (const target of targets as ILibBuildTargets[]) {
       logger.info(
         chalk.yellow(
           `[${rest.watch ? 'Watch' : 'Rollup'}] ${target} bundler start \n`
         )
       )
-      if (isLernaPkg(this.api.cwd)) {
+      if (islerna) {
         this.api.setCliEnv('Lerna_Root', this.api.cwd)
         await this.doBuildForLerna({
           target,
@@ -93,27 +95,29 @@ export class RollupBundler implements IBundlerImp {
     return {}
   }
 
+  private memoPkgs: string[] | null = null
   private async doBuildForLerna(ops: IDoBuildOps) {
     // lerna pkg
     logger.debug(`do lerna pkgs build `)
-    const order = ops?.order
-    const pointPkg = ops?.pointPkg
-    const filterPkgs = this.api
-      .getLernaPkgs()
-      .filter((pkg) => (pointPkg ? pointPkg.includes(basename(pkg)) : true))
-    // to order
-    let pkgs: string[] = []
-    if (!order) {
-      pkgs = filterPkgs
-    } else {
-      const fp = filterPkgs.map((p) => basename(p))
-      const dirname = join(this.api.cwd, 'packages')
-      pkgs = orderBy(fp, order || []).map((o) => join(dirname, o))
+    if (!this.memoPkgs) {
+      const order = ops?.order
+      const pointPkg = ops?.pointPkg
+      const filterPkgs = this.api
+        .getLernaPkgs()
+        .filter((pkg) => (pointPkg ? pointPkg.includes(basename(pkg)) : true))
+      // to order
+      if (!order) {
+        this.memoPkgs = filterPkgs
+      } else {
+        const fp = filterPkgs.map((p) => basename(p))
+        const dirname = join(this.api.cwd, 'packages')
+        this.memoPkgs = orderBy(fp, order || []).map((o) => join(dirname, o))
+      }
+      logger.debug(this.memoPkgs)
     }
-    logger.debug(pkgs)
 
     const saveCwd = this.api.cwd
-    for (const pkg of pkgs) {
+    for (const pkg of this.memoPkgs) {
       process.chdir(pkg)
       await this.doBuild(ops)
     }

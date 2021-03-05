@@ -21,7 +21,8 @@ export default createPlugin({
         options: {
           '--pkg': 'point pkg dir name',
           '--targets': 'point build target esm|cjs|browser|modern',
-          '--watch': 'watch mode'
+          '--watch': 'watch mode',
+          '--rollTypes': 'to rollup types files'
         }
       },
       (args) => {
@@ -30,13 +31,16 @@ export default createPlugin({
 
         const config = api.projectConfig.libBuild
         // handle of args
-        let targets = config?.targets || DefaultTargets
+        let targets = (config?.targets || DefaultTargets) as ILibBuildTargets[]
         if (args?.targets) {
           targets = (args?.targets as string)
             .split(',')
             .filter((target) =>
-              DefaultTargets.includes(target as ILibBuildTargets)
-            )
+              DefaultTargets.includes(target)
+            ) as ILibBuildTargets[]
+        }
+        if (args?.rollTypes) {
+          targets.push('rollTypes')
         }
 
         api.logger.debug(`build targets `)
@@ -83,8 +87,10 @@ export default createPlugin({
         })
 
         // on success
-        api.onLibBuildSucceed(() => {
-          api.logger.success(`lib build succeed!!!`)
+        api.onLibBuildSucceed((ops) => {
+          if (!ops?.watch) {
+            api.logger.success(`lib build succeed!!!`)
+          }
         })
         // on failed
         api.onLibBuildFailed((e) => {

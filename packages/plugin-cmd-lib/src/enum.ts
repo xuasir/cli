@@ -10,7 +10,8 @@ export enum BuiltInRollupPlugin {
   Svgr = 'svgr',
   Url = 'url',
   Json = 'json',
-  Terser = 'terser'
+  Terser = 'terser',
+  Dts = 'dts'
 }
 
 export const ExternalMatchBabelReg = new RegExp(/^@babel\/runtime/)

@@ -47,7 +47,8 @@ export interface IBundler {
 }
 
 // for esm tagret
-export type ILibBuildTargets = 'esm' | 'cjs' | 'browser' | 'modern'
+type ITargets = 'esm' | 'cjs' | 'browser' | 'modern'
+export type ILibBuildTargets = ITargets | 'rollTypes'
 
 export type IModifyRollupConfigCtx = {
   [key in ILibBuildTargets]: boolean
@@ -55,7 +56,7 @@ export type IModifyRollupConfigCtx = {
 
 export interface ILibBuildConfig {
   // lib build target: esm cjs broeser modern
-  targets: ILibBuildTargets[]
+  targets: ITargets[]
   /**
    * point pkg name
    * package/core
@@ -65,7 +66,7 @@ export interface ILibBuildConfig {
   // to custom rollup config
   rollupChain?: (
     rollupChain: IRollupChain,
-    ctx: IModifyRollupConfigCtx
+    ctx: Omit<IModifyRollupConfigCtx, 'rollTypes'>
   ) => IRollupChain
   /**
    * lib packing is orderly when lerna mode

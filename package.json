@@ -41,5 +41,8 @@
     "hooks": {
       "commit-msg": "npx xus commit-lint"
     }
-  }
+  },
+  "browserslist": [
+    "current node"
+  ]
 }

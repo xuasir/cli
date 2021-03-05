@@ -1,8 +1,7 @@
 import type { IRollupChain, IModifyRollupConfigCtx, IPluginAPI } from '@xus/cli'
 import type { IPkg } from './types'
-import { getFileMeta, lookUpFile, resolve } from '@xus/cli'
-import semver from 'semver'
-import { join, extname } from 'path'
+import { getFileMeta, lookUpFile, resolve, semver } from '@xus/cli'
+import { join, extname, dirname } from 'path'
 import { BuiltInRollupPlugin, ExternalMatchBabelReg } from './enum'
 import getBabelConfig from './getBabelConfig'
 // rollup plugin
@@ -20,11 +19,14 @@ import typescript2 from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import vue2 from '@xus/rollup-plugin-vue2'
 import vue3 from 'rollup-plugin-vue'
+import dts from 'rollup-plugin-dts'
 // css
 import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx', '.vue']
+
+let isCheckedTypes = false
 
 export const defaultInput = (
   rc: IRollupChain,
@@ -91,6 +93,11 @@ export const ensureOutput = (
     rc.output
       .file(outFile.replace(/.js$/, getExt('modern', isProd)))
       .format('es')
+  } else if (ctx.rollTypes) {
+    rc.clear()
+    rc.input(join(dirname(outFile), 'index.d.ts'))
+    rc.plugin(BuiltInRollupPlugin.Dts).use(dts)
+    rc.output.file(join(dirname(outFile), 'index.d.ts')).format('es')
   }
 
   api.logger.debug(rc.output.get('file'))
@@ -108,13 +115,14 @@ export const ensureCommonPlugin = (
   rc.plugin(BuiltInRollupPlugin.NodeResolve).use(nodeResolve, [
     {
       mainFields: ['jsnext:main', 'module', 'main'],
+      preferBuiltins: true,
       extensions
     }
   ])
   if (ctx.browser || ctx.modern) {
     // need rollup a full pkg
     rc.plugin(BuiltInRollupPlugin.Commonjs)
-      .use(commonjs)
+      .use(commonjs, [{ sourceMap: false }])
       .after(BuiltInRollupPlugin.NodeResolve)
   }
 
@@ -141,7 +149,6 @@ export const ensureCorePlugin = (
   // auto sniff vue
   let vueVersion: null | number = null
   try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const Vue = require(resolve.sync('vue', {
       basedir: api.getCliEnv('Lerna_Root') || api.cwd
     }))
@@ -203,25 +210,30 @@ export const ensureCorePlugin = (
       .use(typescript2, [
         {
           cwd: api.cwd,
+          check: !isCheckedTypes,
           clean: true,
           cacheRoot: `${api.cwd}/.rpts2_cache`,
           tsconfig: tsconfigPath,
           tsconfigDefaults: {
             compilerOptions: {
-              declaration: true,
               ...vueTsx
             }
           },
           tsconfigOverride: {
             compilerOptions: {
-              target: 'esnext'
+              target: 'esnext',
+              module: 'esnext',
+              // sourceMap: !isCheckedTypes,
+              declaration: !isCheckedTypes,
+              declarationMap: !isCheckedTypes
             }
-          },
-          check: true
+          }
         }
       ])
       // tsc --> babel
       .before(BuiltInRollupPlugin.Babel)
+
+    isCheckedTypes = true
   }
 
   // terser

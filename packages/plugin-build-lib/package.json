@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@xus/cli": "^0.1.5",
-    "@xus/rollup-chain": "^0.2.2",
+    "@xus/rollup-chain": "^0.2.3",
     "rollup": "^2.40.0"
   }
 }

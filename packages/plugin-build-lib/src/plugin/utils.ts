@@ -5,7 +5,8 @@ export const getModifyConfigCtx = (target: ILibBuildTargets) => {
     esm: false,
     cjs: false,
     browser: false,
-    modern: false
+    modern: false,
+    rollTypes: false
   }
   ctx[target] = true
   return ctx
