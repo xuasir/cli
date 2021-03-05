@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-cmd-lib",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "a bundle for js ts react",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "@svgr/rollup": "^5.5.0",
     "@vue/compiler-sfc": "^3.0.6",
     "@xus/babel-preset": "^0.1.9",
-    "@xus/cli": "^0.1.4",
+    "@xus/cli": "^0.1.5",
     "@xus/rollup-plugin-vue2": "^1.0.0",
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.6",

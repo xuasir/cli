@@ -7,6 +7,7 @@
 - 导出createXusConfig [fa2aa7](https://github.com/xus-code/bundle-tools/commit/fa2aa7bc3079137c6ee5fd456e7e85d86eeb69d7)
 - 调整项目结构 [b20982](https://github.com/xus-code/bundle-tools/commit/b20982401547c20e869cf57326570b7ee34f2ee8)
 - 调整order算法 [3658c0](https://github.com/xus-code/bundle-tools/commit/3658c0edbe6cbab98d37517d821b46725457e31d)
+- 发布分支分支支持可配置 [426ad0](https://github.com/xus-code/bundle-tools/commit/426ad028e83ad7f60adcd6cfcf68c646291a8e89)
 - 更好的打包过程展示 [e673b0](https://github.com/xus-code/bundle-tools/commit/e673b0768e4c0e83e980bd53ed86cf73507769d2)
 - 将内部方法增加$前缀 [adad67](https://github.com/xus-code/bundle-tools/commit/adad67a9f89928a1ee1ec497413d1309619c59cc)
 - 去除ctx设置能力统一采用cwd [e5714e](https://github.com/xus-code/bundle-tools/commit/e5714e05ecd5c7def9954fa891c8a8e7e10a92cf)
@@ -16,6 +17,7 @@
 - 修正Hook和Plugin类型 [7fc57f](https://github.com/xus-code/bundle-tools/commit/7fc57f9e85513e8426e88cfed61659bbe24f9c43)
 - 整理rollup插件的导出形式 [2618d8](https://github.com/xus-code/bundle-tools/commit/2618d8f741d40c340eeb133a04e50cc51b7b04a9)
 - env管理器获取env错误 [a22746](https://github.com/xus-code/bundle-tools/commit/a2274635a43bb93dfc0293f6e556a1c838e6573e)
+- release没有await runCmd [3b421b](https://github.com/xus-code/bundle-tools/commit/3b421b477617f3b88bb3b1a8be9c1cf5fde27df1)
 
 **Document**
 

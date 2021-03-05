@@ -26,6 +26,6 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.1.4"
+    "@xus/cli": "^0.1.5"
   }
 }
