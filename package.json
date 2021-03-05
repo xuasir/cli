@@ -24,28 +24,22 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "homepage": "https://github.com/xus-code/bundle-tools#readme",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
+    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.22",
     "@xus/eslint-config": "^0.1.3",
     "husky": "^4.3.8",
+    "jest": "^26.6.3",
     "lerna": "^3.22.1",
+    "ts-jest": "^26.5.3",
     "typescript": "^4.1.3"
   },
   "husky": {
     "hooks": {
       "commit-msg": "npx xus commit-lint"
     }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
