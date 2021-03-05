@@ -2,7 +2,7 @@ import type { IPluginAPI } from '@xus/cli'
 import type { IRollupChainConfig } from '@xus/rollup-chain'
 import type { IBundlerImp, ILibBuildTargets } from '../plugin/types'
 import type { IDoBuildOps } from './types'
-import { Logger, isLernaPkg, chalk } from '@xus/cli'
+import { Logger, isLernaPkg, chalk, orderBy } from '@xus/cli'
 import { basename, join } from 'path'
 import { rollup, watch } from 'rollup'
 import rollupValidator from './validator'
@@ -108,7 +108,7 @@ export class RollupBundler implements IBundlerImp {
     } else {
       const fp = filterPkgs.map((p) => basename(p))
       const dirname = join(this.api.cwd, 'packages')
-      pkgs = order.filter((o) => fp.includes(o)).map((o) => join(dirname, o))
+      pkgs = orderBy(fp, order || []).map((o) => join(dirname, o))
     }
     logger.debug(pkgs)
 
