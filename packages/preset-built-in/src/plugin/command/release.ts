@@ -229,6 +229,7 @@ async function publish(targets: string[], ops: IReleaseOps) {
     }
 
     // 6. push and tag
+    logger.info(stepColor(`Push and Tag...`))
     const tag = ops?.tag || generateTag()
     await [
       {
@@ -307,8 +308,8 @@ async function workForPublish(pkgDir: string, ops: IReleaseOps) {
   process.chdir(root)
   await runCmd('npm', ['publish', '--access', 'public'], {
     start: `publish ${pkgname} start`,
-    succeed: `publish ${pkgname} start`,
-    failed: `publish ${pkgname} start`
+    succeed: `publish ${pkgname} succeed`,
+    failed: `publish ${pkgname} failed`
   })
   process.chdir(saveCwd)
 }
