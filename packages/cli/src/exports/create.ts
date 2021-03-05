@@ -9,9 +9,15 @@ import type { IPluginAPI } from './pluginAPI'
 
 export interface IConfig extends IProjectConfig {
   libBuild: ILibBuildConfig
-  lint: Partial<ILintConfig>
-  changelog: Partial<IChangelogConfig>
-  release: Partial<IReleaseConfig>
+  lint: ILintConfig
+  changelog: IChangelogConfig
+  release: IReleaseConfig
+}
+
+type IDeepPartial<T> = {
+  [K in keyof T]?:
+    | (T[K] extends Record<string, any> ? IDeepPartial<T[K]> : T[K])
+    | undefined
 }
 
 export type IPlugin = IPluginBase<(api: IPluginAPI) => void>
@@ -23,4 +29,4 @@ export interface IPreset {
 export const createPlugin = (plugin: IPlugin) => plugin
 export const createPreset = (preset: IPreset) => preset
 
-export const defineConfig = (config: Partial<IConfig>) => config
+export const defineConfig = (config: IDeepPartial<IConfig>) => config

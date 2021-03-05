@@ -74,4 +74,5 @@ export interface ILibBuildConfig {
    * shared should be roll before core
    */
   pkgOrder?: string[]
+  rollTypes?: boolean
 }

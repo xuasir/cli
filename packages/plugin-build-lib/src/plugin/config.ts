@@ -6,12 +6,14 @@ export const libBuildSchema = createSchema<ILibBuildConfig>((joi) =>
     targets: joi.array(),
     pointPkgs: joi.array(),
     pkgOrder: joi.array(),
-    rollupChain: joi.function()
+    rollupChain: joi.function(),
+    rollTypes: joi.boolean()
   })
 )
 
 export const defaultLibBuildConfig: () => ILibBuildConfig = () => {
   return {
-    targets: []
+    targets: [],
+    rollTypes: false
   }
 }

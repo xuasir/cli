@@ -39,7 +39,7 @@ export default createPlugin({
               DefaultTargets.includes(target)
             ) as ILibBuildTargets[]
         }
-        if (args?.rollTypes) {
+        if (args?.rollTypes || config?.rollTypes) {
           targets.push('rollTypes')
         }
 
