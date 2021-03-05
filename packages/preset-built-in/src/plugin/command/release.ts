@@ -251,7 +251,7 @@ async function publish(targets: string[], ops: IReleaseOps) {
       },
       {
         bin: 'git',
-        args: ['push', 'origin', 'master'],
+        args: ['push', 'origin', ops.branch],
         message: {
           start: 'push commit start',
           succeed: 'push commit succeed',

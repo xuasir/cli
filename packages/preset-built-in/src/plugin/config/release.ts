@@ -12,6 +12,7 @@ export type IReleaseConfig = {
   beforeRelease: ICmd[]
   // in lenra mode to ensure pkg publish order
   order: string[]
+  branch: string
 }
 
 export const releaseSchema = createSchema<IReleaseConfig>((joi) => {
@@ -27,13 +28,15 @@ export const releaseSchema = createSchema<IReleaseConfig>((joi) => {
         })
       })
     ),
-    order: joi.array().items(joi.string())
+    order: joi.array().items(joi.string()),
+    branch: joi.string()
   })
 })
 
 export function defaultReleaseConfig(): IReleaseConfig {
   return {
     beforeRelease: [],
-    order: []
+    order: [],
+    branch: 'master'
   }
 }
