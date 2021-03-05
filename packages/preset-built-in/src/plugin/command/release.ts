@@ -242,7 +242,7 @@ async function publish(targets: string[], ops: IReleaseOps) {
       },
       {
         bin: 'git',
-        args: ['push', `refs/tags/${tag}`],
+        args: ['push', 'origin', `refs/tags/${tag}`],
         message: {
           start: 'push tag start',
           succeed: 'push tag succeed',
@@ -305,7 +305,7 @@ async function workForPublish(pkgDir: string, ops: IReleaseOps) {
   const pkgname = pkgdir2pkgname[pkgDir]
   const saveCwd = process.cwd()
   process.chdir(root)
-  runCmd('npm', ['publish', '--access', 'public'], {
+  await runCmd('npm', ['publish', '--access', 'public'], {
     start: `publish ${pkgname} start`,
     succeed: `publish ${pkgname} start`,
     failed: `publish ${pkgname} start`
