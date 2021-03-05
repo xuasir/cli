@@ -4,13 +4,13 @@ export type ILintConfig = {
   eslint:
     | boolean
     | {
-        include: string
-        ext: string[]
+        include?: string
+        ext?: string[]
       }
   stylelint:
     | boolean
     | {
-        include: string[]
+        include?: string[]
       }
 }
 
@@ -36,10 +36,10 @@ export function defaultLitConfig(): ILintConfig {
   return {
     eslint: {
       include: '**/src/**/*',
-      ext: ['.js', '.jsx', '.ts', '.tsx', '.vue']
+      ext: []
     },
     stylelint: {
-      include: ['./**/*.css', './**/*.vue', './**/*.less', './**/*.sass']
+      include: []
     }
   }
 }

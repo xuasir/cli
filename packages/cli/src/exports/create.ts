@@ -9,9 +9,9 @@ import type { IPluginAPI } from './pluginAPI'
 
 export interface IConfig extends IProjectConfig {
   libBuild: ILibBuildConfig
-  lint: ILintConfig
-  changelog: IChangelogConfig
-  release: IReleaseConfig
+  lint: Partial<ILintConfig>
+  changelog: Partial<IChangelogConfig>
+  release: Partial<IReleaseConfig>
 }
 
 export type IPlugin = IPluginBase<(api: IPluginAPI) => void>
