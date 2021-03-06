@@ -1,4 +1,3 @@
-import execa from 'execa'
 import {
   mkdirSync,
   readdirSync,
@@ -51,25 +50,4 @@ export type IRunCmdMessage = {
   start: string
   succeed: string
   failed: string
-}
-
-export function runCmd(
-  cmd: string,
-  args: string[],
-  message: IRunCmdMessage,
-  options?: execa.Options
-): Promise<boolean> {
-  spinner.start(message.start)
-  return new Promise((resolve, reject) => {
-    execa(cmd, args, options)
-      .then(() => {
-        spinner.succeed(message.succeed)
-        resolve(true)
-      })
-      .catch((err: any) => {
-        spinner.failed(message.failed)
-        error(err)
-        reject(false)
-      })
-  })
 }

@@ -1,7 +1,8 @@
 import { prompt } from 'enquirer'
-import { emptyDir, copy, getPkgManager, runCmd } from './utils'
+import chalk from 'chalk'
+import { emptyDir, copy, getPkgManager } from './utils'
 import { Spinner } from './spinner'
-import { join } from 'path'
+import { join, relative } from 'path'
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs'
 
 const BuiltInTemp = ['ts-lib', 'ts-lib-lerna']
@@ -14,6 +15,7 @@ const FileMap: Record<string, string> = {
 const spinner = new Spinner()
 
 export async function createTemp(args: { _: string[]; [key: string]: any }) {
+  const cwd = process.cwd()
   let projectDir = args._.shift()
   if (!projectDir) {
     const { name } = await prompt<{ name: string }>({
@@ -25,7 +27,7 @@ export async function createTemp(args: { _: string[]; [key: string]: any }) {
     projectDir = name
   }
 
-  const root = join(process.cwd(), projectDir)
+  const root = join(cwd, projectDir)
   if (!existsSync(root)) {
     mkdirSync(root, { recursive: true })
   } else {
@@ -85,9 +87,12 @@ export async function createTemp(args: { _: string[]; [key: string]: any }) {
   spinner.succeed(`Create project succeed`)
 
   const pkgManager = getPkgManager()
-  await runCmd(pkgManager, pkgManager === 'yarn' ? [] : ['install'], {
-    start: 'Install deps start',
-    succeed: 'Install deps succeed',
-    failed: 'Install deps failed'
-  })
+  console.log(`Done. ready to run:\n`)
+  if (cwd !== root) {
+    console.log(chalk.green(`  cd ${relative(cwd, root)}`))
+  }
+  console.log(
+    chalk.green(`  ${pkgManager === 'yarn' ? `yarn` : `npm install`}`)
+  )
+  console.log()
 }
