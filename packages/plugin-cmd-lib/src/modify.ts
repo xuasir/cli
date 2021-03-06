@@ -119,6 +119,10 @@ export const ensureOutput = (
     })
   }
 
+  if (isProd) {
+    rc.output.sourcemap(true)
+  }
+
   api.logger.debug(rc.output.get('file'))
 }
 
