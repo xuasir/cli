@@ -1,12 +1,6 @@
-import type { IPluginAPI, IArgs } from '@xus/cli'
-import {
-  prompt,
-  emptyDir,
-  copy,
-  getPkgManager,
-  runCmd,
-  Spinner
-} from '@xus/cli'
+import { prompt } from 'enquirer'
+import { emptyDir, copy, getPkgManager, runCmd } from './utils'
+import { Spinner } from './spinner'
 import { join } from 'path'
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs'
 
@@ -19,8 +13,7 @@ const FileMap: Record<string, string> = {
 }
 const spinner = new Spinner()
 
-export async function createTemp(args: IArgs, api?: IPluginAPI) {
-  api?.logger.debug(`handle of project dir`)
+export async function createTemp(args: { _: string[]; [key: string]: any }) {
   let projectDir = args._.shift()
   if (!projectDir) {
     const { name } = await prompt<{ name: string }>({
@@ -31,10 +24,8 @@ export async function createTemp(args: IArgs, api?: IPluginAPI) {
     })
     projectDir = name
   }
-  api?.logger.debug(projectDir)
 
   const root = join(process.cwd(), projectDir)
-  api?.logger.debug(`create root ${root}`)
   if (!existsSync(root)) {
     mkdirSync(root, { recursive: true })
   } else {
@@ -57,8 +48,6 @@ export async function createTemp(args: IArgs, api?: IPluginAPI) {
     }
   }
 
-  api?.logger.debug(`ready to copy`)
-  api?.logger.debug(`ensure template`)
   let temp = args?.t || args?.template
   let message = 'Select a template'
   let isvalidTemp = false
@@ -77,9 +66,7 @@ export async function createTemp(args: IArgs, api?: IPluginAPI) {
     })
     temp = t
   }
-  api?.logger.debug(temp)
 
-  api?.logger.debug(`copy file`)
   spinner.start(`Create project start`)
   const tempDir = join(__dirname, `./template/${temp}`)
   function write(file: string, content?: string) {
@@ -98,8 +85,6 @@ export async function createTemp(args: IArgs, api?: IPluginAPI) {
   spinner.succeed(`Create project succeed`)
 
   const pkgManager = getPkgManager()
-  api?.logger.debug(`current pkgManager ${pkgManager}`)
-  api?.logger.debug(`install deps`)
   await runCmd(pkgManager, pkgManager === 'yarn' ? [] : ['install'], {
     start: 'Install deps start',
     succeed: 'Install deps succeed',

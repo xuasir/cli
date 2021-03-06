@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 import { createTemp } from './create'
-import { yParser } from '@xus/cli'
-const rawArgs = process.argv.slice(2)
-const args = yParser(rawArgs)
+import yParser from 'yargs-parser'
+const args = yParser(process.argv.slice(2))
 
 async function main() {
   await createTemp(args)
