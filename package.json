@@ -26,7 +26,8 @@
   "homepage": "https://github.com/xus-code/bundle-tools#readme",
   "scripts": {
     "test": "jest",
-    "copy:preset": "xus copy --src packages/preset-built-in/src/plugin/template --dest packages/preset-built-in/dist/plugin/template"
+    "copy:preset": "xus copy --src packages/preset-built-in/src/plugin/template --dest packages/preset-built-in/dist/plugin/template",
+    "copy:create": "xus copy --src packages/create-lib/src/template --dest packages/create-lib/dist/template"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",

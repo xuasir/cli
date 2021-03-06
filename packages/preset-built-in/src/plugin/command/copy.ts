@@ -31,6 +31,8 @@ export default createPlugin({
               api.logger.error(error)
               spinner.failed(`copy failed`)
             }
+          } else {
+            api.logger.wran(`src ${src} not exists`)
           }
         }
       }

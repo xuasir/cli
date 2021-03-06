@@ -1,7 +1,11 @@
 {
-  "name": "@xus/preset-cmd-create",
-  "version": "0.1.2",
+  "name": "@xus/create-lib",
+  "version": "0.1.0",
   "description": "xus cli cmd create",
+  "bin": {
+    "create-lib": "dist/cli.js",
+    "cxl": "dist/cli.js"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
@@ -20,7 +24,8 @@
   },
   "scripts": {
     "dev:create": "tsc --watch",
-    "build:create": "tsc"
+    "build:create": "tsc",
+    "update:temp": "node ./updateVersion.js"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
