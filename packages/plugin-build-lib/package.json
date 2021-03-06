@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-build-lib",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "xus cli plugin build-lib",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.1.5",
+    "@xus/cli": "^0.1.6",
     "@xus/rollup-chain": "^0.2.3",
     "rollup": "^2.40.0"
   }
