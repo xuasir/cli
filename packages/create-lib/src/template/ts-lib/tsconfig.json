@@ -8,5 +8,6 @@
     "moduleResolution": "node",
     "lib": ["esnext", "dom"]
   },
+  "include": ["./src/**/*"],
   "exclude": ["**/__test__/**/*"]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@xus/create-lib",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "xus cli cmd create",
   "bin": {
     "create-lib": "dist/cli.js",
