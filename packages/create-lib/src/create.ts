@@ -10,7 +10,7 @@ import {
 import { join } from 'path'
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs'
 
-const BuiltInTemp = ['ts-lib']
+const BuiltInTemp = ['ts-lib', 'ts-lib-lerna']
 const FileMap: Record<string, string> = {
   _eslintignore: '.eslintignore',
   '_eslintrc.js': '.eslintrc.js',

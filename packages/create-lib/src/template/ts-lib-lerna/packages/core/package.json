@@ -1,0 +1,14 @@
+{
+  "name": "@scope/core",
+  "version": "1.0.0",
+  "description": "ts lib",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "ts",
+    "lib"
+  ],
+  "author": "who am i",
+  "license": "MIT"
+}
