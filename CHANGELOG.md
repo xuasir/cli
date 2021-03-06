@@ -20,6 +20,8 @@
 - 修正help输出格式 [45d9de](https://github.com/xus-code/bundle-tools/commit/45d9decdff89034eba9a7771939cf4015c9483a2)
 - 修正Hook和Plugin类型 [7fc57f](https://github.com/xus-code/bundle-tools/commit/7fc57f9e85513e8426e88cfed61659bbe24f9c43)
 - 整理rollup插件的导出形式 [2618d8](https://github.com/xus-code/bundle-tools/commit/2618d8f741d40c340eeb133a04e50cc51b7b04a9)
+- create-lib不再主动安装依赖 [3fb09b](https://github.com/xus-code/bundle-tools/commit/3fb09b8ba50fedec062ed6f6c516858909a14df5)
+- create-lib去除和cli的耦合 [136420](https://github.com/xus-code/bundle-tools/commit/136420c6c001fb7c429209d0d3899cd506740921)
 - env管理器获取env错误 [a22746](https://github.com/xus-code/bundle-tools/commit/a2274635a43bb93dfc0293f6e556a1c838e6573e)
 - release没有await runCmd [3b421b](https://github.com/xus-code/bundle-tools/commit/3b421b477617f3b88bb3b1a8be9c1cf5fde27df1)
 - rollup types文件后删除不必的文件和文件夹 [068c02](https://github.com/xus-code/bundle-tools/commit/068c0233861d639433de894c8316e1bcd36ee872)
