@@ -1,0 +1,39 @@
+{
+  "name": "@xus/plugin-lib-vue-jsx",
+  "version": "0.1.0",
+  "description": "a bundle for vue jsx",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "keywords": [
+    "cli",
+    "bundle"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:vuejsx": "tsc --watch",
+    "build:vuejsx": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-typescript": "^7.13.0",
+    "@vue/babel-plugin-jsx": "^1.0.3",
+    "@vue/babel-preset-jsx": "^1.2.4",
+    "@xus/cli-types": "^0.1.0",
+    "rollup": "^2.40.0"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.1.12"
+  }
+}
