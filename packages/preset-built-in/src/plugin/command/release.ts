@@ -1,13 +1,12 @@
-import type { IPluginAPI } from '@xus/cli'
+import { createPlugin, IPluginAPI } from '@xus/cli-types'
 import {
-  createPlugin,
   isLernaPkg,
   semver,
   prompt,
   orderBy,
   runCmd,
   chalk
-} from '@xus/cli'
+} from '@xus/cli-shared'
 import { join, relative } from 'path'
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import {

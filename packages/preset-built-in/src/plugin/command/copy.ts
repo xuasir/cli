@@ -1,4 +1,5 @@
-import { createPlugin, copy, Spinner } from '@xus/cli'
+import { createPlugin } from '@xus/cli-types'
+import { copy, Spinner } from '@xus/cli-shared'
 import { existsSync } from 'fs'
 import { join } from 'path'
 

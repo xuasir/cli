@@ -26,11 +26,15 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli": "^0.1.6",
-    "@xus/plugin-build-lib": "^0.1.6",
-    "@xus/plugin-cmd-lib": "^0.1.7",
+    "@xus/cli-types": "^0.1.0",
+    "@xus/cli-shared": "^0.1.4",
+    "@xus/core": "^0.1.5",
+    "@xus/plugin-cmd-roll-lib": "^0.1.0",
+    "@xus/rollup-chain": "^0.2.6",
     "conventional-changelog": "^3.1.24",
-    "release-it": "^14.4.1"
+    "release-it": "^14.4.1",
+    "rollup": "^2.41.1",
+    "webpack-chain": "^6.5.1"
   },
   "devDependencies": {
     "@types/conventional-changelog": "^3.1.0"

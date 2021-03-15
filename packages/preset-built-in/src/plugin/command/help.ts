@@ -1,11 +1,6 @@
-import {
-  // types
-  ICommand,
-  IArgs,
-  // usage
-  chalk,
-  createPlugin
-} from '@xus/cli'
+import { ICommand, IArgs } from '@xus/core'
+import { chalk } from '@xus/cli-shared'
+import { createPlugin } from '@xus/cli-types'
 
 export default createPlugin({
   name: 'commandHelp',

@@ -8,7 +8,8 @@ export type ICliServerOps = {
 }
 
 export interface IPackage {
-  name?: string
+  name: string
+  version: string
   dependencies?: Record<string, string>
   devDependencies?: Record<string, string>
   [key: string]: any

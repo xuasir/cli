@@ -1,4 +1,5 @@
-import { createPlugin, chalk } from '@xus/cli'
+import { createPlugin } from '@xus/cli-types'
+import { chalk } from '@xus/cli-shared'
 import { readFileSync } from 'fs'
 
 // const

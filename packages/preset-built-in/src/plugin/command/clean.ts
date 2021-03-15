@@ -1,4 +1,5 @@
-import { createPlugin, removeDirOrFile, emptyDir } from '@xus/cli'
+import { createPlugin } from '@xus/cli-types'
+import { removeDirOrFile, emptyDir } from '@xus/cli-shared'
 import { existsSync } from 'fs'
 import { join, relative } from 'path'
 

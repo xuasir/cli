@@ -1,11 +1,11 @@
-# `cli`
+# `@xus/cli-types`
 
 > TODO: description
 
 ## Usage
 
 ```
-const cli = require('cli');
+const cliUtils = require('@xus/cli-types');
 
 // TODO: DEMONSTRATE API
 ```

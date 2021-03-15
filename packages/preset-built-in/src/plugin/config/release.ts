@@ -1,5 +1,5 @@
-import type { IRunCmdMessage } from '@xus/cli'
-import { createSchema } from '@xus/cli'
+import type { IRunCmdMessage } from '@xus/cli-shared'
+import { createSchema } from '@xus/cli-shared'
 
 type ICmd = {
   bin: string

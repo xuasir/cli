@@ -1,5 +1,11 @@
 // types
-import type { ICliServerOps, ICommand, IArgs, IRawArgs } from '../types'
+import type {
+  ICliServerOps,
+  ICommand,
+  IArgs,
+  IRawArgs,
+  IProjectConfig
+} from '../types'
 import { Logger, BabelRegister } from '@xus/cli-shared'
 import { CliServiceStage, HookTypes } from '../enums'
 import { CONFIG_FILES } from '../constants'
@@ -102,7 +108,7 @@ export class CliService {
     this.PluginManager.applyPlugins()
     // plugin register hooks ready
     await this.HookManager.apply({
-      name: 'pluginsReady',
+      name: 'onSetuped',
       type: HookTypes.event,
       args: this.ConfigManager.projectConfig
     })
@@ -111,8 +117,15 @@ export class CliService {
   getPluginAPI(ops: { pluginName: string }) {
     const api = new PluginAPI({ ...ops, service: this })
     // register service lifycycle
-    ;['onConfigReady', 'onPluginReady', 'onRunCmd'].forEach((methodName) => {
+    ;['onSetuped', 'onRunCmd'].forEach((methodName) => {
       api.registerMethod({ methodName, throwOnExist: false })
+    })
+    api.registerMethod({
+      methodName: 'modifyProjectConfig',
+      throwOnExist: false,
+      fn: (config: IProjectConfig) => {
+        this.ConfigManager.modifyProjectConfig(config)
+      }
     })
     // register cmd args getter
     api.registerMethod({
@@ -201,7 +214,7 @@ export class CliService {
     // 4. emit a start event
     this.setStage(CliServiceStage.runCmd)
     await this.HookManager.apply({
-      name: 'runCmd',
+      name: 'onRunCmd',
       type: HookTypes.event
     })
     // for api

@@ -1,7 +1,4 @@
-import { createPreset } from '@xus/cli'
-// lib build process plugins
-import buildLib from '@xus/plugin-build-lib'
-import cmdLib from '@xus/plugin-cmd-lib'
+import { createPreset } from '@xus/cli-types'
 // cmd
 import cmdHelp from './plugin/command/help'
 import cmdCommitlint from './plugin/command/commitlint'
@@ -10,10 +7,14 @@ import cmdCopy from './plugin/command/copy'
 import cmdLint from './plugin/command/lint'
 import cmdRelease from './plugin/command/release'
 import cmdChangelog from './plugin/command/changelog'
+//bundler
+import bundler from './plugin/bundler'
+// lib build process plugins
+import cmdRoll from '@xus/plugin-cmd-roll-lib'
 
 export default createPreset({
   plugins: [
-    buildLib,
+    bundler,
     cmdHelp,
     cmdCommitlint,
     cmdClean,
@@ -21,6 +22,6 @@ export default createPreset({
     cmdLint,
     cmdRelease,
     cmdChangelog,
-    cmdLib
+    cmdRoll
   ]
 })

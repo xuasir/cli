@@ -1,5 +1,5 @@
-import type { IPluginAPI } from '@xus/cli'
-import { createPlugin, Spinner } from '@xus/cli'
+import { createPlugin, IPluginAPI } from '@xus/cli-types'
+import { Spinner } from '@xus/cli-shared'
 import conventionalChangelog from 'conventional-changelog'
 import { changelogSchema, defaultChangelogConfig } from '../config/changelog'
 import { createWriteStream, readFileSync } from 'fs'

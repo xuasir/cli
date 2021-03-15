@@ -1,7 +1,10 @@
 import type { IArgs, IRawArgs } from '.'
 
 // commands
-export type ICommandFn = (args: IArgs, rawArgs: IRawArgs) => any | Promise<any>
+export type ICommandFn<T extends Record<string, any> = IArgs> = (
+  args: T,
+  rawArgs: IRawArgs
+) => any | Promise<any>
 export interface ICommandOps {
   desc?: string
   usage?: string
@@ -12,8 +15,8 @@ export interface ICommandOps {
     [key: string]: string
   }
 }
-export interface ICommand {
+export interface ICommand<T extends IArgs = IArgs> {
   pluginName: string
   ops: ICommandOps | null
-  fn: ICommandFn
+  fn: ICommandFn<T>
 }

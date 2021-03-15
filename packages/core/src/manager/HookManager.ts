@@ -8,7 +8,7 @@ type IHookManagerOps = {
   service: ICliService
 }
 
-const builtinHooks = ['configReady', 'pluginsReady', 'runCmd']
+const builtinHooks = ['configReady', 'onPluginsReady', 'onRunCmd']
 
 const logger = new Logger(`xus:service:HookManager`)
 export class HookManager {

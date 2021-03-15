@@ -1,7 +1,7 @@
 import type { IConfigSchema } from '@xus/cli-shared'
 
 // plugins / presets
-// api type override in @xus/cli
+// api type override in @xus/cli-types
 export type IPluginApply = (api: any) => void
 type IEnforce = 'post' | 'pre'
 

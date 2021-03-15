@@ -3,8 +3,6 @@ import type { ICliService } from '../cli/Service'
 import { Logger, loadModule, deepmerge, validateSchema } from '@xus/cli-shared'
 import { defaultProjectConfig, ProjectConfigSchema } from '../config'
 
-type IProjectConfigPartial = Partial<IProjectConfig>
-
 type IConfigManagerOps = {
   service: ICliService
 }
@@ -26,11 +24,11 @@ export class ConfigManager {
     this.pkgJson = this.resolvePkg()
   }
 
-  private resolvePkg(): IPackage {
+  private resolvePkg(): IPackage | null {
     try {
       return require(this.service.PathManager.cwdPkg)
     } catch (e) {
-      return {}
+      return null
     }
   }
 
@@ -66,7 +64,7 @@ export class ConfigManager {
     // 1. load userConfig
     const path = this.service.PathManager.userConfigPath
     const userConfig = path
-      ? loadModule<IProjectConfigPartial>(path, (err) => {
+      ? loadModule<IProjectConfig>(path, (err) => {
           logger.error(`user config load failed, ${err}`)
         })
       : {}
@@ -120,6 +118,10 @@ export class ConfigManager {
   loadConfig<T = any>(configPath: string, onError: (err: any) => void): T {
     const configContent = loadModule<T>(configPath, onError)
     return configContent
+  }
+
+  modifyProjectConfig(config: IProjectConfig) {
+    this.finalConfig = deepmerge(this.projectConfig, config)
   }
 }
 

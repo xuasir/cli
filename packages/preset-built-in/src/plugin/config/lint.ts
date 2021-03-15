@@ -1,4 +1,4 @@
-import { createSchema } from '@xus/cli'
+import { createSchema } from '@xus/cli-shared'
 
 export type ILintConfig = {
   eslint:

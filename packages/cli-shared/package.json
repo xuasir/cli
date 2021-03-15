@@ -9,6 +9,7 @@
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli-utils#readme",
   "license": "MIT",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],

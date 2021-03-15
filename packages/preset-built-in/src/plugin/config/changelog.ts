@@ -1,4 +1,4 @@
-import { createSchema } from '@xus/cli'
+import { createSchema } from '@xus/cli-shared'
 import { join } from 'path'
 
 export type IChangelogConfig = {

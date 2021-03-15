@@ -1,4 +1,5 @@
-import { createPlugin, runCmd } from '@xus/cli'
+import { createPlugin } from '@xus/cli-types'
+import { runCmd } from '@xus/cli-shared'
 import { lintSchema, defaultLitConfig } from '../config/lint'
 
 export default createPlugin({
@@ -17,16 +18,15 @@ export default createPlugin({
         if (lintConfig.eslint) {
           const eslint = lintConfig.eslint
           if (typeof eslint != 'boolean') {
+            const cext = eslint?.ext || []
             const ext =
-              eslint.ext.length > 0
-                ? eslint.ext
-                : ['.js', '.jsx', '.ts', '.tsx', '.vue']
+              cext.length > 0 ? cext : ['.js', '.jsx', '.ts', '.tsx', '.vue']
             const args = [
-              eslint.include,
+              eslint?.include,
               '--fix',
               '--ext',
               ext.join(',')
-            ].filter(Boolean)
+            ].filter(Boolean) as string[]
             api.logger.debug(`run eslint with `)
             api.logger.debug(args)
             eslintRes = await runCmd('eslint', args, {
@@ -40,9 +40,10 @@ export default createPlugin({
         if (lintConfig.stylelint) {
           const stylelint = lintConfig.stylelint
           if (typeof stylelint != 'boolean') {
+            const ci = stylelint?.include || []
             const include =
-              stylelint.include.length > 0
-                ? stylelint.include
+              ci.length > 0
+                ? ci
                 : ['./**/*.css', './**/*.vue', './**/*.less', './**/*.sass']
             const args = include.concat(['--fix'])
             api.logger.debug(`run stylelint with `)
