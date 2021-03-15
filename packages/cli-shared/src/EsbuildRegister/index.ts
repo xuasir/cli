@@ -1,5 +1,6 @@
 import { createDebug, lodash, winPath } from '..'
-import { register } from 'esbuild-register/dist/node'
+import { register } from './register'
+
 const debug = createDebug('xus:shared:EsbuildRegister')
 export class EsbuildRegister {
   private only: Record<string, string[]> = {}
@@ -19,15 +20,8 @@ export class EsbuildRegister {
         }, [])
         .map(winPath)
     )
-    only.forEach((file) => {
-      register({
-        sourcefile: file,
-        sourcemap: false,
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        format: 'cjs',
-        target: 'es2019'
-      })
-    })
+
+    register(only)
   }
 }
 

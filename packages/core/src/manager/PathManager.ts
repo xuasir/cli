@@ -4,7 +4,7 @@ import { isLernaPkg, lookUpFile } from '@xus/cli-shared'
 import { CONFIG_FILES } from '../constants'
 
 export class PathManager {
-  private configPath!: string
+  private configPath!: string | undefined
   get cwd(): string {
     return process.cwd()
   }
@@ -15,7 +15,7 @@ export class PathManager {
 
   get userConfigPath() {
     if (!this.configPath) {
-      this.configPath = lookUpFile(this.cwd, CONFIG_FILES, true) || ' '
+      this.configPath = lookUpFile(this.cwd, CONFIG_FILES, true) || undefined
     }
     return this.configPath
   }
