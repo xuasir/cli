@@ -10,7 +10,7 @@ interface IGetFileMetaOps {
 
 const extsMap = {
   js: ['.ts', '.js'],
-  lib: ['.js', 'jsx', '.ts', '.tsx', '.vue'],
+  lib: ['.js', 'jsx', '.ts', '.tsx'],
   css: ['.css', '.scss', '.sass', '.less']
 }
 

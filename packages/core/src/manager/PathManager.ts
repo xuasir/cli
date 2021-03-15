@@ -1,9 +1,10 @@
 import { join, relative } from 'path'
 import { statSync, readdirSync } from 'fs'
-import { getFileMeta, isLernaPkg } from '@xus/cli-shared'
-import { CONFIG_FILENAME } from '../constants'
+import { isLernaPkg, lookUpFile } from '@xus/cli-shared'
+import { CONFIG_FILES } from '../constants'
 
 export class PathManager {
+  private configPath!: string
   get cwd(): string {
     return process.cwd()
   }
@@ -13,12 +14,10 @@ export class PathManager {
   }
 
   get userConfigPath() {
-    const fileMeta = getFileMeta({
-      base: this.cwd,
-      filenameWithoutExt: CONFIG_FILENAME,
-      type: 'js'
-    })
-    return fileMeta && fileMeta.path
+    if (!this.configPath) {
+      this.configPath = lookUpFile(this.cwd, CONFIG_FILES, true) || ' '
+    }
+    return this.configPath
   }
 
   // for plugins

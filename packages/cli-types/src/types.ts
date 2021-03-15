@@ -10,7 +10,7 @@ import {
   IPluginManager,
   IProjectConfig
 } from '@xus/core'
-import type { IBabelRegister, IRunCmdMessage } from '@xus/cli-shared'
+import type { IEsbuildRegister, IRunCmdMessage } from '@xus/cli-shared'
 // preset api
 import type { IRollupChain, IRollupChainConfig } from '@xus/rollup-chain'
 import webpackChain from 'webpack-chain'
@@ -27,7 +27,7 @@ type noopFn = () => any
 
 export interface IPluginAPI extends IPluginAPIBase {
   // service api
-  BabelRegister: IBabelRegister
+  EsbuildRegister: IEsbuildRegister
   // service lifycycle
   onSetuped: IFastHookRegister<(config: IConfig) => void>
   onRunCmd: noopFn

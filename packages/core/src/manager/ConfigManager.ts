@@ -63,11 +63,12 @@ export class ConfigManager {
   private loadUserConfig() {
     // 1. load userConfig
     const path = this.service.PathManager.userConfigPath
-    const userConfig = path
-      ? loadModule<IProjectConfig>(path, (err) => {
-          logger.error(`user config load failed, ${err}`)
-        })
-      : {}
+    const userConfig =
+      path === ' '
+        ? loadModule<IProjectConfig>(path, (err) => {
+            logger.error(`user config load failed, ${err}`)
+          })
+        : {}
 
     logger.debug(`user config: `)
     logger.debug(userConfig)
