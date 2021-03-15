@@ -1,7 +1,9 @@
 import path from 'path'
+import { createDebug } from '..'
 import { transformSync, Loader } from 'esbuild'
 import { addHook } from 'pirates'
 
+const debug = createDebug(`xus:esbuild:register`)
 const files = new Set<string>()
 
 function compile(code: string, filename: string) {
@@ -9,6 +11,8 @@ function compile(code: string, filename: string) {
   if (!match.test(filename)) {
     return code
   }
+  debug(`compile file `, filename)
+  debug(match)
   const { code: js, warnings } = transformSync(code, {
     sourcefile: filename,
     sourcemap: false,
