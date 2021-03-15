@@ -29,7 +29,7 @@ export interface IPluginAPI extends IPluginAPIBase {
   // service api
   BabelRegister: IBabelRegister
   // service lifycycle
-  onSetuped: (config: IConfig) => void
+  onSetuped: IFastHookRegister<(config: IConfig) => void>
   onRunCmd: noopFn
   getCmdArgs: () => { args: IArgs; rawArgs: IRawArgs }
   modifyProjectConfig: (config: IConfig) => void

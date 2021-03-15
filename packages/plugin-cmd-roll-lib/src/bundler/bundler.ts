@@ -48,7 +48,7 @@ async function doBuild(ops: IRollupBuildOps) {
       watcher.close()
     })
   } else {
-    logger.debug(`do rollup: `)
+    logger.debug(`start rollup`)
     const bundler = await rollup({
       ...inputConfig,
       watch: false
@@ -58,7 +58,7 @@ async function doBuild(ops: IRollupBuildOps) {
       path.join(pkgRoot, outputConfigs[0].dir!),
       alwaysEmptyDistDir
     )
-    logger.debug(`do ${isWrite ? 'write' : 'generate'}`)
+    logger.debug(`start ${isWrite ? 'write' : 'generate'}`)
     for (const output of outputConfigs) {
       logger.debug(output)
       logger.info(

@@ -1,0 +1,40 @@
+{
+  "name": "@xus/plugin-lib-legacy",
+  "version": "0.1.0",
+  "description": "a bundle for legacy",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "keywords": [
+    "cli",
+    "bundle"
+  ],
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "scripts": {
+    "dev:legacy": "tsc --watch",
+    "build:legacy": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/xus-code/bundle-tools/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "@xus/babel-preset": "^0.1.11",
+    "@xus/cli-shared": "^0.1.4",
+    "@xus/cli-types": "^0.1.0",
+    "@xus/core": "^0.1.5",
+    "core-js": "^3.9.1",
+    "rollup": "^2.40.0"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.1.12"
+  }
+}

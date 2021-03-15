@@ -71,8 +71,8 @@
 
 "@babel/core@^7.13.10":
   version "7.13.10"
-  resolved "https://registry.npm.taobao.org/@babel/core/download/@babel/core-7.13.10.tgz?cache=0&sync_timestamp=1615243326209&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fcore%2Fdownload%2F%40babel%2Fcore-7.13.10.tgz#07de050bbd8193fcd8a3c27918c0890613a94559"
-  integrity sha1-B94FC72Bk/zYo8J5GMCJBhOpRVk=
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.13.10.tgz#07de050bbd8193fcd8a3c27918c0890613a94559"
+  integrity sha512-bfIYcT0BdKeAZrovpMqX2Mx5NrgAckGbwT982AkdS5GNfn3KMGiprlBAtmBcFZRUmpaufS6WZFP8trvx8ptFDw==
   dependencies:
     "@babel/code-frame" "^7.12.13"
     "@babel/generator" "^7.13.9"
@@ -2601,10 +2601,21 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.12", "@types/babel__core@^7.1.7":
+"@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
   version "7.1.12"
   resolved "https://registry.npm.taobao.org/@types/babel__core/download/@types/babel__core-7.1.12.tgz?cache=0&sync_timestamp=1613378020017&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbabel__core%2Fdownload%2F%40types%2Fbabel__core-7.1.12.tgz#4d8e9e51eb265552a7e4f1ff2219ab6133bdfb2d"
   integrity sha1-TY6eUesmVVKn5PH/IhmrYTO9+y0=
+  dependencies:
+    "@babel/parser" "^7.1.0"
+    "@babel/types" "^7.0.0"
+    "@types/babel__generator" "*"
+    "@types/babel__template" "*"
+    "@types/babel__traverse" "*"
+
+"@types/babel__core@^7.1.12":
+  version "7.1.12"
+  resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.12.tgz#4d8e9e51eb265552a7e4f1ff2219ab6133bdfb2d"
+  integrity sha512-wMTHiiTiBAAPebqaPiPDLFA4LYPKr6Ph0Xq/6rq1Ur3v66HXyG+clfR9CNETkD7MQS8ZHvpQOtA53DLws5WAEQ==
   dependencies:
     "@babel/parser" "^7.1.0"
     "@babel/types" "^7.0.0"
@@ -3084,8 +3095,8 @@
 
 "@xus/babel-preset@^0.1.11":
   version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@xus/babel-preset/-/babel-preset-0.1.11.tgz#35acf74b8ed5f4ca2386dc8a439f8e6d28cac836"
-  integrity sha512-/M1K663BfkgYiMvSPlTq+gte0iWTBkZiQRyeSNSYBfUbfA/0Fmr+yUsVMFXmRhDWf9h0e7zfMYlVQ5gx3q5Oqg==
+  resolved "https://registry.npm.taobao.org/@xus/babel-preset/download/@xus/babel-preset-0.1.11.tgz#35acf74b8ed5f4ca2386dc8a439f8e6d28cac836"
+  integrity sha1-Naz3S47V9MojhtyKQ5+ObSjKyDY=
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/plugin-proposal-class-properties" "7.12.1"
@@ -4549,6 +4560,11 @@ core-js@^3.8.1:
   version "3.8.3"
   resolved "https://npm.c2cloud.cn/core-js/download/core-js-3.8.3.tgz#c21906e1f14f3689f93abcc6e26883550dd92dd0"
   integrity sha1-whkG4fFPNon5OrzG4miDVQ3ZLdA=
+
+core-js@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.9.1.tgz?cache=0&sync_timestamp=1614537310447&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.9.1.tgz#cec8de593db8eb2a85ffb0dbdeb312cb6e5460ae"
+  integrity sha1-zsjeWT246yqF/7Db3rMSy25UYK4=
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"

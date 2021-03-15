@@ -9,7 +9,7 @@ export interface IVueJsxOps {
 export default (ops?: IVueJsxOps) => {
   const { version = 3, jsxOps = {} } = ops || {}
   return {
-    name: 'xus:rollup:vuejsx',
+    name: 'xus:lib:vuejsx',
     apply(api) {
       api.modifyRollupConfig({
         fn(rc) {

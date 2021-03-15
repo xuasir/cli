@@ -33,6 +33,7 @@ export function modifyConfig(
   // esbuild
   rc.plugin('$$esbuild').use(esbuildPlugin, [
     {
+      include: /\.(jsx?|tsx?)$/,
       target,
       sourcemap
     }

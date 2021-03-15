@@ -16,7 +16,7 @@ interface IEsbuildOps extends TransformOptions {
 
 export function esbuildPlugin(ops: IEsbuildOps = {}): Plugin {
   const filter = createFilter(
-    ops?.include || /\.(jsx?|tsx?)$/,
+    ops?.include || undefined,
     ops?.exclude || undefined
   )
   delete ops?.include
