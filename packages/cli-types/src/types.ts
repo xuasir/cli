@@ -15,6 +15,7 @@ import type { IEsbuildRegister, IRunCmdMessage } from '@xus/cli-shared'
 import type { IRollupChain, IRollupChainConfig } from '@xus/rollup-chain'
 import webpackChain from 'webpack-chain'
 import { TransformOptions } from 'esbuild'
+import * as Postcss from 'postcss'
 
 // Hooks Types
 // type IEvent = any
@@ -69,13 +70,40 @@ export interface IPluginAPI extends IPluginAPIBase {
 export interface IConfig extends IProjectConfig {
   libBuild: {
     libName: string
-    // transform: 'esbuild' | 'babel'
-    minify: false | 'esbuild' | 'terser'
     target: 'esnext' | TransformOptions['target']
     formats: ('esm' | 'cjs' | 'iife' | 'umd')[]
     rollTypes: boolean
     sourcemap: boolean
+    minify: false | 'esbuild' | 'terser'
     alwaysEmptyDistDir: boolean
+    css: {
+      injectScript: boolean
+      cssCodeSplit: boolean
+      modules: {
+        getJSON?: (
+          cssFileName: string,
+          json: Record<string, string>,
+          outputFileName: string
+        ) => void
+        scopeBehaviour?: 'global' | 'local'
+        globalModulePaths?: string[]
+        generateScopedName?:
+          | string
+          | ((name: string, filename: string, css: string) => string)
+        hashPrefix?: string
+        /**
+         * default: null
+         */
+        localsConvention?:
+          | 'camelCase'
+          | 'camelCaseOnly'
+          | 'dashes'
+          | 'dashesOnly'
+          | null
+      }
+      postcss: Postcss.ProcessOptions & { plugins: Postcss.Plugin[] }
+      preprocessor: Partial<Record<'sass' | 'less' | 'stylus', any>>
+    }
 
     // lerna mode
     pkgsOrder: string[]

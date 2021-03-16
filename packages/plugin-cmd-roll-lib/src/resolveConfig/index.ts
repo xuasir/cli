@@ -9,6 +9,10 @@ export function resolveConfig(
   config: IRollLibConfig,
   api: IPluginAPI
 ) {
+  if (api.mode === 'production') {
+    !config.minify && (config.minify = 'terser')
+    config.sourcemap = true
+  }
   // ensure entry
   const entry = args?.entry
   api.logger.debug(`[resolve config] entry: `)

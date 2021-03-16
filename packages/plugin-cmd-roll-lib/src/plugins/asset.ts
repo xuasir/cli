@@ -4,8 +4,7 @@ import fs from 'fs'
 import mime from 'mime/lite'
 import { parse as parseUrl } from 'url'
 import MagicString from 'magic-string'
-import { createHash } from 'crypto'
-import { cleanUrl } from '../utils'
+import { cleanUrl, createAssestHash } from '../utils'
 import { Plugin, PluginContext } from 'rollup'
 
 interface IAssestOps {
@@ -169,10 +168,6 @@ function loadFile(id: string, ops: IAssestOps, ctx: PluginContext) {
   }
   AssestCache.set(id, url)
   return url
-}
-
-function createAssestHash(content: Buffer) {
-  return createHash('sha256').update(content).digest('hex').slice(0, 8)
 }
 
 function isExists(id: string, assetRoot: string) {

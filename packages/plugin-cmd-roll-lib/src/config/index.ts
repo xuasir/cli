@@ -10,6 +10,13 @@ export const libBuildSchema = createSchema<IRollLibConfig>((joi) =>
     rollTypes: joi.boolean(),
     sourcemap: joi.boolean(),
     alwaysEmptyDistDir: joi.boolean(),
+    css: joi.object({
+      injectScript: joi.boolean(),
+      cssCodeSplit: joi.boolean(),
+      modules: joi.object(),
+      preprocessor: joi.object(),
+      postcss: joi.object()
+    }),
 
     // lerna mode
     pkgsOrder: joi.array().items(joi.string()),
@@ -22,12 +29,19 @@ export const libBuildSchema = createSchema<IRollLibConfig>((joi) =>
 export const defaultLibBuildConfig: () => IRollLibConfig = () => {
   return {
     libName: 'index',
-    minify: 'terser',
     target: 'esnext',
     formats: [],
     rollTypes: true,
     sourcemap: false,
+    minify: false,
     alwaysEmptyDistDir: false,
+    css: {
+      injectScript: false,
+      cssCodeSplit: false,
+      modules: {},
+      preprocessor: {},
+      postcss: {}
+    },
 
     // lerna mode
     pkgsOrder: []

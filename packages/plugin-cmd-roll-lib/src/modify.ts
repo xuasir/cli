@@ -6,6 +6,7 @@ import { IResolvedConfig } from './types'
 import { esbuildPlugin } from './plugins/esbuild'
 import { minifyPlugin } from './plugins/minify'
 import { assetPlugin } from './plugins/asset'
+import { cssPlugin } from './plugins/css'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import alias from '@rollup/plugin-alias'
@@ -53,6 +54,18 @@ export function modifyConfig(
   ])
 
   // css
+  const css = resolvedConfig.css
+  rc.plugin('$$css').use(cssPlugin, [
+    {
+      injectScript: css.injectScript,
+      cssCodeSplit: css.cssCodeSplit,
+      sourceMap: sourcemap,
+      minify: !!resolvedConfig.minify,
+      modules: css.modules || {},
+      postcss: css.postcss,
+      preprocessorOptions: css.preprocessor
+    }
+  ])
 
   // asset
   rc.plugin('asset').use(assetPlugin, [

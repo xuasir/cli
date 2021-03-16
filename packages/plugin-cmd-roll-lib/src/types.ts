@@ -1,15 +1,23 @@
 import { IRollupChain } from '@xus/cli-types'
 import { TransformOptions } from 'esbuild'
+import { ICssModulesOps, IPostcssOps, IPreprocessorOps } from './plugins/css'
 
 export interface IRollLibConfig {
   libName: string
-  // transform: 'esbuild' | 'babel'
-  minify: false | 'esbuild' | 'terser'
   target: 'esnext' | TransformOptions['target']
   formats: ('esm' | 'cjs' | 'iife' | 'umd')[]
   rollTypes: boolean
   sourcemap: boolean
+  minify: false | 'esbuild' | 'terser'
   alwaysEmptyDistDir: boolean
+  // css
+  css: {
+    injectScript: boolean
+    cssCodeSplit: boolean
+    modules: ICssModulesOps | false
+    postcss: IPostcssOps
+    preprocessor: IPreprocessorOps
+  }
 
   // lerna mode
   pkgsOrder: string[]
