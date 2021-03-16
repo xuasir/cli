@@ -76,14 +76,14 @@ export function modifyConfig(
 
   // external
 
-  // onwran
-  rc.onwarn((wraning, onwran) => {
-    onRollupWraning(wraning, onwran)
+  // onwarn
+  rc.onwarn((warning, onwarn) => {
+    onRollupWarning(warning, onwarn)
   })
 }
 
-const RollupWraningIgnoreList = ['THIS_IS_UNDEFINED']
-function onRollupWraning(wraning: RollupWarning, onwran: WarningHandler) {
-  if (RollupWraningIgnoreList.includes(wraning.code!)) return
-  onwran(wraning)
+const RollupWarningIgnoreList = ['THIS_IS_UNDEFINED']
+function onRollupWarning(warning: RollupWarning, onwarn: WarningHandler) {
+  if (RollupWarningIgnoreList.includes(warning.code!)) return
+  onwarn(warning)
 }

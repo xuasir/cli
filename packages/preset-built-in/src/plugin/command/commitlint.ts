@@ -67,7 +67,7 @@ export default createPlugin({
           }
           return
         }
-        api.logger.wran(chalk.red(`no HUSKY_GIT_PARAMS`))
+        api.logger.warn(chalk.red(`no HUSKY_GIT_PARAMS`))
         process.exit(1)
       }
     )

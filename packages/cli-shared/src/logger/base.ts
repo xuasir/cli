@@ -19,7 +19,7 @@ export abstract class BaseLogger {
   }
 
   abstract log(msg: string): void
-  abstract wran(msg: string): void
+  abstract warn(msg: string): void
   abstract error(msg: string): void
   abstract profiler(id: string, ...args: any[]): void
 }

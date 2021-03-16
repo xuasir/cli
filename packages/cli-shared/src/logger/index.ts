@@ -21,7 +21,7 @@ export class Logger extends BaseLogger {
     console.log(this.INFO, msg)
   }
 
-  wran(msg: string) {
+  warn(msg: string) {
     console.warn(this.WARN, msg)
   }
 

@@ -10,24 +10,7 @@ export function resolveConfig(
   api: IPluginAPI
 ) {
   // ensure entry
-  let entry = args?.entry
-  if (!entry) {
-    const fileMeta =
-      getFileMeta({
-        base: api.cwd,
-        filenameWithoutExt: 'index',
-        type: 'lib'
-      }) ||
-      getFileMeta({
-        base: api.getPathBasedOnCtx('src'),
-        filenameWithoutExt: 'index',
-        type: 'lib'
-      })
-    entry = fileMeta?.path
-    if (!entry) {
-      throw new Error(`[resolve config] roll-lib should have a entry`)
-    }
-  }
+  const entry = args?.entry
   api.logger.debug(`[resolve config] entry: `)
   api.logger.debug(entry)
 
@@ -91,6 +74,25 @@ export async function generateBuildOps(
     const { output, ...inputOps } = rollupConfig
 
     // input to absolute
+    if (!inputOps.input && !resolvedConfig.entry) {
+      const fileMeta =
+        getFileMeta({
+          base: api.cwd,
+          filenameWithoutExt: 'index',
+          type: 'lib'
+        }) ||
+        getFileMeta({
+          base: api.getPathBasedOnCtx('src'),
+          filenameWithoutExt: 'index',
+          type: 'lib'
+        })
+      const entry = fileMeta?.path
+      if (!entry) {
+        throw new Error(`[generate buildOps] lib-build should have a entry`)
+      } else {
+        resolvedConfig.entry = entry
+      }
+    }
     const entry = (inputOps.input = inputOps.input || resolvedConfig.entry)
     const isSingleEntry = typeof entry === 'string'
     if (typeof entry === 'string') {

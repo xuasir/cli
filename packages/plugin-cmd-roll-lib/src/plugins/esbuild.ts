@@ -60,11 +60,12 @@ export async function transformByEsbuild(
   }
   const loader = ext as Loader
   // transform
-  const transformOps = {
+  const transformOps: TransformOptions = {
     ...ops,
     sourcefile: filename,
     loader,
-    sourcemap: true
+    sourcemap: true,
+    minify: false
   }
   try {
     logger.debug(`transform with options: `)
@@ -77,14 +78,14 @@ export async function transformByEsbuild(
     logger.debug(code)
     logger.debug(`transform sourcemap: `)
     logger.debug(map)
-    // log wran
-    logger.debug(`transform wrannings: `)
+    // log warn
+    logger.debug(`transform warnnings: `)
     logger.debug(warnings)
-    let wranMsg = ''
+    let warnMsg = ''
     warnings.forEach((w) => {
-      wranMsg += w.text + '\n'
+      warnMsg += w.text + '\n'
     })
-    wranMsg && logger.wran('transform ' + filename + ' wranning:' + wranMsg)
+    warnMsg && logger.warn('transform ' + filename + ' warnning:' + warnMsg)
     return {
       code,
       map: map ? JSON.parse(map) : {}

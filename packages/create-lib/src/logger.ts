@@ -8,7 +8,7 @@ const SUCCESS = chalk.black.bgGreen(' SUCCESS ')
 export const info = (msg: string) => {
   console.log(INFO, msg)
 }
-export const wran = (msg: string) => {
+export const warn = (msg: string) => {
   console.log(WARN, msg)
 }
 export const error = (msg: string) => {

@@ -35,7 +35,7 @@ export class HookManager {
     logger.debug(`run hook ${name} `)
     logger.debug(hooks)
     if (hooks.length < 1 && !builtinHooks.includes(name)) {
-      logger.wran(`hook ${name} is empty`)
+      logger.warn(`hook ${name} is empty`)
     }
     switch (type) {
       case HookTypes.event:
