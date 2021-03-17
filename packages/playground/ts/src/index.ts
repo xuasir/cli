@@ -7,3 +7,6 @@ export const di = async () => {
   await Promise.resolve(3)
   await import('./di')
 }
+
+// types
+export const t = '1'

@@ -1,5 +1,5 @@
 {
-  "name": "playground-js",
+  "name": "playground-ts",
   "version": "0.0.0",
   "scripts": {
     "build": "npx xus lib-build"
