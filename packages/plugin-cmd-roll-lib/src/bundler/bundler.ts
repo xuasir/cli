@@ -65,7 +65,6 @@ async function doBuild(ops: IRollupBuildOps) {
         chalk.green(`[${isWrite ? 'Write' : 'Generate'}] ${output.format}`)
       )
       await bundler[isWrite ? 'write' : 'generate'](output)
-      await bundler.write(output)
     }
     await bundler.close()
   }
