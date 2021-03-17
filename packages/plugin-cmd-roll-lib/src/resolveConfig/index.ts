@@ -23,6 +23,16 @@ export function resolveConfig(
   api.logger.debug(`[resolve config] output: `)
   api.logger.debug(outDir)
 
+  // ensure formats
+  if (args?.formats && typeof args.formats === 'string') {
+    const argFormats = args.formats
+      .split(',')
+      .filter((f) => ['cjs', 'esm', 'iife', 'umd'].includes(f))
+    if (argFormats.length > 0) {
+      config.formats = argFormats as ('cjs' | 'esm' | 'iife' | 'umd')[]
+    }
+  }
+
   // order pkg
   let pkgs: string[] = args?.pkgs ? args.pkgs.split(',') : null
   if (isLernaPkg(api.cwd)) {

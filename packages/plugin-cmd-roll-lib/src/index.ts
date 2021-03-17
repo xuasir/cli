@@ -21,7 +21,8 @@ export default createPlugin({
           '--pkgs': 'point pkg dir name',
           '--watch': 'watch mode',
           '--rollTypes': 'to rollup types files',
-          '--sourcemap': 'to generate sourcemap'
+          '--sourcemap': 'to generate sourcemap',
+          '--formats': 'to point bundle format'
         }
       },
       async (args) => {

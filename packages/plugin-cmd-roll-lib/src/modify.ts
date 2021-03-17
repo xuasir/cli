@@ -6,6 +6,7 @@ import { IResolvedConfig } from './types'
 import { esbuildPlugin } from './plugins/esbuild'
 import { minifyPlugin } from './plugins/minify'
 import { assetPlugin } from './plugins/asset'
+import { jsonPlugin } from './plugins/json'
 import { cssPlugin } from './plugins/css'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
@@ -76,6 +77,14 @@ export function modifyConfig(
     }
   ])
 
+  // json
+  rc.plugin('$$json').use(jsonPlugin, [
+    {
+      exportMode: 'stringify'
+    }
+  ])
+
+  //alias
   rc.plugin('alias').use(alias, [
     {
       entries: [{ find: '@', replacement: join(api.cwd, 'src') }]
