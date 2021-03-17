@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "description": "xus cli playground",
+  "author": "guo.xu <xuguo@outlook.it>",
+  "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xus-code/bundle-tools.git"
+  },
+  "dependencies": {
+    "@xus/cli": "^0.2.0",
+    "@xus/plugin-lib-legacy": "^0.2.0",
+    "@xus/plugin-lib-vue-jsx": "^0.2.0"
+  }
+}
