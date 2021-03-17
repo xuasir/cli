@@ -1,0 +1,11 @@
+{
+  "name": "playground-vue-jsx",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "npx xus lib-build"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^3.0.7"
+  }
+}
