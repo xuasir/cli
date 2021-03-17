@@ -1,12 +1,12 @@
 {
-  "name": "@xus/preset-built-in",
-  "version": "0.2.0",
-  "description": "xus cli built in preset",
+  "name": "@xus/plugin-lib-vue",
+  "version": "0.1.0",
+  "description": "a bundle for vue",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
-    "preset"
+    "bundle"
   ],
   "author": "guo.xu <xuguo@outlook.it>",
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
@@ -19,24 +19,16 @@
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "scripts": {
-    "dev:preset": "tsc --watch",
-    "build:preset": "tsc"
+    "dev:vue": "tsc --watch",
+    "build:vue": "tsc"
   },
   "bugs": {
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-types": "^0.2.0",
     "@xus/cli-shared": "^0.2.0",
+    "@xus/cli-types": "^0.2.0",
     "@xus/core": "^0.2.0",
-    "@xus/plugin-cmd-roll-lib": "^0.2.0",
-    "@xus/rollup-chain": "^0.2.6",
-    "conventional-changelog": "^3.1.24",
-    "release-it": "^14.4.1",
-    "rollup": "^2.41.1",
-    "webpack-chain": "^6.5.1"
-  },
-  "devDependencies": {
-    "@types/conventional-changelog": "^3.1.0"
+    "rollup": "^2.40.0"
   }
 }

@@ -1,6 +1,6 @@
 ### [v](https://github.com/xus-code/bundle-tools/compare/...v)
 
-`2021-03-06`
+`2021-03-17`
 
 **Bug Fixes**
 
@@ -13,6 +13,7 @@
 - 将内部方法增加$前缀 [adad67](https://github.com/xus-code/bundle-tools/commit/adad67a9f89928a1ee1ec497413d1309619c59cc)
 - 去除ctx设置能力统一采用cwd [e5714e](https://github.com/xus-code/bundle-tools/commit/e5714e05ecd5c7def9954fa891c8a8e7e10a92cf)
 - 深度可选config [cc01c4](https://github.com/xus-code/bundle-tools/commit/cc01c413067bad19e88baa105f1a052f45bb8d8b)
+- 修复esbuildregister失效 [05a00b](https://github.com/xus-code/bundle-tools/commit/05a00b1ca5342677ff7f15a794a1754d8e32455e)
 - 修复js-compiler构建问题 [13ca46](https://github.com/xus-code/bundle-tools/commit/13ca469190b0db717e5caf0690949543f94594c9)
 - 修复release输出文字 [54d1c0](https://github.com/xus-code/bundle-tools/commit/54d1c0ff90cc3fdc150a4538ebf37a7d502db4dc)
 - 修正快捷注册方法的类型推导 [2b776d](https://github.com/xus-code/bundle-tools/commit/2b776d16039fd21e4eeec28be9500773eeeb4cab)
@@ -34,9 +35,11 @@
 
 - 暴露getCmdArgs供给api [76ce0b](https://github.com/xus-code/bundle-tools/commit/76ce0b8fc7a41dc8488d30b60b7879d93a052d7e)
 - 导出创建rollupchain函数供配置文件语法提示 [ab2eb8](https://github.com/xus-code/bundle-tools/commit/ab2eb86d1f89704178d164fe2feab0c69b024184)
+- 更换babelRegister为esbuildRegister [03a1e9](https://github.com/xus-code/bundle-tools/commit/03a1e940675d883c3bc090c07d76e486bf6b0953)
 - 基于插件的cli初步实现 [4bac79](https://github.com/xus-code/bundle-tools/commit/4bac7958da8e377ee909a627e0b8d10e75b698e5)
 - 生产模式下自动开启sourceMap [30eacf](https://github.com/xus-code/bundle-tools/commit/30eacf7a8926d311780d36f96103f5e28c0091bc)
 - 添加create指令 [1948c7](https://github.com/xus-code/bundle-tools/commit/1948c7349a06a76230e38a18dafd1686146d51ca)
+- 添加json解析插件 [08e597](https://github.com/xus-code/bundle-tools/commit/08e5971dbda0ce72123b69fbdd7f23ebf7b97a3a)
 - 添加lerna模板 [b46225](https://github.com/xus-code/bundle-tools/commit/b46225fa73401d627ec8593b6ae55a7dc01072c2)
 - 添加postcss插件 [10ae08](https://github.com/xus-code/bundle-tools/commit/10ae089e8ce0eeb1a053e1f34041c5a2088d4dfc)
 - 添加watch模式 [66f4f4](https://github.com/xus-code/bundle-tools/commit/66f4f46d703d69c1a6fbcc266d1619d457945667)
@@ -46,6 +49,8 @@
 - 增加copy指令 [1840a2](https://github.com/xus-code/bundle-tools/commit/1840a2f15002336609758c0db11d93c0d10dfe11)
 - build lib 初步完成 [3394e5](https://github.com/xus-code/bundle-tools/commit/3394e5097065c553e488b8d4fbd1f151d03482dd)
 - commitlint增加release支持 [9d72b8](https://github.com/xus-code/bundle-tools/commit/9d72b802d9a5a43641823a66206d3d5ebb3a1b6e)
+- legacy打包降级插件 [71ea0a](https://github.com/xus-code/bundle-tools/commit/71ea0ab566abc579de64e552cf1299c3b7547d14)
+- vuejsx打包插件 [aa9d7b](https://github.com/xus-code/bundle-tools/commit/aa9d7b6146b35b6da948fed2da126cbd96d2534e)
 - bundler-rollup: bundler-rollup 插件开发完成 [7ead3a](https://github.com/xus-code/bundle-tools/commit/7ead3a7d46a9e7962dee78c39b50e6889442c4e2)
 - cmd: 新增clean指令 [adc678](https://github.com/xus-code/bundle-tools/commit/adc6788359fa0d1b1b15e77002201e1837416f27)
 - commit-lint: 添加commit-lint插件 [4832cb](https://github.com/xus-code/bundle-tools/commit/4832cb3e7a0e8e57ed5898db6ad8d250d144d5c9)
@@ -69,6 +74,7 @@
 - 将基础指令整合到preset中 [65a796](https://github.com/xus-code/bundle-tools/commit/65a796b795d6fde127308a1283b82abfa9cecd56)
 - 增强getfilemeta和babelregister能力 [c55eb0](https://github.com/xus-code/bundle-tools/commit/c55eb0f67e71ecae1de8fa6abc55bc71c513b390)
 - 重构插件机制和包结构 [d84a29](https://github.com/xus-code/bundle-tools/commit/d84a2915cd8b601c51be6648cae5f2ee6df84d37)
+- 重构lib-build改为esbuild处理 [435bca](https://github.com/xus-code/bundle-tools/commit/435bcaddec9ed3c69c826da9a820df140669ddd7)
 
 - 修复replace错误问题 [604cf3](https://github.com/xus-code/bundle-tools/commit/604cf3d3fe985cfd5a9f90ed058660d2e6f838fe)
 - commit-lint支持gitHooks [eae1e4](https://github.com/xus-code/bundle-tools/commit/eae1e4b1cb572fc6ef8d1f04255f6775f7490997)

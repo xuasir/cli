@@ -1,6 +1,6 @@
 {
   "name": "@xus/core",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "xus cli",
   "keywords": [
     "cli",
@@ -27,7 +27,7 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-shared": "^0.1.4",
+    "@xus/cli-shared": "^0.2.0",
     "tapable": "^2.2.0"
   }
 }
