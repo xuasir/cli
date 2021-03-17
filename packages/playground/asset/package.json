@@ -1,0 +1,11 @@
+{
+  "name": "playground-asset",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "npx xus lib-build"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.1"
+  }
+}
