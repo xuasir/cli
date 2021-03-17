@@ -30,26 +30,20 @@ export function modifyConfig(
   ])
   rc.plugin('commonjs').use(commonjs).after('commonjs')
 
-  const sourcemap = !!resolvedConfig.sourcemap
-  const target = resolvedConfig.target
   // esbuild
   rc.plugin('$$esbuild').use(esbuildPlugin, [
     {
-      include: /\.(jsx?|tsx?)$/,
-      target,
-      sourcemap
+      include: /\.(jsx|tsx?)$/,
+      exclude: /\.js$/
     }
   ])
   // minify
+  const target = resolvedConfig.target
   rc.plugin('$$minify').use(minifyPlugin, [
     {
       minify: resolvedConfig.minify,
       esbuildMinifyOps: {
-        target,
-        sourcemap
-      },
-      terserMinifyOps: {
-        sourceMap: sourcemap
+        target
       }
     }
   ])
@@ -60,7 +54,6 @@ export function modifyConfig(
     {
       injectScript: css.injectScript,
       cssCodeSplit: css.cssCodeSplit,
-      sourceMap: sourcemap,
       minify: !!resolvedConfig.minify,
       modules: css.modules || {},
       postcss: css.postcss,
@@ -97,6 +90,8 @@ export function modifyConfig(
   ])
 
   // external
+  // TODO: excludeExternal config
+  getPkgDeps(api.cwd).forEach((dep) => rc.external.set(dep))
 
   // onwarn
   rc.onwarn((warning, onwarn) => {
@@ -108,4 +103,21 @@ const RollupWarningIgnoreList = ['THIS_IS_UNDEFINED']
 function onRollupWarning(warning: RollupWarning, onwarn: WarningHandler) {
   if (RollupWarningIgnoreList.includes(warning.code!)) return
   onwarn(warning)
+}
+
+function getPkgDeps(root: string): string[] {
+  let pkg = null
+  try {
+    pkg = require(join(root, 'package.json'))
+  } catch {
+    //
+  }
+  let deps: string[] = []
+  if (pkg) {
+    deps = [
+      ...Object.keys(pkg?.dependencies || {}),
+      ...Object.keys(pkg?.peerDependencies || {})
+    ]
+  }
+  return deps
 }

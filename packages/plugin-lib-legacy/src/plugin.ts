@@ -18,6 +18,9 @@ export function legacyPlugin(ops?: ILegacyPluginOps): Plugin {
   return {
     name: 'xus:rollup:legacy',
     async renderChunk(code, chunk, ops) {
+      // trun off esbuild transform .js file
+      // @ts-ignore
+      ops.__xus__skip__esbuild = true
       logger.debug(`transform ${chunk.facadeModuleId}`)
       const presets = [
         [

@@ -14,9 +14,9 @@ export default (ops?: IVueJsxOps) => {
       api.modifyRollupConfig({
         fn(rc) {
           rc.plugin('$$esbuild').tap((ops) => {
-            // turn esbuild only handle .js file
+            // turn esbuild only handle .ts file
             !ops[0] && (ops[0] = {})
-            ops[0].include = /\.(j|t)s$/
+            ops[0].include = /\.ts$/
             return ops
           })
           // vue jsx transform

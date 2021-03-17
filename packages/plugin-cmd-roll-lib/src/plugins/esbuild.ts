@@ -36,6 +36,16 @@ export function esbuildPlugin(ops: IEsbuildOps = {}): Plugin {
         if (jsxInject && /\.(?:j|t)sx\b/.test(importer)) {
           res.code = jsxInject + ';' + res.code
         }
+        // log warn
+        logger.debug(`transform warnnings: `)
+        logger.debug(res.warnings)
+        let warnMsg = ''
+        res.warnings.forEach((w) => {
+          warnMsg += w.text + '\n'
+        })
+        warnMsg &&
+          logger.warn('esbuild transform ' + importer + ' warnning:' + warnMsg)
+
         return {
           code: res.code,
           map: res.map
@@ -64,8 +74,8 @@ export async function transformByEsbuild(
     ...ops,
     sourcefile: filename,
     loader,
-    sourcemap: true,
-    minify: false
+    minify: false,
+    sourcemap: true
   }
   try {
     logger.debug(`transform with options: `)
@@ -74,21 +84,10 @@ export async function transformByEsbuild(
       source,
       transformOps
     )
-    logger.debug(`transform code: `)
-    logger.debug(code)
-    logger.debug(`transform sourcemap: `)
-    logger.debug(map)
-    // log warn
-    logger.debug(`transform warnnings: `)
-    logger.debug(warnings)
-    let warnMsg = ''
-    warnings.forEach((w) => {
-      warnMsg += w.text + '\n'
-    })
-    warnMsg && logger.warn('transform ' + filename + ' warnning:' + warnMsg)
     return {
       code,
-      map: map ? JSON.parse(map) : {}
+      warnings,
+      map: map ? JSON.parse(map) : { mappings: '' }
     }
   } catch (e) {
     logger.debug(`esbuild error: `)

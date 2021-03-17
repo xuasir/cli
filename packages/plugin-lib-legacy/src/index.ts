@@ -23,13 +23,6 @@ export default (ops?: ILegacyOps) => {
 
       api.modifyRollupConfig({
         fn(rc) {
-          rc.plugin('$$esbuild').tap((ops) => {
-            // turn esbuild only handle .js/.ts/.tsx file
-            !ops[0] && (ops[0] = {})
-            ops[0].exclude = /\.js$/
-            ops[0].target = 'es2019'
-            return ops
-          })
           // babel
           rc.plugin('$$legacy')
             .use(legacyPlugin, [

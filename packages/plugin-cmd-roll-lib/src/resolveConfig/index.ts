@@ -86,7 +86,8 @@ export async function generateBuildOps(
   if (rollupConfig) {
     api.logger.debug(`[generate buildOps] in ${pkgRoot}`)
     const { output, ...inputOps } = rollupConfig
-
+    // TODO: support from rollup-chain
+    inputOps.preserveEntrySignatures = 'strict'
     // input to absolute
     if (!inputOps.input && !resolvedConfig.entry) {
       const fileMeta =

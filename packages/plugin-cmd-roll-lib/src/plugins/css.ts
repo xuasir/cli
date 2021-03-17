@@ -41,7 +41,6 @@ export type IPreprocessorOps = Partial<Record<string, any>>
 interface ICssOps {
   injectScript?: boolean
   cssCodeSplit?: boolean
-  sourceMap?: boolean
   minify?: boolean
   // ops
   modules?: ICssModulesOps
@@ -57,12 +56,8 @@ const commonjsProxyRE = /\?commonjs-proxy/
 const cssCache = new Map<string, string>()
 const opsToFullCssChunk = new WeakMap<NormalizedOutputOptions, string>()
 export function cssPlugin(ops?: ICssOps): Plugin {
-  const {
-    cssCodeSplit = false,
-    injectScript = false,
-    sourceMap = false,
-    minify = false
-  } = ops || {}
+  const { cssCodeSplit = false, injectScript = false, minify = false } =
+    ops || {}
   let hasGenFullStyle = false
   return {
     name: 'xus:rollup:css',
@@ -134,7 +129,7 @@ export function cssPlugin(ops?: ICssOps): Plugin {
 
         return {
           code: s.toString(),
-          map: sourceMap ? s.generateMap({ hires: true }) : undefined
+          map: ops.sourcemap ? s.generateMap({ hires: true }) : undefined
         }
       } else {
         // bundle a full css
