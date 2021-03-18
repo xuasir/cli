@@ -28,7 +28,9 @@ export function modifyConfig(
       extensions
     }
   ])
-  rc.plugin('commonjs').use(commonjs).after('commonjs')
+  rc.plugin('commonjs')
+    .use(commonjs, [{ sourceMap: false }])
+    .after('nodeResolve')
 
   // esbuild
   rc.plugin('$$esbuild').use(esbuildPlugin, [
@@ -52,7 +54,7 @@ export function modifyConfig(
   const css = resolvedConfig.css
   rc.plugin('$$css').use(cssPlugin, [
     {
-      injectScript: css.injectScript,
+      injectMode: css.injectMode,
       cssCodeSplit: css.cssCodeSplit,
       minify: !!resolvedConfig.minify,
       modules: css.modules || {},
@@ -62,36 +64,48 @@ export function modifyConfig(
   ])
 
   // asset
-  rc.plugin('asset').use(assetPlugin, [
+  const assets = resolvedConfig.assets
+  rc.plugin('$$assets').use(assetPlugin, [
     {
-      assetDir: 'assets',
+      assetDir: assets.dirname,
       assetRoot: join(api.cwd, 'assets'),
-      inlineLimit: 0
+      inlineLimit: assets.inlineLimit
     }
   ])
 
   // json
+  const json = resolvedConfig.json
   rc.plugin('$$json').use(jsonPlugin, [
     {
-      exportMode: 'stringify'
+      exportMode: json.exportMode
     }
   ])
 
   //alias
+  const configAlias = resolvedConfig.alias
+  const aliasEntries = Object.keys(configAlias).map((find) => ({
+    find,
+    replacement: configAlias[find]
+  }))
   rc.plugin('alias').use(alias, [
     {
-      entries: [{ find: '@', replacement: join(api.cwd, 'src') }]
+      entries: [
+        { find: '@', replacement: join(api.cwd, 'src') },
+        ...aliasEntries
+      ]
     }
   ])
+  const configReplace = resolvedConfig.replace
   rc.plugin('replace').use(replace, [
     {
-      preventAssignment: true
+      preventAssignment: true,
+      ...configReplace
     }
   ])
 
   // external
-  // TODO: excludeExternal config
-  getPkgDeps(api.cwd).forEach((dep) => rc.external.set(dep))
+  const excludeExternal = resolvedConfig.excludeExternal
+  getPkgDeps(api.cwd, excludeExternal).forEach((dep) => rc.external.set(dep))
 
   // onwarn
   rc.onwarn((warning, onwarn) => {
@@ -105,7 +119,7 @@ function onRollupWarning(warning: RollupWarning, onwarn: WarningHandler) {
   onwarn(warning)
 }
 
-function getPkgDeps(root: string): string[] {
+function getPkgDeps(root: string, exclude: string[]): string[] {
   let pkg = null
   try {
     pkg = require(join(root, 'package.json'))
@@ -117,7 +131,7 @@ function getPkgDeps(root: string): string[] {
     deps = [
       ...Object.keys(pkg?.dependencies || {}),
       ...Object.keys(pkg?.peerDependencies || {})
-    ]
+    ].filter((dep) => !exclude.includes(dep))
   }
   return deps
 }

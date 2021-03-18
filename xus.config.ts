@@ -8,14 +8,17 @@ export default defineConfig({
     alwaysEmptyDistDir: true,
     rollTypes: true,
     sourcemap: false,
-    pkgsOrder: [
-      'cli-shared',
-      'core',
-      'cli-types',
-      'plugin-cmd-roll-lib',
-      'preset-built-in',
-      'cli'
-    ]
+    lerna: {
+      pkgsOrder: [
+        'cli-shared',
+        'core',
+        'cli-types',
+        'plugin-cmd-roll-lib',
+        'preset-built-in',
+        'cli'
+      ],
+      excludePkgs: ['playground', 'plugin-lib-vue']
+    }
   },
   release: {
     branch: 'main'

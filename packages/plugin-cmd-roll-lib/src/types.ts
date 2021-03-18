@@ -1,6 +1,13 @@
 import { IRollupChain } from '@xus/cli-types'
+import { IRunCmdMessage } from '@xus/cli-shared'
 import { TransformOptions } from 'esbuild'
 import { ICssModulesOps, IPostcssOps, IPreprocessorOps } from './plugins/css'
+
+type ICmd = {
+  bin: string
+  args: string[]
+  message: IRunCmdMessage
+}
 
 export interface IRollLibConfig {
   libName: string
@@ -12,18 +19,36 @@ export interface IRollLibConfig {
   alwaysEmptyDistDir: boolean
   // css
   css: {
-    injectScript: boolean
+    injectMode: false | 'script' | 'url'
     cssCodeSplit: boolean
     modules: ICssModulesOps | false
     postcss: IPostcssOps
     preprocessor: IPreprocessorOps
   }
+  assets: {
+    dirname: string
+    inlineLimit: number
+  }
+  json: {
+    exportMode: 'named' | 'stringify'
+  }
+  alias: Record<string, string>
+  replace: Record<string, string>
+  excludeExternal: string[]
 
   // lerna mode
-  pkgsOrder: string[]
+  lerna:
+    | false
+    | {
+        // need to do ??
+        independentConfig?: boolean
+        pkgsOrder: string[]
+        excludePkgs: string[]
+      }
 
   // insider
   rollupChain?: (rc: IRollupChain) => IRollupChain
+  afterBuild: ICmd[]
 }
 
 export interface IResolvedConfig extends Omit<IRollLibConfig, 'pkgsOrder'> {
@@ -31,7 +56,7 @@ export interface IResolvedConfig extends Omit<IRollLibConfig, 'pkgsOrder'> {
   outDir: string
   // ready to roll pkg root
   pkgs: string[]
+  independentMode: boolean
   // TODO：assets / css
   isWatch: boolean
-  // disabled esbuild handle
 }

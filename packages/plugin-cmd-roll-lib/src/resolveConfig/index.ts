@@ -2,13 +2,14 @@ import { IArgs, IPluginAPI } from '@xus/cli-types'
 import { IRollupBuildOps } from '../bundler'
 import { IRollLibConfig, IResolvedConfig } from '../types'
 import { isLernaPkg, orderBy, getFileMeta } from '@xus/cli-shared'
-import { relative, join, isAbsolute } from 'path'
+import { relative, join, isAbsolute, extname } from 'path'
 
 export function resolveConfig(
   args: IArgs,
   config: IRollLibConfig,
   api: IPluginAPI
 ) {
+  // ensure mode
   if (api.mode === 'production') {
     !config.minify && (config.minify = 'terser')
     config.sourcemap = true
@@ -34,15 +35,26 @@ export function resolveConfig(
   }
 
   // order pkg
+  const lerna = config.lerna
   let pkgs: string[] = args?.pkgs ? args.pkgs.split(',') : null
   if (isLernaPkg(api.cwd)) {
-    const lernaRoot = api.getPathBasedOnCtx('packages')
-    const pkgsOrder = config.pkgsOrder
-    if (!pkgs) {
-      pkgs = api.getLernaPkgs().map((p) => relative(lernaRoot, p))
+    if (lerna === false) {
+      // disabled lerna pack
+      pkgs = [api.cwd]
+    } else {
+      // default lerna pack
+      const lernaRoot = api.getPathBasedOnCtx('packages')
+      const pkgsOrder = lerna.pkgsOrder
+      const excludePkgs = lerna.excludePkgs
+      if (!pkgs) {
+        pkgs = api.getLernaPkgs().map((p) => relative(lernaRoot, p))
+      }
+      pkgs = orderBy(pkgs, pkgsOrder)
+        .map((p) => join(lernaRoot, p))
+        .filter((pkg) => !excludePkgs.includes(pkg))
     }
-    pkgs = orderBy(pkgs, pkgsOrder).map((p) => join(lernaRoot, p))
   } else {
+    // simple pack
     pkgs = [api.cwd]
   }
   api.logger.debug(`[resolve config] pkgs: `)
@@ -55,11 +67,12 @@ export function resolveConfig(
     pkgs,
     entry,
     outDir,
-    isWatch: !!args?.watch
+    isWatch: !!args?.watch,
+    independentMode: lerna && !!lerna.independentConfig
   }
 
-  // do some ensure work
-  // TODO: support bundled runtime target or do a legacy plugin ??
+  // ensure target
+  // support bundled runtime target by legacy plugin
   if (
     resolvedConfig.target === 'esnext' ||
     resolvedConfig.target?.includes('esnext')
@@ -154,3 +167,19 @@ export async function generateBuildOps(
     throw new Error(`roll-lib need a rollup config`)
   }
 }
+
+// const tsRE = /\.tsx?$/
+// export function generateTypeOps(
+//   pkgRoot: string,
+//   buildOps: IRollupBuildOps,
+//   api: IPluginAPI
+// ) {
+//   const entry = buildOps.inputConfig.input
+//   const input = ``
+//   if (entry) {
+//     if (typeof entry === 'string' && tsRE.test(entry)) {
+//       const ext = extname(entry)
+//       // input = `${entry.slice(0, -ext.length)}.d.ts`.replace()
+//     }
+//   }
+// }

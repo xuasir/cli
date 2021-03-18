@@ -1,5 +1,5 @@
 import { createPlugin } from '@xus/cli-types'
-import { chalk } from '@xus/cli-shared'
+import { chalk, runCmd } from '@xus/cli-shared'
 import { basename } from 'path'
 import { rollupBundler } from './bundler'
 import { resolveConfig, generateBuildOps } from './resolveConfig'
@@ -34,6 +34,7 @@ export default createPlugin({
         // resolveConfig
         api.logger.debug(`resolve config `)
         const resolvedConfig = resolveConfig(args, config, api)
+
         // default config should run before user modify
         api.logger.debug(`modify rollup config `)
         api.modifyRollupConfig({
@@ -57,7 +58,27 @@ export default createPlugin({
           // to rollup
           api.logger.info(chalk.yellow(`running for ${basename(pkg)}`))
           await rollupBundler(buildOps)
+          //   if (resolvedConfig.rollTypes) {
+          //     api.logger.debug(`roll types `)
+          //     await runCmd(
+          //       'npx',
+          //       ['tsc', '--emitDeclarationOnly', '--outDir', 'xus_type'],
+          //       {
+          //         start: 'generate types start',
+          //         succeed: 'generate types succeed',
+          //         failed: 'generate types failed'
+          //       }
+          //     )
+          //   }
           process.chdir(saveCwd)
+        }
+
+        const afterBuild = resolvedConfig.afterBuild
+        if (afterBuild && afterBuild.length > 0) {
+          api.logger.info(`after build command running `)
+          await afterBuild.reduce((p, cmd) => {
+            return p.then(() => runCmd(cmd.bin, cmd.args, cmd.message))
+          }, Promise.resolve(true))
         }
       }
     )

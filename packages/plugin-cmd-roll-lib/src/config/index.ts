@@ -11,18 +11,35 @@ export const libBuildSchema = createSchema<IRollLibConfig>((joi) =>
     sourcemap: joi.boolean(),
     alwaysEmptyDistDir: joi.boolean(),
     css: joi.object({
-      injectScript: joi.boolean(),
+      injectMode: joi.boolean(),
       cssCodeSplit: joi.boolean(),
       modules: joi.object(),
       preprocessor: joi.object(),
       postcss: joi.object()
     }),
+    assets: {
+      dirname: joi.string(),
+      inlineLimit: joi.number()
+    },
+    json: {
+      exportMode: joi.string()
+    },
+    alias: joi.object(),
+    replace: joi.object(),
+    excludeExternal: joi.array().items(joi.string()),
 
     // lerna mode
-    pkgsOrder: joi.array().items(joi.string()),
-    pointPkgs: joi.array().items(joi.string()),
+    lerna: [
+      joi.boolean(),
+      joi.object({
+        independentConfig: joi.boolean(),
+        pkgsOrder: joi.array().items(joi.string()),
+        excludePkgs: joi.array().items(joi.string())
+      })
+    ],
 
-    rollupChain: joi.function()
+    rollupChain: joi.function(),
+    afterBuild: joi.array()
   })
 )
 
@@ -36,14 +53,30 @@ export const defaultLibBuildConfig: () => IRollLibConfig = () => {
     minify: false,
     alwaysEmptyDistDir: false,
     css: {
-      injectScript: false,
+      injectMode: false,
       cssCodeSplit: false,
       modules: {},
       preprocessor: {},
       postcss: {}
     },
+    assets: {
+      dirname: 'assets',
+      inlineLimit: 0
+    },
+    json: {
+      exportMode: 'named'
+    },
+    alias: {},
+    replace: {},
+    excludeExternal: [],
 
     // lerna mode
-    pkgsOrder: []
+    lerna: {
+      independentConfig: false,
+      pkgsOrder: [],
+      excludePkgs: []
+    },
+
+    afterBuild: []
   }
 }

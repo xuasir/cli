@@ -39,7 +39,7 @@ export type IPostcssOps = Postcss.ProcessOptions & {
 }
 export type IPreprocessorOps = Partial<Record<string, any>>
 interface ICssOps {
-  injectScript?: boolean
+  injectMode?: false | 'script' | 'url'
   cssCodeSplit?: boolean
   minify?: boolean
   // ops
@@ -56,8 +56,7 @@ const commonjsProxyRE = /\?commonjs-proxy/
 const cssCache = new Map<string, string>()
 const opsToFullCssChunk = new WeakMap<NormalizedOutputOptions, string>()
 export function cssPlugin(ops?: ICssOps): Plugin {
-  const { cssCodeSplit = false, injectScript = false, minify = false } =
-    ops || {}
+  const { cssCodeSplit = false, injectMode = false, minify = false } = ops || {}
   let hasGenFullStyle = false
   return {
     name: 'xus:rollup:css',
@@ -103,18 +102,20 @@ export function cssPlugin(ops?: ICssOps): Plugin {
         // bundle a css for every chunk
         // 1. minify  replace
         cssChunk = await processCssChunk(cssChunk, {
-          inject: injectScript,
+          inject: !!injectMode,
           minify
         })
         // 2. inject code
         const filename = `${chunk.name}.css`
-        let injectCode = `import './css/${filename}';\n`
-        if (injectScript) {
+        let injectCode = ''
+        if (injectMode === 'script') {
           const style = `__xus__style__`
           injectCode =
             `var ${style} = document.createElement('style');\n` +
             `${style}.innerHTML = ${JSON.stringify(cssChunk)};\n` +
             `document.head.appendChild(${style});`
+        } else if (injectMode === 'url') {
+          injectCode = `import './css/${filename}';\n`
         }
         const s = new MagicString(code)
         s.prepend(injectCode)
@@ -297,7 +298,7 @@ async function compileCss(
 
 async function processCssChunk(
   css: string,
-  { inject, minify }: { inject: boolean; minify: boolean }
+  { minify }: { inject: boolean; minify: boolean }
 ) {
   let res = css
   // replace assets mark

@@ -67,6 +67,12 @@ export interface IPluginAPI extends IPluginAPIBase {
 }
 
 // IConfig
+
+type ICmd = {
+  bin: string
+  args: string[]
+  message: IRunCmdMessage
+}
 export interface IConfig extends IProjectConfig {
   libBuild: {
     libName: string
@@ -77,7 +83,7 @@ export interface IConfig extends IProjectConfig {
     minify: false | 'esbuild' | 'terser'
     alwaysEmptyDistDir: boolean
     css: {
-      injectScript: boolean
+      injectMode: false | 'script' | 'url'
       cssCodeSplit: boolean
       modules: {
         getJSON?: (
@@ -104,12 +110,30 @@ export interface IConfig extends IProjectConfig {
       postcss: Postcss.ProcessOptions & { plugins: Postcss.Plugin[] }
       preprocessor: Partial<Record<'sass' | 'less' | 'stylus', any>>
     }
+    assets: {
+      dirname: string
+      inlineLimit: number
+    }
+    json: {
+      exportMode: 'named' | 'stringify'
+    }
+    alias: Record<string, string>
+    replace: Record<string, string>
+    excludeExternal: string[]
 
     // lerna mode
-    pkgsOrder: string[]
+    lerna:
+      | false
+      | {
+          // independentConfig: boolean
+          pkgsOrder: string[]
+          excludePkgs: string[]
+        }
 
     // insider
     rollupChain: (rc: IRollupChain) => IRollupChain
+
+    afterBuild: ICmd[]
   }
   lint: {
     eslint:
@@ -132,11 +156,7 @@ export interface IConfig extends IProjectConfig {
   }
   release: {
     // before hooks for run lint test build...
-    beforeRelease: {
-      bin: string
-      args: string[]
-      message: IRunCmdMessage
-    }[]
+    beforeRelease: ICmd[]
     // in lenra mode to ensure pkg publish order
     order: string[]
     branch: string
