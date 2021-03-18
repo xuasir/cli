@@ -5,7 +5,7 @@ import { IPlugin, IPreset, IConfig } from './types'
 type IReturnArg<T extends any> = (args: T) => T
 
 type PartialDeep<T extends Record<string, any>> = {
-  [K in keyof T]?: T[K] extends Record<string, unknown>
+  [K in keyof T]?: T[K] extends Record<string, unknown> | boolean
     ? PartialDeep<T[K]>
     : T[K]
 }
