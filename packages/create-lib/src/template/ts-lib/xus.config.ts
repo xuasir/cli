@@ -2,8 +2,11 @@ import { defineConfig } from '@xus/cli'
 
 export default defineConfig({
   libBuild: {
-    targets: ['esm', 'cjs', 'browser'],
-    rollTypes: true
+    target: 'esnext',
+    formats: ['esm', 'cjs'],
+    minify: false,
+    sourcemap: false,
+    alwaysEmptyDistDir: true
   },
   lint: {
     eslint: {

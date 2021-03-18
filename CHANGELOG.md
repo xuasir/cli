@@ -1,11 +1,13 @@
 ### [v](https://github.com/xus-code/bundle-tools/compare/...v)
 
-`2021-03-17`
+`2021-03-18`
 
 **Bug Fixes**
 
+- 错误执行两次write [3b4df3](https://github.com/xus-code/bundle-tools/commit/3b4df33d67bc2bcc94cfa484cb5fd945f5afc7e7)
 - 导出createXusConfig [fa2aa7](https://github.com/xus-code/bundle-tools/commit/fa2aa7bc3079137c6ee5fd456e7e85d86eeb69d7)
 - 调整项目结构 [b20982](https://github.com/xus-code/bundle-tools/commit/b20982401547c20e869cf57326570b7ee34f2ee8)
+- 调整js处理顺序 [fa094c](https://github.com/xus-code/bundle-tools/commit/fa094cab9fb4a410d07ad298c16f39388f80d37e)
 - 调整order算法 [3658c0](https://github.com/xus-code/bundle-tools/commit/3658c0edbe6cbab98d37517d821b46725457e31d)
 - 发布分支分支支持可配置 [426ad0](https://github.com/xus-code/bundle-tools/commit/426ad028e83ad7f60adcd6cfcf68c646291a8e89)
 - 更好的打包过程展示 [e673b0](https://github.com/xus-code/bundle-tools/commit/e673b0768e4c0e83e980bd53ed86cf73507769d2)
@@ -17,6 +19,7 @@
 - 修复js-compiler构建问题 [13ca46](https://github.com/xus-code/bundle-tools/commit/13ca469190b0db717e5caf0690949543f94594c9)
 - 修复release输出文字 [54d1c0](https://github.com/xus-code/bundle-tools/commit/54d1c0ff90cc3fdc150a4538ebf37a7d502db4dc)
 - 修正快捷注册方法的类型推导 [2b776d](https://github.com/xus-code/bundle-tools/commit/2b776d16039fd21e4eeec28be9500773eeeb4cab)
+- 修正类型 [7ff9fd](https://github.com/xus-code/bundle-tools/commit/7ff9fd049b7cd461b4e8e97c90e96f5a41114eff)
 - 修正config类型 [bd1723](https://github.com/xus-code/bundle-tools/commit/bd1723d4ad3784521338af3fd85e784bb009c664)
 - 修正help输出格式 [45d9de](https://github.com/xus-code/bundle-tools/commit/45d9decdff89034eba9a7771939cf4015c9483a2)
 - 修正Hook和Plugin类型 [7fc57f](https://github.com/xus-code/bundle-tools/commit/7fc57f9e85513e8426e88cfed61659bbe24f9c43)
@@ -42,14 +45,22 @@
 - 添加json解析插件 [08e597](https://github.com/xus-code/bundle-tools/commit/08e5971dbda0ce72123b69fbdd7f23ebf7b97a3a)
 - 添加lerna模板 [b46225](https://github.com/xus-code/bundle-tools/commit/b46225fa73401d627ec8593b6ae55a7dc01072c2)
 - 添加postcss插件 [10ae08](https://github.com/xus-code/bundle-tools/commit/10ae089e8ce0eeb1a053e1f34041c5a2088d4dfc)
+- 添加vue jsx demo [bd55bd](https://github.com/xus-code/bundle-tools/commit/bd55bd6c1510c703a150e44356a6f801f20042e7)
 - 添加watch模式 [66f4f4](https://github.com/xus-code/bundle-tools/commit/66f4f46d703d69c1a6fbcc266d1619d457945667)
 - 新增changelog,lint,release,clean指令 [30fbfc](https://github.com/xus-code/bundle-tools/commit/30fbfc48305b5aa2c17d6decca7e08416271fed9)
 - 新增rollup types [a88539](https://github.com/xus-code/bundle-tools/commit/a88539825976b37221740c291ad0c29e1d9be0cb)
 - 载入配置文件的plugin和preset [079869](https://github.com/xus-code/bundle-tools/commit/0798694a43e7d3caf8564c6c8839dac6ad4401f2)
+- 增加 react demo [ca10be](https://github.com/xus-code/bundle-tools/commit/ca10be3ea5c516f7dc991b3035c46a57002d8afb)
+- 增加 sass 示例 [044c30](https://github.com/xus-code/bundle-tools/commit/044c3055a80170a47ae6e3930ecdfc6a78bba901)
+- 增加asset demo [5691a9](https://github.com/xus-code/bundle-tools/commit/5691a96beb12665e746a9895ebb329f7446bb4e7)
 - 增加copy指令 [1840a2](https://github.com/xus-code/bundle-tools/commit/1840a2f15002336609758c0db11d93c0d10dfe11)
+- 增加js demo [d56705](https://github.com/xus-code/bundle-tools/commit/d5670582ee9e37120009f3a64cfe32b4c405f462)
+- 增加ts demo [d0a517](https://github.com/xus-code/bundle-tools/commit/d0a517a646b51afb24048998fdfbf01b1c80516f)
 - build lib 初步完成 [3394e5](https://github.com/xus-code/bundle-tools/commit/3394e5097065c553e488b8d4fbd1f151d03482dd)
 - commitlint增加release支持 [9d72b8](https://github.com/xus-code/bundle-tools/commit/9d72b802d9a5a43641823a66206d3d5ebb3a1b6e)
+- help指令开发 [488a15](https://github.com/xus-code/bundle-tools/commit/488a15acee677fef7afa9a2b097636777504efa7)
 - legacy打包降级插件 [71ea0a](https://github.com/xus-code/bundle-tools/commit/71ea0ab566abc579de64e552cf1299c3b7547d14)
+- rollup bundler to bundle js [be3f40](https://github.com/xus-code/bundle-tools/commit/be3f4036977cdbf6fbda003bd554dbc9d48d844b)
 - vuejsx打包插件 [aa9d7b](https://github.com/xus-code/bundle-tools/commit/aa9d7b6146b35b6da948fed2da126cbd96d2534e)
 - bundler-rollup: bundler-rollup 插件开发完成 [7ead3a](https://github.com/xus-code/bundle-tools/commit/7ead3a7d46a9e7962dee78c39b50e6889442c4e2)
 - cmd: 新增clean指令 [adc678](https://github.com/xus-code/bundle-tools/commit/adc6788359fa0d1b1b15e77002201e1837416f27)
@@ -58,8 +69,6 @@
 - compiler: add js/react compiler [452b20](https://github.com/xus-code/bundle-tools/commit/452b20674b7edbd411ecdd97068a69c5e56151be)
 - rollup: init format [ac2c01](https://github.com/xus-code/bundle-tools/commit/ac2c01b543ab7b9c205224a73c772430f14334d9)
 - shared: 新增文件相关工具函数 [0a62ab](https://github.com/xus-code/bundle-tools/commit/0a62abe423ad417696555e63c264caac93d78345)
-- help指令开发 [488a15](https://github.com/xus-code/bundle-tools/commit/488a15acee677fef7afa9a2b097636777504efa7)
-- rollup bundler to bundle js [be3f40](https://github.com/xus-code/bundle-tools/commit/be3f4036977cdbf6fbda003bd554dbc9d48d844b)
 
 **init**
 
@@ -74,6 +83,7 @@
 - 将基础指令整合到preset中 [65a796](https://github.com/xus-code/bundle-tools/commit/65a796b795d6fde127308a1283b82abfa9cecd56)
 - 增强getfilemeta和babelregister能力 [c55eb0](https://github.com/xus-code/bundle-tools/commit/c55eb0f67e71ecae1de8fa6abc55bc71c513b390)
 - 重构插件机制和包结构 [d84a29](https://github.com/xus-code/bundle-tools/commit/d84a2915cd8b601c51be6648cae5f2ee6df84d37)
+- 重构配置文件 [d3dda9](https://github.com/xus-code/bundle-tools/commit/d3dda92f4c1aa8f4f72fd25728e71946a2c3c94e)
 - 重构lib-build改为esbuild处理 [435bca](https://github.com/xus-code/bundle-tools/commit/435bcaddec9ed3c69c826da9a820df140669ddd7)
 
 - 修复replace错误问题 [604cf3](https://github.com/xus-code/bundle-tools/commit/604cf3d3fe985cfd5a9f90ed058660d2e6f838fe)

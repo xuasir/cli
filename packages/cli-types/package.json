@@ -1,6 +1,6 @@
 {
   "name": "@xus/cli-types",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "cli utils",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,8 +24,8 @@
     "build:types": "tsc"
   },
   "dependencies": {
-    "@xus/cli-shared": "^0.2.0",
-    "@xus/core": "^0.2.0",
+    "@xus/cli-shared": "^0.2.1",
+    "@xus/core": "^0.2.1",
     "@xus/rollup-chain": "^0.2.6",
     "esbuild": "^0.9.2",
     "webpack-chain": "^6.5.1"
