@@ -9,10 +9,6 @@ import {
   unlinkSync
 } from 'fs'
 import { resolve } from 'path'
-import { error } from './logger'
-import { Spinner } from './spinner'
-
-const spinner = new Spinner()
 
 export function copy(src: string, dest: string) {
   const stat = statSync(src)
