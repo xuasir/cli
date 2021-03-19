@@ -2,7 +2,7 @@
   "name": "@xus/plugin-cmd-roll-lib",
   "version": "0.2.1",
   "description": "a bundle for js ts react",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
   "typings": "dist/index.d.ts",
   "keywords": [
     "cli",
@@ -46,7 +46,9 @@
     "rollup-plugin-dts": "^3.0.1",
     "semver": "^7.3.4",
     "terser": "^5.6.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "postcss-import": "^14.0.0",
+    "postcss-modules": "^4.0.0"
   },
   "devDependencies": {
     "@types/clean-css": "^4.2.3",
@@ -54,8 +56,6 @@
     "@types/mime": "^2.0.3",
     "@types/postcss-import": "^12.0.0",
     "@types/sass": "^1.16.0",
-    "@types/semver": "^7.3.4",
-    "postcss-import": "^14.0.0",
-    "postcss-modules": "^4.0.0"
+    "@types/semver": "^7.3.4"
   }
 }

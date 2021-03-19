@@ -113,7 +113,7 @@ export function modifyConfig(
   })
 }
 
-const RollupWarningIgnoreList = ['THIS_IS_UNDEFINED']
+const RollupWarningIgnoreList = ['THIS_IS_UNDEFINED', 'CIRCULAR_DEPENDENCY']
 function onRollupWarning(warning: RollupWarning, onwarn: WarningHandler) {
   if (RollupWarningIgnoreList.includes(warning.code!)) return
   onwarn(warning)
