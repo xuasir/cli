@@ -26,7 +26,8 @@ async function doBuild(ops: IRollupBuildOps) {
     isWrite = true,
     inputConfig,
     outputConfigs,
-    alwaysEmptyDistDir
+    alwaysEmptyDistDir,
+    skipEmptyDistDir = false
   } = ops
   if (isWatch) {
     logger.debug(`do watch: `)
@@ -56,7 +57,8 @@ async function doBuild(ops: IRollupBuildOps) {
 
     await ensureDir(
       path.join(pkgRoot, outputConfigs[0].dir!),
-      alwaysEmptyDistDir
+      alwaysEmptyDistDir,
+      skipEmptyDistDir
     )
     logger.debug(`start ${isWrite ? 'write' : 'generate'}`)
     for (const output of outputConfigs) {
@@ -70,7 +72,12 @@ async function doBuild(ops: IRollupBuildOps) {
   }
 }
 
-async function ensureDir(dir: string, alwaysEmptyDistDir = false) {
+async function ensureDir(
+  dir: string,
+  alwaysEmptyDistDir = false,
+  skipEmptyDistDir = false
+) {
+  if (skipEmptyDistDir) return
   if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
     const files = fs.readdirSync(dir)
     if (files.length > 0) {

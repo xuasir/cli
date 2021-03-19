@@ -1,7 +1,7 @@
 import { createPlugin } from '@xus/cli-types'
 import { chalk, runCmd } from '@xus/cli-shared'
 import { basename } from 'path'
-import { rollupBundler } from './bundler'
+import { rollupBundler, rollTypes } from './bundler'
 import { resolveConfig, generateBuildOps } from './resolveConfig'
 import { modifyConfig } from './modify'
 // config
@@ -58,18 +58,10 @@ export default createPlugin({
           // to rollup
           api.logger.info(chalk.yellow(`running for ${basename(pkg)}`))
           await rollupBundler(buildOps)
-          //   if (resolvedConfig.rollTypes) {
-          //     api.logger.debug(`roll types `)
-          //     await runCmd(
-          //       'npx',
-          //       ['tsc', '--emitDeclarationOnly', '--outDir', 'xus_type'],
-          //       {
-          //         start: 'generate types start',
-          //         succeed: 'generate types succeed',
-          //         failed: 'generate types failed'
-          //       }
-          //     )
-          //   }
+          if (resolvedConfig.rollTypes) {
+            api.logger.debug(`rollup types `)
+            rollTypes(pkg, buildOps, api)
+          }
           process.chdir(saveCwd)
         }
 

@@ -2,7 +2,9 @@ import { IArgs, IPluginAPI } from '@xus/cli-types'
 import { IRollupBuildOps } from '../bundler'
 import { IRollLibConfig, IResolvedConfig } from '../types'
 import { isLernaPkg, orderBy, getFileMeta } from '@xus/cli-shared'
-import { relative, join, isAbsolute, extname } from 'path'
+import { relative, join, isAbsolute, extname, basename } from 'path'
+import { TypesDir } from '../bundler'
+import dts from 'rollup-plugin-dts'
 
 export function resolveConfig(
   args: IArgs,
@@ -103,17 +105,11 @@ export async function generateBuildOps(
     inputOps.preserveEntrySignatures = 'strict'
     // input to absolute
     if (!inputOps.input && !resolvedConfig.entry) {
-      const fileMeta =
-        getFileMeta({
-          base: api.cwd,
-          filenameWithoutExt: 'index',
-          type: 'lib'
-        }) ||
-        getFileMeta({
-          base: api.getPathBasedOnCtx('src'),
-          filenameWithoutExt: 'index',
-          type: 'lib'
-        })
+      const fileMeta = getFileMeta({
+        base: api.getPathBasedOnCtx('src'),
+        filenameWithoutExt: 'index',
+        type: 'lib'
+      })
       const entry = fileMeta?.path
       if (!entry) {
         throw new Error(`[generate buildOps] lib-build should have a entry`)
@@ -168,18 +164,60 @@ export async function generateBuildOps(
   }
 }
 
-// const tsRE = /\.tsx?$/
-// export function generateTypeOps(
-//   pkgRoot: string,
-//   buildOps: IRollupBuildOps,
-//   api: IPluginAPI
-// ) {
-//   const entry = buildOps.inputConfig.input
-//   const input = ``
-//   if (entry) {
-//     if (typeof entry === 'string' && tsRE.test(entry)) {
-//       const ext = extname(entry)
-//       // input = `${entry.slice(0, -ext.length)}.d.ts`.replace()
-//     }
-//   }
-// }
+const tsRE = /\.tsx?$/
+export function generateTypeOps(
+  pkgRoot: string,
+  buildOps: IRollupBuildOps,
+  api: IPluginAPI
+): IRollupBuildOps | null {
+  const entry = buildOps.inputConfig.input
+  let inputs: Record<string, string> = {}
+  if (entry) {
+    if (typeof entry === 'string' && tsRE.test(entry)) {
+      const ext = extname(entry)
+      const bn = basename(entry)
+      inputs[bn.slice(0, -ext.length)] = entry
+    }
+    if (!Array.isArray(entry) && typeof entry !== 'string') {
+      inputs = {
+        ...inputs,
+        ...entry
+      }
+    }
+    const tempRoot = join(pkgRoot, TypesDir)
+    Object.keys(inputs).forEach((key) => {
+      const i = inputs[key]
+      let r = relative(pkgRoot, i)
+      if (tsRE.test(r)) {
+        if (r.startsWith('src')) {
+          r = relative('src', r)
+        }
+        const ext = extname(r)
+        inputs[key] = join(tempRoot, `${r.slice(0, -ext.length)}.d.ts`)
+      } else {
+        delete inputs[key]
+      }
+    })
+    api.logger.debug(`[generate types options] types entry: `)
+    api.logger.debug(inputs)
+    return {
+      inputConfig: {
+        input: inputs,
+        plugins: [dts()]
+      },
+      outputConfigs: [
+        {
+          dir: buildOps.outputConfigs?.[0]?.dir || 'dist',
+          format: 'es',
+          entryFileNames: `[name].d.ts`
+        }
+      ],
+      isWatch: buildOps.isWatch,
+      isWrite: true,
+      pkgRoot,
+      alwaysEmptyDistDir: false,
+      skipEmptyDistDir: true
+    }
+  }
+  return null
+}
