@@ -9,8 +9,8 @@
     "url": "git+https://github.com/xus-code/bundle-tools.git"
   },
   "dependencies": {
-    "@xus/cli": "^0.2.1",
-    "@xus/plugin-lib-legacy": "^0.1.2",
-    "@xus/plugin-lib-vue-jsx": "^0.1.2"
+    "@xus/cli": "^0.3.0",
+    "@xus/plugin-lib-legacy": "^0.2.0",
+    "@xus/plugin-lib-vue-jsx": "^0.2.0"
   }
 }

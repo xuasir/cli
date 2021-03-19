@@ -1,6 +1,6 @@
 ### [v](https://github.com/xus-code/bundle-tools/compare/...v)
 
-`2021-03-18`
+`2021-03-19`
 
 **Bug Fixes**
 
@@ -11,6 +11,8 @@
 - 调整order算法 [3658c0](https://github.com/xus-code/bundle-tools/commit/3658c0edbe6cbab98d37517d821b46725457e31d)
 - 发布分支分支支持可配置 [426ad0](https://github.com/xus-code/bundle-tools/commit/426ad028e83ad7f60adcd6cfcf68c646291a8e89)
 - 更好的打包过程展示 [e673b0](https://github.com/xus-code/bundle-tools/commit/e673b0768e4c0e83e980bd53ed86cf73507769d2)
+- 忽略循环依赖warning [fb837e](https://github.com/xus-code/bundle-tools/commit/fb837ed0f81382c65cbddc24b6c56d2c60c81682)
+- 兼容独立编译模式 [b8af74](https://github.com/xus-code/bundle-tools/commit/b8af74457b817cce1e649ff3ad6761f6410494ee)
 - 将默认targets交由代码阶段赋值 [853e29](https://github.com/xus-code/bundle-tools/commit/853e29504055e702c3426d5ffe7b9cc20cc30dfc)
 - 将内部方法增加$前缀 [adad67](https://github.com/xus-code/bundle-tools/commit/adad67a9f89928a1ee1ec497413d1309619c59cc)
 - 去除ctx设置能力统一采用cwd [e5714e](https://github.com/xus-code/bundle-tools/commit/e5714e05ecd5c7def9954fa891c8a8e7e10a92cf)
@@ -33,6 +35,7 @@
 **Document**
 
 - 增加readme [cd5acd](https://github.com/xus-code/bundle-tools/commit/cd5acdcef56cef691cb90fb37ad0f0fe1e8f8441)
+- readme [f50d55](https://github.com/xus-code/bundle-tools/commit/f50d554d039056a654738c2d531ccdecce22c57b)
 
 **Feature**
 
@@ -45,6 +48,7 @@
 - 添加json解析插件 [08e597](https://github.com/xus-code/bundle-tools/commit/08e5971dbda0ce72123b69fbdd7f23ebf7b97a3a)
 - 添加lerna模板 [b46225](https://github.com/xus-code/bundle-tools/commit/b46225fa73401d627ec8593b6ae55a7dc01072c2)
 - 添加postcss插件 [10ae08](https://github.com/xus-code/bundle-tools/commit/10ae089e8ce0eeb1a053e1f34041c5a2088d4dfc)
+- 添加type打包 [8e7d1b](https://github.com/xus-code/bundle-tools/commit/8e7d1bd47662ce98034a781f6a2d50070cce97a4)
 - 添加vue jsx demo [bd55bd](https://github.com/xus-code/bundle-tools/commit/bd55bd6c1510c703a150e44356a6f801f20042e7)
 - 添加watch模式 [66f4f4](https://github.com/xus-code/bundle-tools/commit/66f4f46d703d69c1a6fbcc266d1619d457945667)
 - 新增changelog,lint,release,clean指令 [30fbfc](https://github.com/xus-code/bundle-tools/commit/30fbfc48305b5aa2c17d6decca7e08416271fed9)
@@ -61,6 +65,7 @@
 - help指令开发 [488a15](https://github.com/xus-code/bundle-tools/commit/488a15acee677fef7afa9a2b097636777504efa7)
 - legacy打包降级插件 [71ea0a](https://github.com/xus-code/bundle-tools/commit/71ea0ab566abc579de64e552cf1299c3b7547d14)
 - rollup bundler to bundle js [be3f40](https://github.com/xus-code/bundle-tools/commit/be3f4036977cdbf6fbda003bd554dbc9d48d844b)
+- rollup-chain环境变量 [518bbe](https://github.com/xus-code/bundle-tools/commit/518bbef8c5669e9859d17d88af6351f50c12ba26)
 - vuejsx打包插件 [aa9d7b](https://github.com/xus-code/bundle-tools/commit/aa9d7b6146b35b6da948fed2da126cbd96d2534e)
 - bundler-rollup: bundler-rollup 插件开发完成 [7ead3a](https://github.com/xus-code/bundle-tools/commit/7ead3a7d46a9e7962dee78c39b50e6889442c4e2)
 - cmd: 新增clean指令 [adc678](https://github.com/xus-code/bundle-tools/commit/adc6788359fa0d1b1b15e77002201e1837416f27)

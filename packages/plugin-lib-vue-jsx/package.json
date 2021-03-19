@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-lib-vue-jsx",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "a bundle for vue jsx",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "@babel/plugin-transform-typescript": "^7.13.0",
     "@vue/babel-plugin-jsx": "^1.0.3",
     "@vue/babel-preset-jsx": "^1.2.4",
-    "@xus/cli-types": "^0.2.1",
+    "@xus/cli-types": "^0.3.0",
     "rollup": "^2.40.0"
   },
   "devDependencies": {

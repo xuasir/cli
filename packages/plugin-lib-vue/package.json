@@ -26,9 +26,9 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-shared": "^0.2.1",
-    "@xus/cli-types": "^0.2.1",
-    "@xus/core": "^0.2.1",
+    "@xus/cli-shared": "^0.3.0",
+    "@xus/cli-types": "^0.3.0",
+    "@xus/core": "^0.3.0",
     "rollup": "^2.40.0"
   }
 }

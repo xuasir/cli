@@ -1,4 +1,5 @@
 import { createSchema } from '@xus/cli-shared'
+import { join } from 'path'
 
 export type IChangelogConfig = {
   filename: string
@@ -19,8 +20,8 @@ export const changelogSchema = createSchema<IChangelogConfig>((joi) => {
 export function defaultChangelogConfig(): IChangelogConfig {
   return {
     filename: 'CHANGELOG.md',
-    mainTemplate: './template/changelog-main.hbs?url',
-    headerPartial: './template/changelog-header.hbs?url',
-    commitPartial: './template/changelog-commit.hbs?url'
+    mainTemplate: join(__dirname, './template/changelog-main.hbs'),
+    headerPartial: join(__dirname, './template/changelog-header.hbs'),
+    commitPartial: join(__dirname, './template/changelog-commit.hbs')
   }
 }
