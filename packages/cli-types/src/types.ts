@@ -59,11 +59,15 @@ export interface IPluginAPI extends IPluginAPIBase {
   skipPlugin: IPluginManager['skipPlugin']
 
   // rollup
-  modifyRollupConfig: IFastHookRegister<(rc: IRollupChain) => IRollupChain>
-  getRollupConfig: () => Promise<IRollupChainConfig>
+  modifyRollupConfig: IFastHookRegister<
+    (rc: IRollupChain, arg?: any) => IRollupChain
+  >
+  getRollupConfig: (arg?: any) => Promise<IRollupChainConfig>
   // webpack
-  modifyWebpackConfig: IFastHookRegister<(wc: webpackChain) => webpackChain>
-  getWebpackConfig: () => Promise<any>
+  modifyWebpackConfig: IFastHookRegister<
+    (wc: webpackChain, arg?: any) => webpackChain
+  >
+  getWebpackConfig: (arg?: any) => Promise<any>
 }
 
 // IConfig
@@ -78,6 +82,7 @@ export interface IConfig extends IProjectConfig {
     libName: string
     target: 'esnext' | TransformOptions['target']
     formats: ('esm' | 'cjs' | 'iife' | 'umd')[]
+    disableFormatPostfix: boolean
     rollTypes: boolean
     sourcemap: boolean
     minify: false | 'esbuild' | 'terser'
@@ -120,6 +125,7 @@ export interface IConfig extends IProjectConfig {
     alias: Record<string, string>
     replace: Record<string, string>
     excludeExternal: string[]
+    external: string[]
 
     // lerna mode
     lerna:
@@ -131,7 +137,7 @@ export interface IConfig extends IProjectConfig {
         }
 
     // insider
-    rollupChain: (rc: IRollupChain) => IRollupChain
+    rollupChain: (rc: IRollupChain, pkgDir: string) => IRollupChain
 
     afterBuild: ICmd[]
   }

@@ -8,6 +8,7 @@ export interface IRollupBuildOps {
   pkgRoot: string
   alwaysEmptyDistDir: boolean
   skipEmptyDistDir?: boolean
+  disableConsoleInfo?: boolean
 }
 
 export type IRollupBuildFn = (ops: IRollupBuildOps) => Promise<void>

@@ -7,6 +7,7 @@ export const libBuildSchema = createSchema<IRollLibConfig>((joi) =>
     minify: [joi.string(), joi.boolean()],
     target: [joi.string(), joi.array().items(joi.string())],
     formats: joi.array().items(joi.string()),
+    disableFormatPostfix: joi.boolean(),
     rollTypes: joi.boolean(),
     sourcemap: joi.boolean(),
     alwaysEmptyDistDir: joi.boolean(),
@@ -27,6 +28,7 @@ export const libBuildSchema = createSchema<IRollLibConfig>((joi) =>
     alias: joi.object(),
     replace: joi.object(),
     excludeExternal: joi.array().items(joi.string()),
+    external: joi.array().items(joi.string()),
 
     // lerna mode
     lerna: [
@@ -48,6 +50,7 @@ export const defaultLibBuildConfig: () => IRollLibConfig = () => {
     libName: 'index',
     target: 'esnext',
     formats: [],
+    disableFormatPostfix: false,
     rollTypes: true,
     sourcemap: false,
     minify: false,
@@ -69,6 +72,7 @@ export const defaultLibBuildConfig: () => IRollLibConfig = () => {
     alias: {},
     replace: {},
     excludeExternal: [],
+    external: [],
 
     // lerna mode
     lerna: {

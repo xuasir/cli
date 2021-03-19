@@ -31,7 +31,6 @@
     "@xus/cli-shared": "^0.2.1",
     "@xus/cli-types": "^0.2.1",
     "@xus/core": "^0.2.1",
-    "core-js": "^3.9.1",
     "rollup": "^2.40.0"
   },
   "devDependencies": {

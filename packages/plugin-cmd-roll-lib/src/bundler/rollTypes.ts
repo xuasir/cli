@@ -20,7 +20,7 @@ export async function rollTypes(
     }
   )
   if (!res) return
-  const ops = generateTypeOps(pkgRoot, buildOps, api)
+  const ops = generateTypeOps(pkgRoot, buildOps)
   if (ops) {
     api.logger.debug(`[rollup types] with `, ops)
     await rollupBundler(ops)

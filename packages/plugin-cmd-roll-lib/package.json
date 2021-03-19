@@ -2,7 +2,7 @@
   "name": "@xus/plugin-cmd-roll-lib",
   "version": "0.2.1",
   "description": "a bundle for js ts react",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
     "cli",

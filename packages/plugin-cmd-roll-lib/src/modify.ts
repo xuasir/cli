@@ -105,7 +105,10 @@ export function modifyConfig(
 
   // external
   const excludeExternal = resolvedConfig.excludeExternal
-  getPkgDeps(api.cwd, excludeExternal).forEach((dep) => rc.external.set(dep))
+  const external = resolvedConfig.external
+  getPkgDeps(api.cwd, external, excludeExternal).forEach((dep) =>
+    rc.external.set(dep)
+  )
 
   // onwarn
   rc.onwarn((warning, onwarn) => {
@@ -119,7 +122,11 @@ function onRollupWarning(warning: RollupWarning, onwarn: WarningHandler) {
   onwarn(warning)
 }
 
-function getPkgDeps(root: string, exclude: string[]): string[] {
+function getPkgDeps(
+  root: string,
+  include: string[],
+  exclude: string[]
+): string[] {
   let pkg = null
   try {
     pkg = require(join(root, 'package.json'))
@@ -130,7 +137,8 @@ function getPkgDeps(root: string, exclude: string[]): string[] {
   if (pkg) {
     deps = [
       ...Object.keys(pkg?.dependencies || {}),
-      ...Object.keys(pkg?.peerDependencies || {})
+      ...Object.keys(pkg?.peerDependencies || {}),
+      ...include
     ].filter((dep) => !exclude.includes(dep))
   }
   return deps

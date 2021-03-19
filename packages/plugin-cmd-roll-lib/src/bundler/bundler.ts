@@ -27,7 +27,8 @@ async function doBuild(ops: IRollupBuildOps) {
     inputConfig,
     outputConfigs,
     alwaysEmptyDistDir,
-    skipEmptyDistDir = false
+    skipEmptyDistDir = false,
+    disableConsoleInfo = false
   } = ops
   if (isWatch) {
     logger.debug(`do watch: `)
@@ -63,9 +64,10 @@ async function doBuild(ops: IRollupBuildOps) {
     logger.debug(`start ${isWrite ? 'write' : 'generate'}`)
     for (const output of outputConfigs) {
       logger.debug(output)
-      logger.info(
-        chalk.green(`[${isWrite ? 'Write' : 'Generate'}] ${output.format}`)
-      )
+      !disableConsoleInfo &&
+        logger.info(
+          chalk.green(`[${isWrite ? 'Write' : 'Generate'}] ${output.format}`)
+        )
       await bundler[isWrite ? 'write' : 'generate'](output)
     }
     await bundler.close()

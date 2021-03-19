@@ -17,12 +17,13 @@ export default createPlugin({
     api.registerMethod({
       methodName: BundlerMethods.getRollupConfig,
       throwOnExist: false,
-      fn: async () => {
+      fn: async (arg?: any) => {
         const rc = new rollupChain()
         await api.applyHook({
           name: BundlerMethods.modifyRollupConfig,
           type: HookTypes.serial,
-          initialValue: rc
+          initialValue: rc,
+          args: arg
         })
         return rc.toConfig()
       }
@@ -35,12 +36,13 @@ export default createPlugin({
     api.registerMethod({
       methodName: BundlerMethods.getWebpackConfig,
       throwOnExist: false,
-      fn: async () => {
+      fn: async (arg?: any) => {
         const wr = new webpackChain()
         await api.applyHook({
           name: BundlerMethods.modifyWebpackConfig,
           type: HookTypes.serial,
-          initialValue: wr
+          initialValue: wr,
+          args: arg
         })
         return wr.toConfig()
       }

@@ -13,6 +13,7 @@ export interface IRollLibConfig {
   libName: string
   target: 'esnext' | TransformOptions['target']
   formats: ('esm' | 'cjs' | 'iife' | 'umd')[]
+  disableFormatPostfix: boolean
   rollTypes: boolean
   sourcemap: boolean
   minify: false | 'esbuild' | 'terser'
@@ -35,6 +36,7 @@ export interface IRollLibConfig {
   alias: Record<string, string>
   replace: Record<string, string>
   excludeExternal: string[]
+  external: string[]
 
   // lerna mode
   lerna:
@@ -47,7 +49,7 @@ export interface IRollLibConfig {
       }
 
   // insider
-  rollupChain?: (rc: IRollupChain) => IRollupChain
+  rollupChain?: (rc: IRollupChain, pkgDir: string) => IRollupChain
   afterBuild: ICmd[]
 }
 

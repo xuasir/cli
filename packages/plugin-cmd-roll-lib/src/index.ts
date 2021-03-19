@@ -38,10 +38,10 @@ export default createPlugin({
         // default config should run before user modify
         api.logger.debug(`modify rollup config `)
         api.modifyRollupConfig({
-          fn(rc) {
+          fn(rc, pkgDir) {
             modifyConfig(rc, resolvedConfig, api)
             if (resolvedConfig?.rollupChain) {
-              resolvedConfig.rollupChain(rc)
+              resolvedConfig.rollupChain(rc, pkgDir)
             }
             return rc
           },
@@ -60,7 +60,7 @@ export default createPlugin({
           await rollupBundler(buildOps)
           if (resolvedConfig.rollTypes) {
             api.logger.debug(`rollup types `)
-            rollTypes(pkg, buildOps, api)
+            await rollTypes(pkg, buildOps, api)
           }
           process.chdir(saveCwd)
         }

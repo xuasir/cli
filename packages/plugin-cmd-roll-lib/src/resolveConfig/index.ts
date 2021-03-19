@@ -1,7 +1,7 @@
 import { IArgs, IPluginAPI } from '@xus/cli-types'
 import { IRollupBuildOps } from '../bundler'
 import { IRollLibConfig, IResolvedConfig } from '../types'
-import { isLernaPkg, orderBy, getFileMeta } from '@xus/cli-shared'
+import { isLernaPkg, orderBy, getFileMeta, Logger } from '@xus/cli-shared'
 import { relative, join, isAbsolute, extname, basename } from 'path'
 import { TypesDir } from '../bundler'
 import dts from 'rollup-plugin-dts'
@@ -52,8 +52,8 @@ export function resolveConfig(
         pkgs = api.getLernaPkgs().map((p) => relative(lernaRoot, p))
       }
       pkgs = orderBy(pkgs, pkgsOrder)
-        .map((p) => join(lernaRoot, p))
         .filter((pkg) => !excludePkgs.includes(pkg))
+        .map((p) => join(lernaRoot, p))
     }
   } else {
     // simple pack
@@ -90,16 +90,25 @@ export function resolveConfig(
   return resolvedConfig
 }
 
+const buildLogger = new Logger(`xus:generate:build`)
 export async function generateBuildOps(
   pkgRoot: string,
   resolvedConfig: IResolvedConfig,
   api: IPluginAPI
 ): Promise<IRollupBuildOps> {
-  const rollupConfig = await api.getRollupConfig()
+  const rollupConfig = await api.getRollupConfig(basename(pkgRoot))
   const isProd = api.mode === 'production'
-  const { libName, outDir, formats, alwaysEmptyDistDir } = resolvedConfig
+  const {
+    libName,
+    outDir,
+    formats,
+    alwaysEmptyDistDir,
+    disableFormatPostfix
+  } = resolvedConfig
   if (rollupConfig) {
-    api.logger.debug(`[generate buildOps] in ${pkgRoot}`)
+    buildLogger.debug(`[generate buildOps] in ${pkgRoot}`)
+    buildLogger.debug(`rollup config input `, rollupConfig.input)
+    buildLogger.debug(`resolved config input `, resolvedConfig.entry)
     const { output, ...inputOps } = rollupConfig
     // TODO: support from rollup-chain
     inputOps.preserveEntrySignatures = 'strict'
@@ -114,8 +123,9 @@ export async function generateBuildOps(
       if (!entry) {
         throw new Error(`[generate buildOps] lib-build should have a entry`)
       } else {
-        resolvedConfig.entry = entry
+        inputOps.input = entry
       }
+      buildLogger.debug(`auto find entry `, entry)
     }
     const entry = (inputOps.input = inputOps.input || resolvedConfig.entry)
     const isSingleEntry = typeof entry === 'string'
@@ -126,9 +136,8 @@ export async function generateBuildOps(
         !isAbsolute(entry[key]) && (entry[key] = join(pkgRoot, entry[key]))
       })
     }
-    api.logger.debug(`[generate buildOps] final inputConfig: `)
-    api.logger.debug(inputOps)
-
+    buildLogger.debug(`[generate buildOps] final inputConfig: `)
+    buildLogger.debug(inputOps)
     // output generate
     const outputOps = formats.map((format) => {
       const outputConfig = {
@@ -137,9 +146,9 @@ export async function generateBuildOps(
         format,
         exports: format === 'cjs' ? 'named' : 'auto',
         namespaceToStringTag: true,
-        entryFileNames: isProd
-          ? `${isSingleEntry ? libName : '[name]'}.${format}.prod.js`
-          : `${isSingleEntry ? libName : '[name]'}.${format}.js`,
+        entryFileNames: `${isSingleEntry ? libName : '[name]'}${
+          disableFormatPostfix ? '' : '.' + format
+        }${isProd ? '.prod' : ''}.js`,
         chunkFileNames: `[name].js`,
         sourcemap: !!resolvedConfig?.sourcemap,
         ...output
@@ -148,8 +157,8 @@ export async function generateBuildOps(
 
       return outputConfig
     })
-    api.logger.debug(`[generate buildOps] final outputConfig: `)
-    api.logger.debug(outputOps)
+    buildLogger.debug(`[generate buildOps] final outputConfig: `)
+    buildLogger.debug(outputOps)
 
     return {
       inputConfig: inputOps,
@@ -160,16 +169,19 @@ export async function generateBuildOps(
       alwaysEmptyDistDir
     } as IRollupBuildOps
   } else {
-    throw new Error(`roll-lib need a rollup config`)
+    throw new Error(`lib-build need a rollup config`)
   }
 }
 
+const typeLogger = new Logger(`xus:generate:types`)
 const tsRE = /\.tsx?$/
 export function generateTypeOps(
   pkgRoot: string,
-  buildOps: IRollupBuildOps,
-  api: IPluginAPI
+  buildOps: IRollupBuildOps
 ): IRollupBuildOps | null {
+  typeLogger.debug(`rollup types in `, pkgRoot)
+  typeLogger.debug(`with `, buildOps.inputConfig.input)
+  typeLogger.debug(`cwd `, process.cwd())
   const entry = buildOps.inputConfig.input
   let inputs: Record<string, string> = {}
   if (entry) {
@@ -198,8 +210,8 @@ export function generateTypeOps(
         delete inputs[key]
       }
     })
-    api.logger.debug(`[generate types options] types entry: `)
-    api.logger.debug(inputs)
+    typeLogger.debug(`[generate types options] types entry: `)
+    typeLogger.debug(inputs)
     return {
       inputConfig: {
         input: inputs,
@@ -216,7 +228,8 @@ export function generateTypeOps(
       isWrite: true,
       pkgRoot,
       alwaysEmptyDistDir: false,
-      skipEmptyDistDir: true
+      skipEmptyDistDir: true,
+      disableConsoleInfo: true
     }
   }
   return null
