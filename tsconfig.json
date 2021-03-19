@@ -7,7 +7,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "isolatedModules": true
   },
   "exclude": ["**/__test__/**/*"]
 }

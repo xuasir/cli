@@ -36,5 +36,13 @@
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.12"
+  },
+  "peerDependencies": {
+    "core-js": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "core-js": {
+      "optional": true
+    }
   }
 }

@@ -1,6 +1,8 @@
+import type { Debugger } from 'debug'
+import type { IEsbuildRegister } from './EsbuildRegister'
 // lib
 export { default as chalk } from 'chalk'
-export { default as createDebug, Debugger as IDebugger } from 'debug'
+export { default as createDebug } from 'debug'
 export { default as yParser } from 'yargs-parser'
 export { default as assert } from 'assert'
 export { default as deepmerge } from 'deepmerge'
@@ -20,13 +22,16 @@ export { createEnvNameWithXusPrefix } from './env'
 export * from './file'
 export { loadModule } from './loadModule'
 export * from './pkg'
-export { EsbuildRegister, IEsbuildRegister } from './EsbuildRegister'
+export { EsbuildRegister } from './EsbuildRegister'
 export * from './rimraf'
 export * from './runCmd'
 export * from './orderBy'
 export * from './pkgManager'
 
 // types export
+export type IDebugger = Debugger
+export type { IEsbuildRegister }
+
 export type {
   IConfigSchema,
   IValidateCb,

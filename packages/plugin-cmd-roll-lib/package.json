@@ -56,8 +56,5 @@
     "@types/semver": "^7.3.4",
     "postcss-import": "^14.0.0",
     "postcss-modules": "^4.0.0"
-  },
-  "peerDependencies": {
-    "core-js": "^3.9.0"
   }
 }
