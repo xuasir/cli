@@ -37,7 +37,6 @@
     "@xus/core": "^0.3.1",
     "autoprefixer": "^10.2.4",
     "clean-css": "^5.1.1",
-    "crypto": "^1.0.1",
     "esbuild": "^0.9.2",
     "magic-string": "^0.25.7",
     "mime": "^2.5.2",
