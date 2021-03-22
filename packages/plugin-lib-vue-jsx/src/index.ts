@@ -15,18 +15,15 @@ export default (ops?: IVueJsxOps) => {
         fn(rc) {
           rc.plugin('$$esbuild').tap((ops) => {
             // turn esbuild only handle .ts file
-            !ops[0] && (ops[0] = {})
-            ops[0].include = /\.ts$/
+            ops.include = /\.ts$/
             return ops
           })
           // vue jsx transform
-          rc.plugin('vuejsx').use(vuejsx, [
-            {
-              version,
-              jsxOps,
-              sourceMaps: !!api.projectConfig?.libBuild?.sourcemap
-            }
-          ])
+          rc.plugin('vuejsx').use(vuejsx, {
+            version,
+            jsxOps,
+            sourceMaps: !!api.projectConfig?.libBuild?.sourcemap
+          })
           return rc
         },
         // last to run

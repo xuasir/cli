@@ -21,65 +21,51 @@ export function modifyConfig(
   api: IPluginAPI
 ) {
   // node resolve commonjs
-  rc.plugin('nodeResolve').use(nodeResolve, [
-    {
-      mainFields: ['jsnext:main', 'module', 'main'],
-      preferBuiltins: true,
-      extensions
-    }
-  ])
-  rc.plugin('commonjs')
-    .use(commonjs, [{ sourceMap: false }])
-    .after('nodeResolve')
+  rc.plugin('nodeResolve').use(nodeResolve, {
+    mainFields: ['jsnext:main', 'module', 'main'],
+    preferBuiltins: true,
+    extensions
+  })
+  rc.plugin('commonjs').use(commonjs, { sourceMap: false }).after('nodeResolve')
 
   // esbuild
-  rc.plugin('$$esbuild').use(esbuildPlugin, [
-    {
-      include: /\.(jsx|tsx?)$/,
-      exclude: /\.js$/
-    }
-  ])
+  rc.plugin('$$esbuild').use(esbuildPlugin, {
+    include: /\.(jsx|tsx?)$/,
+    exclude: /\.js$/
+  })
   // minify
   const target = resolvedConfig.target
-  rc.plugin('$$minify').use(minifyPlugin, [
-    {
-      minify: resolvedConfig.minify,
-      esbuildMinifyOps: {
-        target
-      }
+  rc.plugin('$$minify').use(minifyPlugin, {
+    minify: resolvedConfig.minify,
+    esbuildMinifyOps: {
+      target
     }
-  ])
+  })
 
   // css
   const css = resolvedConfig.css
-  rc.plugin('$$css').use(cssPlugin, [
-    {
-      injectMode: css.injectMode,
-      cssCodeSplit: css.cssCodeSplit,
-      minify: !!resolvedConfig.minify,
-      modules: css.modules || {},
-      postcss: css.postcss,
-      preprocessorOptions: css.preprocessor
-    }
-  ])
+  rc.plugin('$$css').use(cssPlugin, {
+    injectMode: css.injectMode,
+    cssCodeSplit: css.cssCodeSplit,
+    minify: !!resolvedConfig.minify,
+    modules: css.modules || {},
+    postcss: css.postcss,
+    preprocessorOptions: css.preprocessor
+  })
 
   // asset
   const assets = resolvedConfig.assets
-  rc.plugin('$$assets').use(assetPlugin, [
-    {
-      assetDir: assets.dirname,
-      assetRoot: join(api.cwd, 'assets'),
-      inlineLimit: assets.inlineLimit
-    }
-  ])
+  rc.plugin('$$assets').use(assetPlugin, {
+    assetDir: assets.dirname,
+    assetRoot: join(api.cwd, 'assets'),
+    inlineLimit: assets.inlineLimit
+  })
 
   // json
   const json = resolvedConfig.json
-  rc.plugin('$$json').use(jsonPlugin, [
-    {
-      exportMode: json.exportMode
-    }
-  ])
+  rc.plugin('$$json').use(jsonPlugin, {
+    exportMode: json.exportMode
+  })
 
   //alias
   const configAlias = resolvedConfig.alias
@@ -87,21 +73,16 @@ export function modifyConfig(
     find,
     replacement: configAlias[find]
   }))
-  rc.plugin('alias').use(alias, [
-    {
-      entries: [
-        { find: '@', replacement: join(api.cwd, 'src') },
-        ...aliasEntries
-      ]
-    }
-  ])
+  rc.plugin('alias').use(alias, {
+    entries: [{ find: '@', replacement: join(api.cwd, 'src') }, ...aliasEntries]
+  })
+
+  // replace
   const configReplace = resolvedConfig.replace
-  rc.plugin('replace').use(replace, [
-    {
-      preventAssignment: true,
-      ...configReplace
-    }
-  ])
+  rc.plugin('replace').use(replace, {
+    preventAssignment: true,
+    ...configReplace
+  })
 
   // external
   const excludeExternal = resolvedConfig.excludeExternal

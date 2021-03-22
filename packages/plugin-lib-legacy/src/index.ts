@@ -25,13 +25,11 @@ export default (ops?: ILegacyOps) => {
         fn(rc) {
           // babel
           rc.plugin('$$legacy')
-            .use(legacyPlugin, [
-              {
-                helper,
-                targets,
-                sourceMaps: !!api.projectConfig?.libBuild?.sourcemap
-              }
-            ])
+            .use(legacyPlugin, {
+              helper,
+              targets,
+              sourceMaps: !!api.projectConfig?.libBuild?.sourcemap
+            })
             .before('$$minify')
 
           return rc
