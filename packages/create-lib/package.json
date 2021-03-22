@@ -3,8 +3,8 @@
   "version": "0.3.0",
   "description": "xus cli cmd create",
   "bin": {
-    "create-lib": "dist/cli.js",
-    "cxl": "dist/cli.js"
+    "create-lib": "bin/create-lib.js",
+    "cxl": "bin/create-lib.js"
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -16,7 +16,8 @@
   "homepage": "https://github.com/xus-code/bundle-tools/tree/master/packages/cli#readme",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "repository": {
     "type": "git",

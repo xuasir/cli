@@ -16,12 +16,6 @@ export default defineConfig({
           xus: './src/xus.ts'
         })
       }
-      if (pkgDir === 'create-lib') {
-        rc.input({
-          index: './src/index.ts',
-          cli: './src/cli.ts'
-        })
-      }
       return rc
     },
     lerna: {
