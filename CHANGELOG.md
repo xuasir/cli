@@ -1,6 +1,6 @@
 ### [v](https://github.com/xus-code/bundle-tools/compare/...v)
 
-`2021-03-19`
+`2021-03-22`
 
 **Bug Fixes**
 
@@ -11,6 +11,7 @@
 - 调整order算法 [3658c0](https://github.com/xus-code/bundle-tools/commit/3658c0edbe6cbab98d37517d821b46725457e31d)
 - 发布分支分支支持可配置 [426ad0](https://github.com/xus-code/bundle-tools/commit/426ad028e83ad7f60adcd6cfcf68c646291a8e89)
 - 更好的打包过程展示 [e673b0](https://github.com/xus-code/bundle-tools/commit/e673b0768e4c0e83e980bd53ed86cf73507769d2)
+- 更新roll-chain版本 [4c1e5e](https://github.com/xus-code/bundle-tools/commit/4c1e5eaea5d18561e00a12b0cbb87ae3cb39155b)
 - 忽略循环依赖warning [fb837e](https://github.com/xus-code/bundle-tools/commit/fb837ed0f81382c65cbddc24b6c56d2c60c81682)
 - 兼容独立编译模式 [b8af74](https://github.com/xus-code/bundle-tools/commit/b8af74457b817cce1e649ff3ad6761f6410494ee)
 - 将默认targets交由代码阶段赋值 [853e29](https://github.com/xus-code/bundle-tools/commit/853e29504055e702c3426d5ffe7b9cc20cc30dfc)
@@ -20,6 +21,8 @@
 - 修复esbuildregister失效 [05a00b](https://github.com/xus-code/bundle-tools/commit/05a00b1ca5342677ff7f15a794a1754d8e32455e)
 - 修复js-compiler构建问题 [13ca46](https://github.com/xus-code/bundle-tools/commit/13ca469190b0db717e5caf0690949543f94594c9)
 - 修复release输出文字 [54d1c0](https://github.com/xus-code/bundle-tools/commit/54d1c0ff90cc3fdc150a4538ebf37a7d502db4dc)
+- 修复release在单包模式下路径错误 [65ba8b](https://github.com/xus-code/bundle-tools/commit/65ba8b1437699502e8496d2a4c96cc6d1378be60)
+- 修改create-lib状态 [518965](https://github.com/xus-code/bundle-tools/commit/51896548b091f6b53994f1160637b0ef80514f33)
 - 修正快捷注册方法的类型推导 [2b776d](https://github.com/xus-code/bundle-tools/commit/2b776d16039fd21e4eeec28be9500773eeeb4cab)
 - 修正类型 [7ff9fd](https://github.com/xus-code/bundle-tools/commit/7ff9fd049b7cd461b4e8e97c90e96f5a41114eff)
 - 修正config类型 [bd1723](https://github.com/xus-code/bundle-tools/commit/bd1723d4ad3784521338af3fd85e784bb009c664)
@@ -64,6 +67,7 @@
 - commitlint增加release支持 [9d72b8](https://github.com/xus-code/bundle-tools/commit/9d72b802d9a5a43641823a66206d3d5ebb3a1b6e)
 - help指令开发 [488a15](https://github.com/xus-code/bundle-tools/commit/488a15acee677fef7afa9a2b097636777504efa7)
 - legacy打包降级插件 [71ea0a](https://github.com/xus-code/bundle-tools/commit/71ea0ab566abc579de64e552cf1299c3b7547d14)
+- release增加指定包能力 [a42c9a](https://github.com/xus-code/bundle-tools/commit/a42c9a765883daf9f95813c719a2367fcb43083f)
 - rollup bundler to bundle js [be3f40](https://github.com/xus-code/bundle-tools/commit/be3f4036977cdbf6fbda003bd554dbc9d48d844b)
 - rollup-chain环境变量 [518bbe](https://github.com/xus-code/bundle-tools/commit/518bbef8c5669e9859d17d88af6351f50c12ba26)
 - vuejsx打包插件 [aa9d7b](https://github.com/xus-code/bundle-tools/commit/aa9d7b6146b35b6da948fed2da126cbd96d2534e)

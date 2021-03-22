@@ -1,6 +1,6 @@
 {
   "name": "@xus/cli",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "xus cli",
   "keywords": [
     "cli",
@@ -30,9 +30,9 @@
     "url": "https://github.com/xus-code/bundle-tools/issues"
   },
   "dependencies": {
-    "@xus/cli-types": "^0.3.1",
-    "@xus/cli-shared": "^0.3.1",
-    "@xus/core": "^0.3.1",
-    "@xus/preset-built-in": "^0.3.1"
+    "@xus/cli-types": "^0.4.0",
+    "@xus/cli-shared": "^0.4.0",
+    "@xus/core": "^0.4.0",
+    "@xus/preset-built-in": "^0.4.0"
   }
 }
