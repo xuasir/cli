@@ -3176,10 +3176,10 @@
     stylelint-no-unsupported-browser-features "^4.1.4"
     stylelint-order "^4.1.0"
 
-"@xus/rollup-chain@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@xus/rollup-chain/-/rollup-chain-0.2.6.tgz#826b48b6737cfe9437a417ec5c3c3ca0b337f29c"
-  integrity sha512-0fso6+HTPrh7vxOTDgs8E6eV0sox95GHNpIYvA9Ct6fWIlGd9cKsP0jrwS2Yb66JSKRTlY5Z/NYZWRgTH2Jbzg==
+"@xus/rollup-chain@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@xus/rollup-chain/-/rollup-chain-0.3.1.tgz#eb2bb9aa80fa68da72ba050a541dfdd1ddf748c6"
+  integrity sha512-mG8zDtF0OqQYAOrh+rK6xAL3mwIO66XCUcvI2mzmO3Gt5I5Rk+csxi+EuKESvSifnPQWGyQs4YsfYNePxSGB1Q==
 
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"

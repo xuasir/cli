@@ -30,7 +30,7 @@
     "@xus/cli-shared": "^0.3.1",
     "@xus/core": "^0.3.1",
     "@xus/plugin-cmd-roll-lib": "^0.3.1",
-    "@xus/rollup-chain": "^0.2.6",
+    "@xus/rollup-chain": "^0.3.1",
     "conventional-changelog": "^3.1.24",
     "release-it": "^14.4.1",
     "rollup": "^2.41.1",

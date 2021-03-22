@@ -153,9 +153,7 @@ async function ensureVersion(pkgRoot: string, ops: IReleaseOps) {
   if (!semver.valid(targetVersion)) {
     throw new Error(`version: ${targetVersion} is invalid!`)
   }
-  const pkgdir = ops.isLerna
-    ? relative(ops.packageRoot, pkgRoot)
-    : '../packages'
+  const pkgdir = ops.isLerna ? relative(ops.packageRoot, pkgRoot) : '../'
   pkgdir2version[pkgdir] = targetVersion
   pkgname2pkgdir[pkgJson.name] = pkgdir
   pkgdir2pkgname[pkgdir] = pkgJson.name
@@ -271,7 +269,7 @@ function updateVersion(ops: IReleaseOps) {
       .map((p) => relative(ops.packageRoot, p))
       .forEach((pkgDir) => updatePackage(pkgDir, ops))
   } else {
-    updatePackage('../packages', ops)
+    updatePackage('../', ops)
   }
 }
 
