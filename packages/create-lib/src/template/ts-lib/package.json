@@ -6,7 +6,7 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "xus lib",
+    "build": "xus lib-build",
     "lint-fix": "xus lint",
     "test": "jest",
     "changelog": "xus changelog",
