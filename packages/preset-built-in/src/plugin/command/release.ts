@@ -24,7 +24,8 @@ export default createPlugin({
         desc: 'a command for release package',
         usage: `xus release --tag pkgname@1.1.1`,
         options: {
-          '--tag': 'point release tag'
+          '--tag': 'point release tag',
+          '--pkgs': 'point release pkgs'
         }
       },
       async (args) => {
@@ -39,7 +40,14 @@ export default createPlugin({
           ...releaseConfig
         }
         if (isLerna) {
-          const pkgs = api.getLernaPkgs()
+          let pkgs = api.getLernaPkgs()
+          if (args?.pkgs) {
+            const points = (args.pkgs as string).split(',')
+            pkgs = pkgs
+              .map((p) => relative(ops.packageRoot, p))
+              .filter((p) => points.includes(p))
+              .map((p) => join(ops.packageRoot, p))
+          }
           await release(pkgs, ops)
         } else {
           await release([api.cwd], ops)

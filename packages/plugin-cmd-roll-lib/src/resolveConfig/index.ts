@@ -110,8 +110,6 @@ export async function generateBuildOps(
     buildLogger.debug(`rollup config input `, rollupConfig.input)
     buildLogger.debug(`resolved config input `, resolvedConfig.entry)
     const { output, ...inputOps } = rollupConfig
-    // TODO: support from rollup-chain
-    inputOps.preserveEntrySignatures = 'strict'
     // input to absolute
     if (!inputOps.input && !resolvedConfig.entry) {
       const fileMeta = getFileMeta({

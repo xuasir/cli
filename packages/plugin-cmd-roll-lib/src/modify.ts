@@ -20,6 +20,7 @@ export function modifyConfig(
   resolvedConfig: IResolvedConfig,
   api: IPluginAPI
 ) {
+  rc.preserveEntrySignatures('strict')
   // node resolve commonjs
   rc.plugin('nodeResolve').use(nodeResolve, {
     mainFields: ['jsnext:main', 'module', 'main'],
