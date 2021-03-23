@@ -14,6 +14,7 @@ export default defineConfig({
   },
   lint: {
     eslint: {
+      include: ['./packages'],
       ext: ['.ts']
     },
     stylelint: false
