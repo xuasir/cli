@@ -2,8 +2,16 @@ import { createPlugin, IPluginAPI } from '@xus/cli-types'
 import { Spinner } from '@xus/cli-shared'
 import conventionalChangelog from 'conventional-changelog'
 import { changelogSchema, defaultChangelogConfig } from '../config/changelog'
-import { createWriteStream, readFileSync } from 'fs'
+import {
+  createWriteStream,
+  createReadStream,
+  readFileSync,
+  existsSync
+} from 'fs'
 import { isAbsolute, join } from 'path'
+import tempfile from 'tempfile'
+// @ts-ignore
+import addStream from 'add-stream'
 
 export default createPlugin({
   name: 'cmd:changelog',
@@ -41,9 +49,10 @@ function changelog(api: IPluginAPI, ops: IOps) {
   const spinner = new Spinner()
   return new Promise((resolve, reject) => {
     spinner.start(`Generating changelog...`)
-    conventionalChangelog(
+    const changelogStream = conventionalChangelog(
       {
-        preset: 'angular'
+        preset: 'angular',
+        releaseCount: 1
       },
       undefined,
       undefined,
@@ -55,7 +64,6 @@ function changelog(api: IPluginAPI, ops: IOps) {
         transform
       }
     )
-      .pipe(createWriteStream(ops.filename))
       .on('close', () => {
         spinner.succeed(`changelog generated`)
         resolve(true)
@@ -65,6 +73,22 @@ function changelog(api: IPluginAPI, ops: IOps) {
         api.logger.error(err.message)
         reject(false)
       })
+    const input = api.getPathBasedOnCtx(ops.filename)
+    if (existsSync(input)) {
+      // has input
+      const readStream = createReadStream(input)
+      const tmp = tempfile()
+
+      changelogStream
+        .pipe(addStream(readStream))
+        .pipe(createWriteStream(tmp))
+        .on('finish', function () {
+          createReadStream(tmp).pipe(createWriteStream(ops.filename))
+        })
+    } else {
+      // no input
+      changelogStream.pipe(createWriteStream(ops.filename))
+    }
   })
 }
 

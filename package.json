@@ -26,6 +26,8 @@
   "homepage": "https://github.com/xus-code/bundle-tools#readme",
   "scripts": {
     "test": "jest",
+    "lint-fix": "npx xus lint",
+    "release": "npx xus release",
     "build": "npx xus lib-build",
     "copy:preset": "xus copy --src packages/preset-built-in/src/plugin/template --dest packages/preset-built-in/dist/template",
     "copy:create": "xus copy --src packages/create-lib/src/template --dest packages/create-lib/dist/template"

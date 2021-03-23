@@ -10,31 +10,13 @@ export default defineConfig({
   },
   lint: {
     eslint: {
-      include: './src/**/*',
+      include: ['./src', './__test__'],
       ext: ['.ts']
     },
     stylelint: false
   },
   release: {
     beforeRelease: [
-      {
-        bin: 'npm',
-        args: ['run', 'test'],
-        message: {
-          start: 'Test start',
-          succeed: 'Test succeed',
-          failed: 'Test failed'
-        }
-      },
-      {
-        bin: 'npm',
-        args: ['run', 'lint-fix'],
-        message: {
-          start: 'Lint start',
-          succeed: 'Lint succeed',
-          failed: 'Lint failed'
-        }
-      },
       {
         bin: 'npm',
         args: ['run', 'build'],

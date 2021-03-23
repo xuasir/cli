@@ -52,5 +52,10 @@ export default defineConfig({
   },
   release: {
     branch: 'main'
+  },
+  lint: {
+    eslint: {
+      ext: ['.ts']
+    }
   }
 })

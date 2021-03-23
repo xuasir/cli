@@ -4,7 +4,7 @@ export type ILintConfig = {
   eslint:
     | boolean
     | {
-        include?: string
+        include?: string[]
         ext?: string[]
       }
   stylelint:
@@ -18,7 +18,7 @@ export const lintSchema = createSchema<ILintConfig>((joi) => {
   return joi.object({
     eslint: [
       joi.object({
-        include: joi.string(),
+        include: joi.array().items(joi.string()),
         ext: joi.array().items(joi.string())
       }),
       joi.boolean()
@@ -35,11 +35,9 @@ export const lintSchema = createSchema<ILintConfig>((joi) => {
 export function defaultLitConfig(): ILintConfig {
   return {
     eslint: {
-      include: '**/src/**/*',
+      include: [],
       ext: []
     },
-    stylelint: {
-      include: []
-    }
+    stylelint: false
   }
 }

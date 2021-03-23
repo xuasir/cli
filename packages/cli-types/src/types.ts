@@ -145,7 +145,7 @@ export interface IConfig extends IProjectConfig {
     eslint:
       | boolean
       | {
-          include?: string
+          include?: string[]
           ext?: string[]
         }
     stylelint:
