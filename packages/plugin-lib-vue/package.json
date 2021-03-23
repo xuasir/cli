@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@xus/cli-shared": "^0.4.0",
-    "@xus/cli-types": "^0.4.0",
+    "@xus/cli-types": "^0.4.1",
     "@xus/core": "^0.4.0",
     "rollup": "^2.40.0"
   }

@@ -30,7 +30,7 @@
     "@babel/plugin-transform-typescript": "^7.13.0",
     "@vue/babel-plugin-jsx": "^1.0.3",
     "@vue/babel-preset-jsx": "^1.2.4",
-    "@xus/cli-types": "^0.4.0",
+    "@xus/cli-types": "^0.4.1",
     "rollup": "^2.40.0"
   },
   "devDependencies": {
