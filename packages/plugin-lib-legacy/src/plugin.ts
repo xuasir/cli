@@ -5,16 +5,21 @@ import * as babel from '@babel/core'
 import preset from '@xus/babel-preset'
 
 interface ILegacyPluginOps {
-  targets?: string | string[]
+  targets?: string | string[] | { browsers: string[] } | Record<string, string>
   helper?: 'bundled' | 'runtime'
   sourceMaps?: boolean
+  useDynamicImport?: boolean
 }
 
 const logger = new Logger(`xus:rollup:legacy`)
 
 export function legacyPlugin(ops?: ILegacyPluginOps): Plugin {
-  const { helper = 'runtime', sourceMaps = false, targets = 'defaults' } =
-    ops || {}
+  const {
+    helper = 'runtime',
+    sourceMaps = false,
+    targets,
+    useDynamicImport = false
+  } = ops || {}
   return {
     name: 'xus:rollup:legacy',
     async renderChunk(code, chunk, ops) {
@@ -28,10 +33,12 @@ export function legacyPlugin(ops?: ILegacyPluginOps): Plugin {
           {
             targets,
             modules: false,
+            useTransformRuntime: helper === 'runtime',
             useESModules: true,
             usageMode:
               helper === 'bundled' || ['iife', 'umd'].includes(ops.format),
-            absoluteRuntime: false
+            absoluteRuntime: false,
+            useDynamicImport
           }
         ]
       ]
