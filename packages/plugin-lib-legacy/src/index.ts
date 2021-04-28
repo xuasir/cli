@@ -2,12 +2,14 @@ import { IPlugin } from '@xus/cli-types'
 import { legacyPlugin } from './plugin'
 
 export interface ILegacyOps {
-  targets?: string | string[]
+  targets?: string | string[] | { browsers: string[] } | Record<string, string>
   helper?: 'bundled' | 'runtime'
+  useDynamicImport?: boolean
 }
 
 export default (ops?: ILegacyOps) => {
-  const { helper = 'runtime', targets = 'defaults' } = ops || {}
+  const { helper = 'runtime', targets = 'defaults', useDynamicImport = false } =
+    ops || {}
   return {
     name: 'xus:lib:legacy',
     apply(api) {
@@ -24,10 +26,13 @@ export default (ops?: ILegacyOps) => {
       api.modifyRollupConfig({
         fn(rc) {
           // babel
+          if (helper === 'runtime') {
+            rc.external.set(/@babel\/runtime/)
+          }
           rc.plugin('$$legacy')
             .use(legacyPlugin, {
-              helper,
               targets,
+              useDynamicImport,
               sourceMaps: !!api.projectConfig?.libBuild?.sourcemap
             })
             .before('$$minify')
