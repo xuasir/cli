@@ -1,6 +1,6 @@
 {
   "name": "@xus/plugin-lib-legacy",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "a bundle for legacy",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
