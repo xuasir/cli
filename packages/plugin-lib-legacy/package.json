@@ -29,7 +29,7 @@
     "@babel/core": "^7.13.10",
     "@xus/babel-preset": "^0.1.11",
     "@xus/cli-shared": "^0.4.0",
-    "@xus/cli-types": "^0.4.1",
+    "@xus/cli-types": "^0.4.2",
     "@xus/core": "^0.4.0"
   },
   "devDependencies": {
