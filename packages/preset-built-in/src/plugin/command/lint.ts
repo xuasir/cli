@@ -9,9 +9,12 @@ export default createPlugin({
       'lint',
       {
         desc: 'a command for lint js/css',
-        usage: `xus lint `
+        usage: `xus lint `,
+        options: {
+          '--fix': 'lint and fix'
+        }
       },
-      async () => {
+      async (cmdArgs) => {
         const lintConfig = api.projectConfig.lint
         let eslintRes = true
         let stylelintRes = true
@@ -25,7 +28,7 @@ export default createPlugin({
               cext.length > 0 ? cext : ['.js', '.jsx', '.ts', '.tsx', '.vue']
             const args = [
               'eslint',
-              '--fix',
+              cmdArgs?.fix && '--fix',
               '--ext',
               ext.join(','),
               ...include
@@ -46,7 +49,9 @@ export default createPlugin({
             const ic = stylelint?.include || []
             const include = ic.length > 0 ? ic : []
             // ['./**/*.css', './**/*.vue', './**/*.less', './**/*.sass']
-            const args = ['stylelint', ...include].concat(['--fix'])
+            const args = ['stylelint', ...include].concat(
+              [cmdArgs?.fix && '--fix'].filter(Boolean)
+            )
             api.logger.debug(`run stylelint with `)
             api.logger.debug(args)
             stylelintRes = await runCmd('npx', args, {

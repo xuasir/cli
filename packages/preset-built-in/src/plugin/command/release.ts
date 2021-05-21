@@ -184,8 +184,8 @@ async function publish(targets: string[], ops: IReleaseOps) {
 
     // 3. generate changelog
     // 4. commit changes
-    const runRes = await [
-      {
+    const cmds = [
+      ops?.changelog && {
         bin: 'npx',
         args: ['xus', 'changelog'],
         message: {
@@ -222,7 +222,16 @@ async function publish(targets: string[], ops: IReleaseOps) {
           failed: 'commit changes failed'
         }
       }
-    ].reduce((p, cmd) => {
+    ].filter(Boolean) as {
+      bin: string
+      args: string[]
+      message: {
+        start: string
+        succeed: string
+        failed: string
+      }
+    }[]
+    const runRes = await cmds.reduce((p, cmd) => {
       return p.then(() => runCmd(cmd.bin, cmd.args, cmd.message))
     }, Promise.resolve(true))
     if (!runRes) return
@@ -311,11 +320,15 @@ async function workForPublish(pkgDir: string, ops: IReleaseOps) {
   const pkgname = pkgdir2pkgname[pkgDir]
   const saveCwd = process.cwd()
   process.chdir(root)
-  await runCmd('npm', ['publish', '--access', 'public'], {
-    start: `publish ${pkgname} start`,
-    succeed: `publish ${pkgname} succeed`,
-    failed: `publish ${pkgname} failed`
-  })
+  await runCmd(
+    'npm',
+    ['publish', '--access', 'public', '--registry', ops.registry],
+    {
+      start: `publish ${pkgname} start`,
+      succeed: `publish ${pkgname} succeed`,
+      failed: `publish ${pkgname} failed`
+    }
+  )
   process.chdir(saveCwd)
 }
 

@@ -163,6 +163,8 @@ export interface IConfig extends IProjectConfig {
   release: {
     // before hooks for run lint test build...
     beforeRelease: ICmd[]
+    changelog: boolean
+    registry: string
     // in lenra mode to ensure pkg publish order
     order: string[]
     branch: string

@@ -10,6 +10,8 @@ type ICmd = {
 export type IReleaseConfig = {
   // before hooks for run lint test build...
   beforeRelease: ICmd[]
+  changelog: boolean
+  registry: string
   // in lenra mode to ensure pkg publish order
   order: string[]
   branch: string
@@ -36,6 +38,8 @@ export const releaseSchema = createSchema<IReleaseConfig>((joi) => {
 export function defaultReleaseConfig(): IReleaseConfig {
   return {
     beforeRelease: [],
+    changelog: false,
+    registry: 'https://registry.npmjs.org/',
     order: [],
     branch: 'master'
   }
