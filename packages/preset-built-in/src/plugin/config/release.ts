@@ -30,6 +30,8 @@ export const releaseSchema = createSchema<IReleaseConfig>((joi) => {
         })
       })
     ),
+    changelog: joi.boolean(),
+    registry: joi.string(),
     order: joi.array().items(joi.string()),
     branch: joi.string()
   })
